@@ -1,5 +1,6 @@
 const generateBtn = document.getElementById('generate-btn');
 const numbersContainer = document.getElementById('numbers-container');
+const themeBtn = document.getElementById('theme-btn');
 
 generateBtn.addEventListener('click', () => {
     numbersContainer.innerHTML = '';
@@ -14,5 +15,14 @@ generateBtn.addEventListener('click', () => {
         numberEl.classList.add('number');
         numberEl.textContent = number;
         numbersContainer.appendChild(numberEl);
+    }
+});
+
+themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    if (document.body.classList.contains('dark')) {
+        themeBtn.textContent = 'Light Mode';
+    } else {
+        themeBtn.textContent = 'Dark Mode';
     }
 });
