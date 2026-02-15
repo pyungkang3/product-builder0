@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-adsense-account" content="ca-pub-1538581455536091">
-    <title>동물상 메뉴 추천</title>
+    <meta name="description" content="AI가 당신의 얼굴을 분석하여 강아지상인지 고양이상인지 알려주고, 동물상에 맞는 저녁 메뉴를 추천합니다. 무료 AI 동물상 테스트를 지금 바로 시작하세요!">
+    <meta name="keywords" content="동물상 테스트, AI 얼굴 분석, 강아지상, 고양이상, 저녁 메뉴 추천, 동물상 메뉴 추천">
+    <meta property="og:title" content="AI 동물상 메뉴 추천 - 내 동물상에 맞는 저녁 메뉴는?">
+    <meta property="og:description" content="사진 한 장으로 동물상을 분석하고 맞춤 저녁 메뉴를 추천받으세요!">
+    <meta property="og:type" content="website">
+    <title>AI 동물상 메뉴 추천 | 내 얼굴에 맞는 저녁 메뉴 찾기</title>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1538581455536091"
          crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
@@ -14,39 +19,93 @@
 
         body {
             font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
         }
 
+        /* ===== Navigation ===== */
+        .nav {
+            background: #fff;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+        .nav-logo {
+            font-size: 20px;
+            font-weight: 800;
+            color: #667eea;
+            text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 24px; list-style: none; }
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #667eea; }
+        .nav-links a.active { color: #667eea; font-weight: 700; }
+
+        /* ===== Hero ===== */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 20px;
+            text-align: center;
+            color: #fff;
+        }
+        .hero h1 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .hero p {
+            font-size: 17px;
+            opacity: 0.9;
+            max-width: 500px;
+            margin: 0 auto 32px;
+            line-height: 1.7;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        /* ===== Tool Section ===== */
+        .tool-section {
+            max-width: 960px;
+            margin: -40px auto 0;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
         .app {
             background: #fff;
             border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
             padding: 48px 36px;
-            width: 100%;
-            max-width: 480px;
+            max-width: 520px;
+            margin: 0 auto;
             text-align: center;
         }
-
-        .emoji-title { font-size: 48px; margin-bottom: 8px; }
-
-        h1 {
-            font-size: 28px;
-            font-weight: 800;
-            color: #1a1a2e;
-            margin-bottom: 8px;
-        }
-
-        .desc {
-            font-size: 15px;
-            color: #888;
-            margin-bottom: 32px;
-            line-height: 1.5;
-        }
+        .app-title { font-size: 24px; font-weight: 800; color: #1a1a2e; margin-bottom: 8px; }
+        .app-desc { font-size: 15px; color: #888; margin-bottom: 28px; line-height: 1.5; }
 
         /* Upload area */
         .upload-area {
@@ -57,290 +116,462 @@
             transition: border-color 0.2s, background 0.2s;
             margin-bottom: 20px;
         }
-
-        .upload-area:hover {
-            border-color: #667eea;
-            background: #f8f8ff;
-        }
-
-        .upload-area.has-image {
-            border-style: solid;
-            border-color: #667eea;
-            padding: 16px;
-        }
-
+        .upload-area:hover { border-color: #667eea; background: #f8f8ff; }
+        .upload-area.has-image { border-style: solid; border-color: #667eea; padding: 16px; }
         .upload-icon { font-size: 48px; margin-bottom: 12px; }
-
-        .upload-text {
-            font-size: 16px;
-            font-weight: 600;
-            color: #555;
-            margin-bottom: 4px;
-        }
-
-        .upload-hint {
-            font-size: 13px;
-            color: #aaa;
-        }
-
+        .upload-text { font-size: 16px; font-weight: 600; color: #555; margin-bottom: 4px; }
+        .upload-hint { font-size: 13px; color: #aaa; }
         #file-input { display: none; }
-
-        #preview-img {
-            max-width: 100%;
-            max-height: 280px;
-            border-radius: 12px;
-            display: none;
-        }
+        #preview-img { max-width: 100%; max-height: 280px; border-radius: 12px; display: none; }
 
         #analyze-btn {
-            padding: 16px 48px;
-            font-size: 18px;
-            font-weight: 700;
-            border: none;
-            border-radius: 50px;
+            padding: 16px 48px; font-size: 18px; font-weight: 700;
+            border: none; border-radius: 50px;
             background: linear-gradient(135deg, #667eea, #764ba2);
-            color: #fff;
-            cursor: pointer;
+            color: #fff; cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
             display: none;
         }
-
         #analyze-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5); }
         #analyze-btn:active { transform: scale(0.97); }
         #analyze-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-        .loading-text {
-            font-size: 14px;
-            color: #888;
-            margin-top: 16px;
-            display: none;
-        }
-
-        .loading-text .dot-animation::after {
-            content: '';
-            animation: dots 1.5s infinite;
-        }
-
-        @keyframes dots {
-            0% { content: ''; }
-            25% { content: '.'; }
-            50% { content: '..'; }
-            75% { content: '...'; }
-        }
+        .loading-text { font-size: 14px; color: #888; margin-top: 16px; display: none; }
+        .loading-text .dot-animation::after { content: ''; animation: dots 1.5s infinite; }
+        @keyframes dots { 0%{content:'';} 25%{content:'.';} 50%{content:'..';} 75%{content:'...';} }
 
         /* Result */
-        #result {
-            display: none;
-            margin-top: 32px;
-        }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animal-card {
-            animation: fadeUp 0.6s ease;
-        }
-
+        #result { display: none; margin-top: 32px; }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+        .animal-card { animation: fadeUp 0.6s ease; }
         .result-emoji { font-size: 72px; margin-bottom: 12px; }
-
-        .result-type {
-            font-size: 32px;
-            font-weight: 800;
-            margin-bottom: 4px;
-        }
-
+        .result-type { font-size: 32px; font-weight: 800; margin-bottom: 4px; }
         .result-type.dog { color: #ff6b35; }
         .result-type.cat { color: #667eea; }
-
-        .result-percent {
-            font-size: 48px;
-            font-weight: 800;
-            margin: 8px 0;
-        }
-
+        .result-percent { font-size: 48px; font-weight: 800; margin: 8px 0; }
         .result-percent.dog { color: #ff6b35; }
         .result-percent.cat { color: #667eea; }
-
-        .result-bar-wrap {
-            background: #f0f0f0;
-            border-radius: 12px;
-            height: 16px;
-            width: 100%;
-            margin: 16px 0;
-            overflow: hidden;
-        }
-
-        .result-bar {
-            height: 100%;
-            border-radius: 12px;
-            transition: width 1s ease;
-        }
-
+        .result-bar-wrap { background: #f0f0f0; border-radius: 12px; height: 16px; width: 100%; margin: 16px 0; overflow: hidden; }
+        .result-bar { height: 100%; border-radius: 12px; transition: width 1s ease; }
         .result-bar.dog { background: linear-gradient(90deg, #ff6b35, #ff9a5c); }
         .result-bar.cat { background: linear-gradient(90deg, #667eea, #a78bfa); }
-
-        .result-desc {
-            font-size: 15px;
-            color: #555;
-            line-height: 1.7;
-            margin: 16px 0;
-            padding: 20px;
-            background: #f8f8fa;
-            border-radius: 12px;
-            text-align: left;
-        }
-
-        .result-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            margin-top: 12px;
-        }
-
-        .tag {
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
+        .result-desc { font-size: 15px; color: #555; line-height: 1.7; margin: 16px 0; padding: 20px; background: #f8f8fa; border-radius: 12px; text-align: left; }
+        .result-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 12px; }
+        .tag { padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; }
         .tag.dog { background: #fff3ee; color: #ff6b35; }
         .tag.cat { background: #eef0ff; color: #667eea; }
 
-        /* Menu recommendation section */
-        .menu-section {
-            margin-top: 32px;
-            animation: fadeUp 0.6s ease 0.3s both;
-        }
-
-        .menu-section-title {
-            font-size: 20px;
-            font-weight: 800;
-            color: #1a1a2e;
-            margin-bottom: 16px;
-        }
-
-        .menu-cards {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
+        /* Menu recommendation */
+        .menu-section { margin-top: 32px; animation: fadeUp 0.6s ease 0.3s both; }
+        .menu-section-title { font-size: 20px; font-weight: 800; color: #1a1a2e; margin-bottom: 16px; }
+        .menu-cards { display: flex; flex-direction: column; gap: 12px; }
         .menu-card {
-            background: #f8f8fa;
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            text-align: left;
+            background: #f8f8fa; border-radius: 16px; padding: 16px;
+            display: flex; align-items: center; gap: 16px; text-align: left;
             animation: fadeUp 0.5s ease both;
         }
-
         .menu-card:nth-child(1) { animation-delay: 0.4s; }
         .menu-card:nth-child(2) { animation-delay: 0.55s; }
         .menu-card:nth-child(3) { animation-delay: 0.7s; }
-
-        .menu-card-img {
-            width: 72px;
-            height: 72px;
-            border-radius: 12px;
-            object-fit: cover;
-            flex-shrink: 0;
-            background: #eee;
-        }
-
-        .menu-card-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .menu-card-name {
-            font-size: 17px;
-            font-weight: 700;
-            color: #1a1a2e;
-            margin-bottom: 4px;
-        }
-
-        .menu-card-meta {
-            font-size: 13px;
-            color: #888;
-        }
-
-        .menu-card-emoji {
-            font-size: 28px;
-            flex-shrink: 0;
-        }
-
+        .menu-card-img { width: 72px; height: 72px; border-radius: 12px; object-fit: cover; flex-shrink: 0; background: #eee; }
+        .menu-card-info { flex: 1; min-width: 0; }
+        .menu-card-name { font-size: 17px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+        .menu-card-meta { font-size: 13px; color: #888; }
         #retry-btn {
-            margin-top: 28px;
-            padding: 14px 40px;
-            font-size: 16px;
-            font-weight: 600;
-            border: 2px solid #ddd;
-            border-radius: 50px;
-            background: #fff;
-            color: #555;
-            cursor: pointer;
-            transition: all 0.2s;
+            margin-top: 28px; padding: 14px 40px; font-size: 16px; font-weight: 600;
+            border: 2px solid #ddd; border-radius: 50px; background: #fff; color: #555;
+            cursor: pointer; transition: all 0.2s;
         }
-
         #retry-btn:hover { border-color: #764ba2; color: #764ba2; }
 
+        /* ===== Content Sections ===== */
+        .content-wrapper {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+        .section-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1a1a2e;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .section-subtitle {
+            font-size: 16px;
+            color: #888;
+            text-align: center;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        /* How it works */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .step-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        .step-card h3 { font-size: 18px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; }
+        .step-card p { font-size: 14px; color: #666; line-height: 1.6; }
+
+        /* Animal types */
+        .animal-types {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .type-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 36px 28px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        .type-card-icon { font-size: 56px; margin-bottom: 12px; }
+        .type-card h3 { font-size: 22px; font-weight: 800; margin-bottom: 12px; }
+        .type-card h3.dog-color { color: #ff6b35; }
+        .type-card h3.cat-color { color: #667eea; }
+        .type-card p { font-size: 15px; color: #555; line-height: 1.8; margin-bottom: 16px; }
+        .type-traits { list-style: none; }
+        .type-traits li {
+            padding: 6px 0;
+            font-size: 14px;
+            color: #666;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .type-traits li:last-child { border-bottom: none; }
+
+        /* Menu guide */
+        .menu-guide {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .menu-guide-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 28px 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        .menu-guide-card h3 { font-size: 18px; font-weight: 700; color: #1a1a2e; margin-bottom: 12px; }
+        .menu-guide-card p { font-size: 14px; color: #666; line-height: 1.7; }
+        .menu-list { list-style: none; margin-top: 12px; }
+        .menu-list li { padding: 8px 0; font-size: 14px; color: #555; border-bottom: 1px solid #f5f5f5; }
+        .menu-list li:last-child { border-bottom: none; }
+
+        /* FAQ */
+        .faq-list { max-width: 700px; margin: 0 auto; }
+        .faq-item {
+            background: #fff;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            overflow: hidden;
+        }
+        .faq-question {
+            padding: 20px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a2e;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-question::after { content: '+'; font-size: 20px; color: #888; transition: transform 0.3s; }
+        .faq-item.open .faq-question::after { transform: rotate(45deg); }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        .faq-item.open .faq-answer {
+            max-height: 300px;
+            padding: 0 24px 20px;
+        }
+        .faq-answer p { font-size: 15px; color: #666; line-height: 1.7; }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: #1a1a2e;
+            color: #aaa;
+            padding: 48px 20px 32px;
+            margin-top: 60px;
+        }
+        .footer-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+        }
+        .footer-brand h3 { color: #fff; font-size: 20px; font-weight: 800; margin-bottom: 12px; }
+        .footer-brand p { font-size: 14px; line-height: 1.7; }
+        .footer-links h4 { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 16px; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: #aaa; text-decoration: none; font-size: 14px; transition: color 0.2s; }
+        .footer-links a:hover { color: #fff; }
+        .footer-bottom {
+            max-width: 960px;
+            margin: 32px auto 0;
+            padding-top: 24px;
+            border-top: 1px solid #333;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 28px; }
+            .steps { grid-template-columns: 1fr; }
+            .animal-types { grid-template-columns: 1fr; }
+            .menu-guide { grid-template-columns: 1fr; }
+            .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+            .nav-links { gap: 16px; }
+            .nav-links a { font-size: 13px; }
+        }
         @media (max-width: 460px) {
             .app { padding: 32px 20px; }
-            h1 { font-size: 24px; }
+            .app-title { font-size: 20px; }
             .result-type { font-size: 26px; }
             .result-percent { font-size: 40px; }
             .menu-card-img { width: 60px; height: 60px; }
             .menu-card-name { font-size: 15px; }
+            .section-title { font-size: 22px; }
         }
     </style>
 </head>
 <body>
-    <div class="app">
-        <div class="emoji-title">🐶🍽️🐱</div>
-        <h1>동물상 메뉴 추천</h1>
-        <p class="desc">사진을 업로드하면 AI가 동물상을 분석하고<br>당신에게 딱 맞는 저녁 메뉴를 추천합니다!</p>
 
-        <div class="upload-area" id="upload-area" onclick="document.getElementById('file-input').click()">
-            <div class="upload-icon">📷</div>
-            <p class="upload-text">사진을 선택해 주세요</p>
-            <p class="upload-hint">클릭하거나 파일을 드래그하세요</p>
-            <img id="preview-img" alt="미리보기">
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">AnimaMenu</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">동물상 테스트</a></li>
+                <li><a href="dinner-image.html">메뉴 갤러리</a></li>
+                <li><a href="contact.html">제휴 문의</a></li>
+            </ul>
         </div>
-        <input type="file" id="file-input" accept="image/*">
+    </nav>
 
-        <button id="analyze-btn" onclick="analyze()">분석하기</button>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-badge">AI Powered</div>
+        <h1>내 동물상에 맞는<br>저녁 메뉴는?</h1>
+        <p>사진 한 장이면 충분합니다. AI가 당신의 동물상을 분석하고, 성격 유형에 딱 맞는 저녁 메뉴를 추천해 드립니다.</p>
+    </section>
 
-        <p class="loading-text" id="loading">
-            AI가 분석 중<span class="dot-animation"></span>
-        </p>
+    <!-- Tool -->
+    <div class="tool-section">
+        <div class="app">
+            <h2 class="app-title">AI 동물상 분석기</h2>
+            <p class="app-desc">얼굴 사진을 업로드하면 AI가 강아지상 또는 고양이상을 분석하고<br>맞춤 저녁 메뉴를 추천합니다.</p>
 
-        <div id="result">
-            <div class="animal-card">
-                <div class="result-emoji" id="result-emoji"></div>
-                <div class="result-type" id="result-type"></div>
-                <div class="result-percent" id="result-percent"></div>
-                <div class="result-bar-wrap">
-                    <div class="result-bar" id="result-bar"></div>
+            <div class="upload-area" id="upload-area" onclick="document.getElementById('file-input').click()">
+                <div class="upload-icon">📷</div>
+                <p class="upload-text">사진을 선택해 주세요</p>
+                <p class="upload-hint">클릭하거나 파일을 드래그하세요</p>
+                <img id="preview-img" alt="업로드한 얼굴 사진 미리보기">
+            </div>
+            <input type="file" id="file-input" accept="image/*">
+            <button id="analyze-btn" onclick="analyze()">분석하기</button>
+            <p class="loading-text" id="loading">AI가 분석 중<span class="dot-animation"></span></p>
+
+            <div id="result">
+                <div class="animal-card">
+                    <div class="result-emoji" id="result-emoji"></div>
+                    <div class="result-type" id="result-type"></div>
+                    <div class="result-percent" id="result-percent"></div>
+                    <div class="result-bar-wrap"><div class="result-bar" id="result-bar"></div></div>
+                    <div class="result-desc" id="result-desc"></div>
+                    <div class="result-tags" id="result-tags"></div>
                 </div>
-                <div class="result-desc" id="result-desc"></div>
-                <div class="result-tags" id="result-tags"></div>
+                <div class="menu-section">
+                    <div class="menu-section-title">오늘의 추천 메뉴</div>
+                    <div class="menu-cards" id="menu-cards"></div>
+                </div>
+                <button id="retry-btn" onclick="retry()">다시 테스트하기</button>
             </div>
-
-            <div class="menu-section">
-                <div class="menu-section-title">🍽️ 오늘의 추천 메뉴</div>
-                <div class="menu-cards" id="menu-cards"></div>
-            </div>
-
-            <button id="retry-btn" onclick="retry()">다시 테스트하기</button>
         </div>
     </div>
+
+    <!-- How it works -->
+    <div class="content-wrapper">
+        <section class="section" id="how-it-works">
+            <h2 class="section-title">어떻게 작동하나요?</h2>
+            <p class="section-subtitle">3단계로 간단하게 나만의 동물상 메뉴를 추천받을 수 있습니다.</p>
+            <div class="steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>사진 업로드</h3>
+                    <p>정면을 바라보는 얼굴 사진을 업로드합니다. 밝은 곳에서 촬영한 사진일수록 분석 정확도가 높아집니다.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>AI 동물상 분석</h3>
+                    <p>Google Teachable Machine 기반의 AI 모델이 얼굴 특징을 분석하여 강아지상 또는 고양이상을 판별합니다.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>맞춤 메뉴 추천</h3>
+                    <p>동물상 유형에 따라 성격과 취향을 반영한 저녁 메뉴 3가지를 추천해 드립니다. 한식, 중식, 일식, 양식까지 다양합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Animal types explanation -->
+        <section class="section" id="animal-types">
+            <h2 class="section-title">동물상이란?</h2>
+            <p class="section-subtitle">동물상은 얼굴의 인상에서 느껴지는 분위기를 동물에 비유하는 한국의 독특한 문화입니다.<br>크게 강아지상과 고양이상으로 나뉘며, 각각 다른 매력과 성격 특성을 가지고 있습니다.</p>
+            <div class="animal-types">
+                <div class="type-card">
+                    <div class="type-card-icon">🐶</div>
+                    <h3 class="dog-color">강아지상</h3>
+                    <p>강아지상은 밝고 친근한 인상을 가진 유형입니다. 동글동글한 눈매, 부드러운 미소, 전체적으로 온화하고 친근한 분위기가 특징입니다. 사람들에게 먼저 다가가는 성격으로 주변에 늘 사람이 많습니다.</p>
+                    <ul class="type-traits">
+                        <li>둥글고 큰 눈, 부드러운 인상</li>
+                        <li>밝고 활발한 에너지</li>
+                        <li>사교적이고 친화력이 높음</li>
+                        <li>충성심이 강하고 솔직한 성격</li>
+                        <li>함께 있으면 편안한 분위기</li>
+                    </ul>
+                </div>
+                <div class="type-card">
+                    <div class="type-card-icon">🐱</div>
+                    <h3 class="cat-color">고양이상</h3>
+                    <p>고양이상은 도도하고 세련된 인상을 가진 유형입니다. 날카로운 눈매, 뚜렷한 이목구비, 차분하면서도 신비로운 분위기가 특징입니다. 독립적이면서도 가까운 사람에게는 반전 매력을 보여줍니다.</p>
+                    <ul class="type-traits">
+                        <li>날카롭고 시원한 눈매</li>
+                        <li>차분하고 신비로운 분위기</li>
+                        <li>독립적이고 자기주관이 확실</li>
+                        <li>은근한 카리스마의 소유자</li>
+                        <li>가까운 사람에게 보이는 반전 매력</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu Guide -->
+        <section class="section" id="menu-guide">
+            <h2 class="section-title">동물상별 추천 메뉴 가이드</h2>
+            <p class="section-subtitle">동물상에 따라 선호하는 음식 스타일이 다릅니다.<br>당신의 동물상에 맞는 메뉴를 미리 알아보세요.</p>
+            <div class="menu-guide">
+                <div class="menu-guide-card">
+                    <h3>🐶 강아지상의 메뉴 특징</h3>
+                    <p>활발하고 에너지가 넘치는 강아지상은 푸짐하고 자극적인 음식을 좋아하는 경향이 있습니다. 함께 나눠 먹으며 분위기를 즐기는 메뉴가 잘 어울립니다.</p>
+                    <ul class="menu-list">
+                        <li>삼겹살 - 여럿이 함께 구워 먹는 대표 메뉴</li>
+                        <li>떡볶이 - 매콤달콤한 국민 간식</li>
+                        <li>치킨 - 언제 먹어도 기분 좋은 만능 메뉴</li>
+                        <li>피자/햄버거 - 활기찬 파티의 주인공</li>
+                        <li>김치찌개 - 따뜻하고 정겨운 한국의 맛</li>
+                    </ul>
+                </div>
+                <div class="menu-guide-card">
+                    <h3>🐱 고양이상의 메뉴 특징</h3>
+                    <p>세련되고 독립적인 고양이상은 깔끔하고 정갈한 음식을 선호하는 경향이 있습니다. 분위기 있는 공간에서 조용히 즐기는 메뉴가 잘 어울립니다.</p>
+                    <ul class="menu-list">
+                        <li>파스타 - 세련된 이탈리안 요리</li>
+                        <li>스시 - 깔끔하고 정갈한 일식</li>
+                        <li>스테이크 - 분위기 있는 특별한 한 끼</li>
+                        <li>쌀국수/팟타이 - 이국적이고 감각적인 메뉴</li>
+                        <li>비빔밥 - 건강하고 균형 잡힌 한 그릇</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section" id="faq">
+            <h2 class="section-title">자주 묻는 질문</h2>
+            <p class="section-subtitle">동물상 테스트와 메뉴 추천 서비스에 대해 궁금한 점을 확인하세요.</p>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">동물상 분석은 어떤 기술로 이루어지나요?</div>
+                    <div class="faq-answer">
+                        <p>Google의 Teachable Machine을 기반으로 한 AI 이미지 분류 모델을 사용합니다. 수많은 얼굴 이미지를 학습하여 강아지상과 고양이상의 특징을 구분할 수 있도록 훈련되었습니다. TensorFlow.js를 활용하여 브라우저에서 직접 분석이 이루어지므로 서버에 사진이 전송되지 않습니다.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">업로드한 사진은 저장되나요?</div>
+                    <div class="faq-answer">
+                        <p>아닙니다. 모든 분석은 사용자의 브라우저에서 직접 처리됩니다. 업로드한 사진은 서버로 전송되지 않으며, 어디에도 저장되지 않습니다. 브라우저를 닫거나 새로고침하면 사진은 완전히 사라집니다. 개인정보 보호를 최우선으로 생각합니다.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">분석 결과가 매번 다르게 나올 수 있나요?</div>
+                    <div class="faq-answer">
+                        <p>같은 사진으로 분석하면 동물상 결과는 동일하게 나옵니다. 다만 추천 메뉴는 해당 동물상의 메뉴 풀에서 랜덤으로 3개가 선택되므로 매번 다른 메뉴가 추천될 수 있습니다. 다양한 메뉴를 발견하는 재미를 느껴보세요!</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">어떤 사진이 가장 정확한 결과를 보여주나요?</div>
+                    <div class="faq-answer">
+                        <p>정면을 바라보는 밝은 곳에서 촬영한 사진이 가장 정확합니다. 선글라스나 마스크 등으로 얼굴이 가려진 경우 정확도가 떨어질 수 있습니다. 자연광 아래에서 촬영한 셀카가 가장 좋은 결과를 보여줍니다.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">모바일에서도 사용할 수 있나요?</div>
+                    <div class="faq-answer">
+                        <p>네, 모바일 브라우저에서도 완벽하게 작동합니다. 스마트폰의 카메라로 직접 촬영하거나 갤러리에서 사진을 선택할 수 있습니다. 반응형 디자인으로 모든 화면 크기에 최적화되어 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h3>AnimaMenu</h3>
+                <p>AI 기술을 활용하여 당신의 동물상을 분석하고 맞춤 저녁 메뉴를 추천하는 서비스입니다. 매일 저녁 고민되는 메뉴 선택을 재미있고 특별하게 만들어 드립니다.</p>
+            </div>
+            <div class="footer-links">
+                <h4>서비스</h4>
+                <ul>
+                    <li><a href="index.html">동물상 테스트</a></li>
+                    <li><a href="dinner-image.html">메뉴 갤러리</a></li>
+                    <li><a href="contact.html">제휴 문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>법적 고지</h4>
+                <ul>
+                    <li><a href="privacy.html">개인정보처리방침</a></li>
+                    <li><a href="terms.html">이용약관</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 AnimaMenu. All rights reserved.
+        </div>
+    </footer>
 
     <script>
         const MODEL_URL = "https://teachablemachine.withgoogle.com/models/jv_X2MJHQ/";
@@ -348,16 +579,12 @@
 
         const animalData = {
             "강아지": {
-                emoji: "🐶",
-                label: "강아지상",
-                color: "dog",
+                emoji: "🐶", label: "강아지상", color: "dog",
                 desc: "당신은 강아지상! 밝고 활기찬 에너지의 소유자입니다. 사람들에게 먼저 다가가고, 친화력이 넘치며, 함께 있으면 기분이 좋아지는 사람이에요. 충성심이 강하고 솔직한 성격으로 주변에 팬이 많습니다.",
                 tags: ["#친화력MAX", "#밝은에너지", "#충성파", "#사교적", "#솔직담백"]
             },
             "고양이": {
-                emoji: "🐱",
-                label: "고양이상",
-                color: "cat",
+                emoji: "🐱", label: "고양이상", color: "cat",
                 desc: "당신은 고양이상! 도도하면서도 매력적인 분위기의 소유자입니다. 독립적이고 자기만의 세계가 확고하며, 은근한 카리스마로 사람들을 끌어당깁니다. 가까운 사람에게만 보여주는 반전 매력이 포인트!",
                 tags: ["#도도한매력", "#독립적", "#은근카리스마", "#반전매력", "#미스터리"]
             }
@@ -368,7 +595,6 @@
             "cat": "고양이", "Cat": "고양이", "고양이": "고양이"
         };
 
-        // Menu data mapped by animal type
         const menusByAnimal = {
             "강아지": [
                 { name: 'Grilled Pork Belly', nameKo: '삼겹살', emoji: '🥓', category: 'Korean', image: '삼겹살.png' },
@@ -410,7 +636,6 @@
             return picked;
         }
 
-        // File input handler
         const fileInput = document.getElementById("file-input");
         const previewImg = document.getElementById("preview-img");
         const uploadArea = document.getElementById("upload-area");
@@ -419,7 +644,6 @@
         fileInput.addEventListener("change", function(e) {
             const file = e.target.files[0];
             if (!file) return;
-
             const reader = new FileReader();
             reader.onload = function(ev) {
                 previewImg.src = ev.target.result;
@@ -433,19 +657,16 @@
             reader.readAsDataURL(file);
         });
 
-        // Drag & drop
         uploadArea.addEventListener("dragover", function(e) {
             e.preventDefault();
             uploadArea.style.borderColor = "#667eea";
             uploadArea.style.background = "#f0f0ff";
         });
-
         uploadArea.addEventListener("dragleave", function(e) {
             e.preventDefault();
             uploadArea.style.borderColor = "";
             uploadArea.style.background = "";
         });
-
         uploadArea.addEventListener("drop", function(e) {
             e.preventDefault();
             uploadArea.style.borderColor = "";
@@ -461,31 +682,24 @@
             analyzeBtn.disabled = true;
             analyzeBtn.textContent = "분석 중...";
             document.getElementById("loading").style.display = "block";
-
             try {
                 if (!model) {
                     const modelURL = MODEL_URL + "model.json";
                     const metadataURL = MODEL_URL + "metadata.json";
                     model = await tmImage.load(modelURL, metadataURL);
                 }
-
                 const prediction = await model.predict(previewImg);
-
                 let best = prediction[0];
                 for (let i = 1; i < prediction.length; i++) {
                     if (prediction[i].probability > best.probability) best = prediction[i];
                 }
-
                 const className = classNameMap[best.className] || best.className;
                 const data = animalData[className] || animalData["강아지"];
                 const percent = Math.round(best.probability * 100);
 
-                // Hide upload UI
                 uploadArea.style.display = "none";
                 analyzeBtn.style.display = "none";
                 document.getElementById("loading").style.display = "none";
-
-                // Show animal result
                 document.getElementById("result-emoji").textContent = data.emoji;
 
                 const typeEl = document.getElementById("result-type");
@@ -511,7 +725,6 @@
                     tagsEl.appendChild(span);
                 });
 
-                // Show recommended menus
                 const menus = getRandomMenus(className, 3);
                 const menuCardsEl = document.getElementById("menu-cards");
                 menuCardsEl.innerHTML = "";
@@ -519,7 +732,7 @@
                     const card = document.createElement("div");
                     card.className = "menu-card";
                     card.innerHTML = `
-                        <img class="menu-card-img" src="${menu.image}" alt="${menu.nameKo}" onerror="this.src='https://via.placeholder.com/150'">
+                        <img class="menu-card-img" src="${menu.image}" alt="${menu.nameKo}" onerror="this.style.display='none'">
                         <div class="menu-card-info">
                             <div class="menu-card-name">${menu.emoji} ${menu.nameKo}</div>
                             <div class="menu-card-meta">${menu.name} · ${menu.category}</div>
@@ -530,7 +743,6 @@
 
                 document.getElementById("result").style.display = "block";
                 setTimeout(() => { bar.style.width = percent + "%"; }, 100);
-
             } catch (e) {
                 alert("분석에 실패했습니다. 다시 시도해 주세요.");
                 analyzeBtn.disabled = false;
@@ -552,6 +764,10 @@
             analyzeBtn.style.display = "none";
             analyzeBtn.disabled = false;
             analyzeBtn.textContent = "분석하기";
+        }
+
+        function toggleFaq(el) {
+            el.parentElement.classList.toggle('open');
         }
     </script>
 </body>
