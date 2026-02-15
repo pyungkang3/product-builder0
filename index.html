@@ -45,7 +45,51 @@
             line-height: 1.5;
         }
 
-        #start-btn {
+        /* Upload area */
+        .upload-area {
+            border: 2.5px dashed #d0d0d0;
+            border-radius: 16px;
+            padding: 40px 20px;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            margin-bottom: 20px;
+        }
+
+        .upload-area:hover {
+            border-color: #667eea;
+            background: #f8f8ff;
+        }
+
+        .upload-area.has-image {
+            border-style: solid;
+            border-color: #667eea;
+            padding: 16px;
+        }
+
+        .upload-icon { font-size: 48px; margin-bottom: 12px; }
+
+        .upload-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 4px;
+        }
+
+        .upload-hint {
+            font-size: 13px;
+            color: #aaa;
+        }
+
+        #file-input { display: none; }
+
+        #preview-img {
+            max-width: 100%;
+            max-height: 280px;
+            border-radius: 12px;
+            display: none;
+        }
+
+        #analyze-btn {
             padding: 16px 48px;
             font-size: 18px;
             font-weight: 700;
@@ -56,30 +100,18 @@
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        #start-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5); }
-        #start-btn:active { transform: scale(0.97); }
-        #start-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-
-        /* Webcam */
-        #webcam-wrapper {
             display: none;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
-            margin-top: 24px;
         }
 
-        #webcam-wrapper canvas, #webcam-wrapper video {
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
+        #analyze-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5); }
+        #analyze-btn:active { transform: scale(0.97); }
+        #analyze-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
         .loading-text {
             font-size: 14px;
             color: #888;
             margin-top: 16px;
+            display: none;
         }
 
         .loading-text .dot-animation::after {
@@ -93,22 +125,6 @@
             50% { content: '..'; }
             75% { content: '...'; }
         }
-
-        #capture-btn {
-            padding: 14px 40px;
-            font-size: 16px;
-            font-weight: 700;
-            border: none;
-            border-radius: 50px;
-            background: #ff6b6b;
-            color: #fff;
-            cursor: pointer;
-            transition: transform 0.2s;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
-            display: none;
-        }
-
-        #capture-btn:hover { transform: translateY(-2px); }
 
         /* Result */
         #result {
@@ -216,17 +232,20 @@
     <div class="app">
         <div class="emoji-title">🐶🐱</div>
         <h1>AI 동물상 테스트</h1>
-        <p class="desc">카메라로 얼굴을 비추면<br>AI가 당신의 동물상을 분석합니다!</p>
+        <p class="desc">사진을 업로드하면<br>AI가 당신의 동물상을 분석합니다!</p>
 
-        <button id="start-btn" onclick="startTest()">테스트 시작하기</button>
-
-        <div id="webcam-wrapper">
-            <div id="webcam-container"></div>
-            <button id="capture-btn" onclick="captureResult()">촬영하기</button>
+        <div class="upload-area" id="upload-area" onclick="document.getElementById('file-input').click()">
+            <div class="upload-icon">📷</div>
+            <p class="upload-text">사진을 선택해 주세요</p>
+            <p class="upload-hint">클릭하거나 파일을 드래그하세요</p>
+            <img id="preview-img" alt="미리보기">
         </div>
+        <input type="file" id="file-input" accept="image/*">
 
-        <p class="loading-text" id="loading" style="display:none">
-            AI 모델 로딩 중<span class="dot-animation"></span>
+        <button id="analyze-btn" onclick="analyze()">분석하기</button>
+
+        <p class="loading-text" id="loading">
+            AI가 분석 중<span class="dot-animation"></span>
         </p>
 
         <div id="result">
@@ -243,8 +262,8 @@
     </div>
 
     <script>
-        const URL = "https://teachablemachine.withgoogle.com/models/jv_X2MJHQ/";
-        let model, webcam, maxPredictions, animFrame;
+        const MODEL_URL = "https://teachablemachine.withgoogle.com/models/jv_X2MJHQ/";
+        let model;
 
         const animalData = {
             "강아지": {
@@ -263,110 +282,136 @@
             }
         };
 
-        // Fallback names in case model uses English class names
         const classNameMap = {
             "dog": "강아지", "Dog": "강아지", "강아지": "강아지",
             "cat": "고양이", "Cat": "고양이", "고양이": "고양이"
         };
 
-        async function startTest() {
-            const btn = document.getElementById("start-btn");
-            const loading = document.getElementById("loading");
-            const wrapper = document.getElementById("webcam-wrapper");
+        // File input handler
+        const fileInput = document.getElementById("file-input");
+        const previewImg = document.getElementById("preview-img");
+        const uploadArea = document.getElementById("upload-area");
+        const analyzeBtn = document.getElementById("analyze-btn");
 
-            btn.disabled = true;
-            btn.textContent = "준비 중...";
-            loading.style.display = "block";
+        fileInput.addEventListener("change", function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                previewImg.src = ev.target.result;
+                previewImg.style.display = "block";
+                uploadArea.classList.add("has-image");
+                uploadArea.querySelector(".upload-icon").style.display = "none";
+                uploadArea.querySelector(".upload-text").style.display = "none";
+                uploadArea.querySelector(".upload-hint").style.display = "none";
+                analyzeBtn.style.display = "inline-block";
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Drag & drop
+        uploadArea.addEventListener("dragover", function(e) {
+            e.preventDefault();
+            uploadArea.style.borderColor = "#667eea";
+            uploadArea.style.background = "#f0f0ff";
+        });
+
+        uploadArea.addEventListener("dragleave", function(e) {
+            e.preventDefault();
+            uploadArea.style.borderColor = "";
+            uploadArea.style.background = "";
+        });
+
+        uploadArea.addEventListener("drop", function(e) {
+            e.preventDefault();
+            uploadArea.style.borderColor = "";
+            uploadArea.style.background = "";
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith("image/")) {
+                fileInput.files = e.dataTransfer.files;
+                fileInput.dispatchEvent(new Event("change"));
+            }
+        });
+
+        async function analyze() {
+            analyzeBtn.disabled = true;
+            analyzeBtn.textContent = "분석 중...";
+            document.getElementById("loading").style.display = "block";
 
             try {
-                const modelURL = URL + "model.json";
-                const metadataURL = URL + "metadata.json";
-                model = await tmImage.load(modelURL, metadataURL);
-                maxPredictions = model.getTotalClasses();
+                if (!model) {
+                    const modelURL = MODEL_URL + "model.json";
+                    const metadataURL = MODEL_URL + "metadata.json";
+                    model = await tmImage.load(modelURL, metadataURL);
+                }
 
-                const flip = true;
-                webcam = new tmImage.Webcam(320, 320, flip);
-                await webcam.setup();
-                await webcam.play();
+                const prediction = await model.predict(previewImg);
 
-                wrapper.style.display = "flex";
-                document.getElementById("webcam-container").appendChild(webcam.canvas);
-                document.getElementById("capture-btn").style.display = "inline-block";
+                let best = prediction[0];
+                for (let i = 1; i < prediction.length; i++) {
+                    if (prediction[i].probability > best.probability) best = prediction[i];
+                }
 
-                btn.style.display = "none";
-                loading.style.display = "none";
+                const className = classNameMap[best.className] || best.className;
+                const data = animalData[className] || animalData["강아지"];
+                const percent = Math.round(best.probability * 100);
 
-                animFrame = window.requestAnimationFrame(loop);
+                // Hide upload UI
+                uploadArea.style.display = "none";
+                analyzeBtn.style.display = "none";
+                document.getElementById("loading").style.display = "none";
+
+                // Show result
+                document.getElementById("result-emoji").textContent = data.emoji;
+
+                const typeEl = document.getElementById("result-type");
+                typeEl.textContent = data.label;
+                typeEl.className = "result-type " + data.color;
+
+                const percentEl = document.getElementById("result-percent");
+                percentEl.textContent = percent + "%";
+                percentEl.className = "result-percent " + data.color;
+
+                const bar = document.getElementById("result-bar");
+                bar.className = "result-bar " + data.color;
+                bar.style.width = "0%";
+
+                document.getElementById("result-desc").textContent = data.desc;
+
+                const tagsEl = document.getElementById("result-tags");
+                tagsEl.innerHTML = "";
+                data.tags.forEach(tag => {
+                    const span = document.createElement("span");
+                    span.className = "tag " + data.color;
+                    span.textContent = tag;
+                    tagsEl.appendChild(span);
+                });
+
+                document.getElementById("result").style.display = "block";
+                setTimeout(() => { bar.style.width = percent + "%"; }, 100);
+
             } catch (e) {
-                alert("카메라 접근에 실패했습니다. 카메라 권한을 허용해 주세요.");
-                btn.disabled = false;
-                btn.textContent = "테스트 시작하기";
-                loading.style.display = "none";
+                alert("분석에 실패했습니다. 다시 시도해 주세요.");
+                analyzeBtn.disabled = false;
+                analyzeBtn.textContent = "분석하기";
+                document.getElementById("loading").style.display = "none";
             }
-        }
-
-        async function loop() {
-            webcam.update();
-            animFrame = window.requestAnimationFrame(loop);
-        }
-
-        async function captureResult() {
-            const prediction = await model.predict(webcam.canvas);
-
-            // Find best match
-            let best = prediction[0];
-            for (let i = 1; i < prediction.length; i++) {
-                if (prediction[i].probability > best.probability) best = prediction[i];
-            }
-
-            const className = classNameMap[best.className] || best.className;
-            const data = animalData[className] || animalData["강아지"];
-            const percent = Math.round(best.probability * 100);
-
-            // Stop webcam
-            webcam.stop();
-            cancelAnimationFrame(animFrame);
-            document.getElementById("webcam-wrapper").style.display = "none";
-
-            // Show result
-            const result = document.getElementById("result");
-            document.getElementById("result-emoji").textContent = data.emoji;
-
-            const typeEl = document.getElementById("result-type");
-            typeEl.textContent = data.label;
-            typeEl.className = "result-type " + data.color;
-
-            const percentEl = document.getElementById("result-percent");
-            percentEl.textContent = percent + "%";
-            percentEl.className = "result-percent " + data.color;
-
-            const bar = document.getElementById("result-bar");
-            bar.className = "result-bar " + data.color;
-            bar.style.width = "0%";
-
-            document.getElementById("result-desc").textContent = data.desc;
-
-            const tagsEl = document.getElementById("result-tags");
-            tagsEl.innerHTML = "";
-            data.tags.forEach(tag => {
-                const span = document.createElement("span");
-                span.className = "tag " + data.color;
-                span.textContent = tag;
-                tagsEl.appendChild(span);
-            });
-
-            result.style.display = "block";
-
-            // Animate bar
-            setTimeout(() => { bar.style.width = percent + "%"; }, 100);
         }
 
         function retry() {
             document.getElementById("result").style.display = "none";
-            document.getElementById("start-btn").style.display = "inline-block";
-            document.getElementById("start-btn").disabled = false;
-            document.getElementById("start-btn").textContent = "테스트 시작하기";
-            document.getElementById("webcam-container").innerHTML = "";
+            uploadArea.style.display = "";
+            uploadArea.classList.remove("has-image");
+            uploadArea.querySelector(".upload-icon").style.display = "";
+            uploadArea.querySelector(".upload-text").style.display = "";
+            uploadArea.querySelector(".upload-hint").style.display = "";
+            previewImg.style.display = "none";
+            previewImg.src = "";
+            fileInput.value = "";
+            analyzeBtn.style.display = "none";
+            analyzeBtn.disabled = false;
+            analyzeBtn.textContent = "분석하기";
         }
     </script>
 </body>
