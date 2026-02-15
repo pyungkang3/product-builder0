@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-adsense-account" content="ca-pub-1538581455536091">
-    <title>동물상 메뉴 추천</title>
+    <title>AI 동물상 테스트</title>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1538581455536091"
          crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
@@ -28,7 +28,7 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
             padding: 48px 36px;
             width: 100%;
-            max-width: 480px;
+            max-width: 420px;
             text-align: center;
         }
 
@@ -133,15 +133,12 @@
         #result {
             display: none;
             margin-top: 32px;
+            animation: fadeUp 0.6s ease;
         }
 
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animal-card {
-            animation: fadeUp 0.6s ease;
         }
 
         .result-emoji { font-size: 72px; margin-bottom: 12px; }
@@ -211,75 +208,10 @@
         .tag.dog { background: #fff3ee; color: #ff6b35; }
         .tag.cat { background: #eef0ff; color: #667eea; }
 
-        /* Menu recommendation section */
-        .menu-section {
-            margin-top: 32px;
-            animation: fadeUp 0.6s ease 0.3s both;
-        }
-
-        .menu-section-title {
-            font-size: 20px;
-            font-weight: 800;
-            color: #1a1a2e;
-            margin-bottom: 16px;
-        }
-
-        .menu-cards {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .menu-card {
-            background: #f8f8fa;
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            text-align: left;
-            animation: fadeUp 0.5s ease both;
-        }
-
-        .menu-card:nth-child(1) { animation-delay: 0.4s; }
-        .menu-card:nth-child(2) { animation-delay: 0.55s; }
-        .menu-card:nth-child(3) { animation-delay: 0.7s; }
-
-        .menu-card-img {
-            width: 72px;
-            height: 72px;
-            border-radius: 12px;
-            object-fit: cover;
-            flex-shrink: 0;
-            background: #eee;
-        }
-
-        .menu-card-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .menu-card-name {
-            font-size: 17px;
-            font-weight: 700;
-            color: #1a1a2e;
-            margin-bottom: 4px;
-        }
-
-        .menu-card-meta {
-            font-size: 13px;
-            color: #888;
-        }
-
-        .menu-card-emoji {
-            font-size: 28px;
-            flex-shrink: 0;
-        }
-
         #retry-btn {
-            margin-top: 28px;
-            padding: 14px 40px;
-            font-size: 16px;
+            margin-top: 24px;
+            padding: 12px 36px;
+            font-size: 15px;
             font-weight: 600;
             border: 2px solid #ddd;
             border-radius: 50px;
@@ -296,16 +228,14 @@
             h1 { font-size: 24px; }
             .result-type { font-size: 26px; }
             .result-percent { font-size: 40px; }
-            .menu-card-img { width: 60px; height: 60px; }
-            .menu-card-name { font-size: 15px; }
         }
     </style>
 </head>
 <body>
     <div class="app">
-        <div class="emoji-title">🐶🍽️🐱</div>
-        <h1>동물상 메뉴 추천</h1>
-        <p class="desc">사진을 업로드하면 AI가 동물상을 분석하고<br>당신에게 딱 맞는 저녁 메뉴를 추천합니다!</p>
+        <div class="emoji-title">🐶🐱</div>
+        <h1>AI 동물상 테스트</h1>
+        <p class="desc">사진을 업로드하면<br>AI가 당신의 동물상을 분석합니다!</p>
 
         <div class="upload-area" id="upload-area" onclick="document.getElementById('file-input').click()">
             <div class="upload-icon">📷</div>
@@ -322,22 +252,14 @@
         </p>
 
         <div id="result">
-            <div class="animal-card">
-                <div class="result-emoji" id="result-emoji"></div>
-                <div class="result-type" id="result-type"></div>
-                <div class="result-percent" id="result-percent"></div>
-                <div class="result-bar-wrap">
-                    <div class="result-bar" id="result-bar"></div>
-                </div>
-                <div class="result-desc" id="result-desc"></div>
-                <div class="result-tags" id="result-tags"></div>
+            <div class="result-emoji" id="result-emoji"></div>
+            <div class="result-type" id="result-type"></div>
+            <div class="result-percent" id="result-percent"></div>
+            <div class="result-bar-wrap">
+                <div class="result-bar" id="result-bar"></div>
             </div>
-
-            <div class="menu-section">
-                <div class="menu-section-title">🍽️ 오늘의 추천 메뉴</div>
-                <div class="menu-cards" id="menu-cards"></div>
-            </div>
-
+            <div class="result-desc" id="result-desc"></div>
+            <div class="result-tags" id="result-tags"></div>
             <button id="retry-btn" onclick="retry()">다시 테스트하기</button>
         </div>
     </div>
@@ -367,48 +289,6 @@
             "dog": "강아지", "Dog": "강아지", "강아지": "강아지",
             "cat": "고양이", "Cat": "고양이", "고양이": "고양이"
         };
-
-        // Menu data mapped by animal type
-        const menusByAnimal = {
-            "강아지": [
-                { name: 'Grilled Pork Belly', nameKo: '삼겹살', emoji: '🥓', category: 'Korean', image: '삼겹살.png' },
-                { name: 'Tteokbokki', nameKo: '떡볶이', emoji: '🌶️', category: 'Korean', image: '떡볶이.png' },
-                { name: 'Fried Chicken', nameKo: '치킨', emoji: '🍗', category: 'Korean', image: '치킨.png' },
-                { name: 'Jjamppong', nameKo: '짬뽕', emoji: '🥡', category: 'Chinese', image: '짬뽕.png' },
-                { name: 'Malatang', nameKo: '마라탕', emoji: '🌶️', category: 'Chinese', image: '마라탕.png' },
-                { name: 'Pizza', nameKo: '피자', emoji: '🍕', category: 'Western', image: '피자.png' },
-                { name: 'Hamburger', nameKo: '햄버거', emoji: '🍔', category: 'Western', image: '햄버거.png' },
-                { name: 'Bulgogi', nameKo: '불고기', emoji: '🥩', category: 'Korean', image: '불고기.png' },
-                { name: 'Ramen', nameKo: '라멘', emoji: '🍜', category: 'Japanese', image: '라멘.png' },
-                { name: 'Kimchi Stew', nameKo: '김치찌개', emoji: '🍲', category: 'Korean', image: '김치찌개.png' },
-                { name: 'Spicy Pork Stir-fry', nameKo: '제육볶음', emoji: '🍖', category: 'Korean', image: '제육볶음.png' },
-                { name: 'Sweet & Sour Pork', nameKo: '탕수육', emoji: '🍖', category: 'Chinese', image: '탕수육.png' },
-            ],
-            "고양이": [
-                { name: 'Pasta', nameKo: '파스타', emoji: '🍝', category: 'Western', image: '파스타.png' },
-                { name: 'Sushi', nameKo: '스시', emoji: '🍣', category: 'Japanese', image: '스시.png' },
-                { name: 'Steak', nameKo: '스테이크', emoji: '🥩', category: 'Western', image: '스테이크.png' },
-                { name: 'Tonkatsu', nameKo: '돈카츠', emoji: '🥩', category: 'Japanese', image: '돈카츠.png' },
-                { name: 'Bibimbap', nameKo: '비빔밥', emoji: '🍚', category: 'Korean', image: '비빔밥.png' },
-                { name: 'Pad Thai', nameKo: '팟타이', emoji: '🥘', category: 'Asian', image: '팟타이.png' },
-                { name: 'Pho', nameKo: '쌀국수', emoji: '🍜', category: 'Asian', image: '쌀국수.png' },
-                { name: 'Japchae', nameKo: '잡채', emoji: '🍜', category: 'Korean', image: '잡채.png' },
-                { name: 'Soybean Paste Stew', nameKo: '된장찌개', emoji: '🥘', category: 'Korean', image: '된장찌개.png' },
-                { name: 'Udon', nameKo: '우동', emoji: '🍲', category: 'Japanese', image: '우동.png' },
-                { name: 'Jajangmyeon', nameKo: '자장면', emoji: '🍝', category: 'Chinese', image: '자장면.png' },
-                { name: 'Curry', nameKo: '카레', emoji: '🍛', category: 'Asian', image: '카레.png' },
-            ]
-        };
-
-        function getRandomMenus(animal, count) {
-            const pool = [...menusByAnimal[animal]];
-            const picked = [];
-            for (let i = 0; i < count && pool.length > 0; i++) {
-                const idx = Math.floor(Math.random() * pool.length);
-                picked.push(pool.splice(idx, 1)[0]);
-            }
-            return picked;
-        }
 
         // File input handler
         const fileInput = document.getElementById("file-input");
@@ -485,7 +365,7 @@
                 analyzeBtn.style.display = "none";
                 document.getElementById("loading").style.display = "none";
 
-                // Show animal result
+                // Show result
                 document.getElementById("result-emoji").textContent = data.emoji;
 
                 const typeEl = document.getElementById("result-type");
@@ -509,23 +389,6 @@
                     span.className = "tag " + data.color;
                     span.textContent = tag;
                     tagsEl.appendChild(span);
-                });
-
-                // Show recommended menus
-                const menus = getRandomMenus(className, 3);
-                const menuCardsEl = document.getElementById("menu-cards");
-                menuCardsEl.innerHTML = "";
-                menus.forEach(menu => {
-                    const card = document.createElement("div");
-                    card.className = "menu-card";
-                    card.innerHTML = `
-                        <img class="menu-card-img" src="${menu.image}" alt="${menu.nameKo}" onerror="this.src='https://via.placeholder.com/150'">
-                        <div class="menu-card-info">
-                            <div class="menu-card-name">${menu.emoji} ${menu.nameKo}</div>
-                            <div class="menu-card-meta">${menu.name} · ${menu.category}</div>
-                        </div>
-                    `;
-                    menuCardsEl.appendChild(card);
                 });
 
                 document.getElementById("result").style.display = "block";
