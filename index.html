@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tonight's Dinner Picker</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dinner-en-style.css">
 </head>
 <body>
     <div class="container">
@@ -15,6 +14,45 @@
         <button id="generate-btn">Pick My Dinner</button>
         <div id="result-container" class="result-container"></div>
     </div>
-    <script src="main.js"></script>
+
+    <div class="contact-section">
+        <h2>Partnership Inquiry</h2>
+        <p class="contact-subtitle">Interested in partnering with us? Fill out the form below.</p>
+        <form action="https://formspree.io/f/mykdwdgl" method="POST" class="contact-form">
+            <input type="text" name="company" placeholder="Company Name" required>
+            <input type="text" name="name" placeholder="Contact Person" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="tel" name="phone" placeholder="Phone (optional)">
+            <select name="inquiry_type" required>
+                <option value="" disabled selected>Inquiry Type</option>
+                <option value="Partnership">Partnership</option>
+                <option value="Advertising">Advertising</option>
+                <option value="API Integration">API Integration</option>
+                <option value="Other">Other</option>
+            </select>
+            <textarea name="message" placeholder="Tell us about your inquiry" required></textarea>
+            <button type="submit" class="contact-btn">Submit</button>
+        </form>
+    </div>
+
+    <div class="disqus-section">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_config = function () {
+                this.page.url = 'https://product-builder0.pages.dev/';
+                this.page.identifier = 'index';
+            };
+            (function() {
+                var d = document, s = d.createElement('script');
+                s.src = 'https://notion-joa.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    <script src="dinner-en-main.js"></script>
 </body>
 </html>
