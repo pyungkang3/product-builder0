@@ -1,58 +1,373 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tonight's Dinner Picker</title>
-    <link rel="stylesheet" href="dinner-en-style.css">
+    <title>AI 동물상 테스트</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .app {
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            padding: 48px 36px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+
+        .emoji-title { font-size: 48px; margin-bottom: 8px; }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+        }
+
+        .desc {
+            font-size: 15px;
+            color: #888;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        #start-btn {
+            padding: 16px 48px;
+            font-size: 18px;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        #start-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5); }
+        #start-btn:active { transform: scale(0.97); }
+        #start-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+        /* Webcam */
+        #webcam-wrapper {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        #webcam-wrapper canvas, #webcam-wrapper video {
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .loading-text {
+            font-size: 14px;
+            color: #888;
+            margin-top: 16px;
+        }
+
+        .loading-text .dot-animation::after {
+            content: '';
+            animation: dots 1.5s infinite;
+        }
+
+        @keyframes dots {
+            0% { content: ''; }
+            25% { content: '.'; }
+            50% { content: '..'; }
+            75% { content: '...'; }
+        }
+
+        #capture-btn {
+            padding: 14px 40px;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            background: #ff6b6b;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            display: none;
+        }
+
+        #capture-btn:hover { transform: translateY(-2px); }
+
+        /* Result */
+        #result {
+            display: none;
+            margin-top: 32px;
+            animation: fadeUp 0.6s ease;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-emoji { font-size: 72px; margin-bottom: 12px; }
+
+        .result-type {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .result-type.dog { color: #ff6b35; }
+        .result-type.cat { color: #667eea; }
+
+        .result-percent {
+            font-size: 48px;
+            font-weight: 800;
+            margin: 8px 0;
+        }
+
+        .result-percent.dog { color: #ff6b35; }
+        .result-percent.cat { color: #667eea; }
+
+        .result-bar-wrap {
+            background: #f0f0f0;
+            border-radius: 12px;
+            height: 16px;
+            width: 100%;
+            margin: 16px 0;
+            overflow: hidden;
+        }
+
+        .result-bar {
+            height: 100%;
+            border-radius: 12px;
+            transition: width 1s ease;
+        }
+
+        .result-bar.dog { background: linear-gradient(90deg, #ff6b35, #ff9a5c); }
+        .result-bar.cat { background: linear-gradient(90deg, #667eea, #a78bfa); }
+
+        .result-desc {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.7;
+            margin: 16px 0;
+            padding: 20px;
+            background: #f8f8fa;
+            border-radius: 12px;
+            text-align: left;
+        }
+
+        .result-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+
+        .tag {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .tag.dog { background: #fff3ee; color: #ff6b35; }
+        .tag.cat { background: #eef0ff; color: #667eea; }
+
+        #retry-btn {
+            margin-top: 24px;
+            padding: 12px 36px;
+            font-size: 15px;
+            font-weight: 600;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            background: #fff;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        #retry-btn:hover { border-color: #764ba2; color: #764ba2; }
+
+        @media (max-width: 460px) {
+            .app { padding: 32px 20px; }
+            h1 { font-size: 24px; }
+            .result-type { font-size: 26px; }
+            .result-percent { font-size: 40px; }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <button id="theme-btn">Dark Mode</button>
-        <h1>What's for Dinner?</h1>
-        <p class="subtitle">Click the button to get a dinner recommendation!</p>
-        <button id="generate-btn">Pick My Dinner</button>
-        <div id="result-container" class="result-container"></div>
+    <div class="app">
+        <div class="emoji-title">🐶🐱</div>
+        <h1>AI 동물상 테스트</h1>
+        <p class="desc">카메라로 얼굴을 비추면<br>AI가 당신의 동물상을 분석합니다!</p>
+
+        <button id="start-btn" onclick="startTest()">테스트 시작하기</button>
+
+        <div id="webcam-wrapper">
+            <div id="webcam-container"></div>
+            <button id="capture-btn" onclick="captureResult()">촬영하기</button>
+        </div>
+
+        <p class="loading-text" id="loading" style="display:none">
+            AI 모델 로딩 중<span class="dot-animation"></span>
+        </p>
+
+        <div id="result">
+            <div class="result-emoji" id="result-emoji"></div>
+            <div class="result-type" id="result-type"></div>
+            <div class="result-percent" id="result-percent"></div>
+            <div class="result-bar-wrap">
+                <div class="result-bar" id="result-bar"></div>
+            </div>
+            <div class="result-desc" id="result-desc"></div>
+            <div class="result-tags" id="result-tags"></div>
+            <button id="retry-btn" onclick="retry()">다시 테스트하기</button>
+        </div>
     </div>
 
-    <div class="contact-section">
-        <h2>Partnership Inquiry</h2>
-        <p class="contact-subtitle">Interested in partnering with us? Fill out the form below.</p>
-        <form action="https://formspree.io/f/mykdwdgl" method="POST" class="contact-form">
-            <input type="text" name="company" placeholder="Company Name" required>
-            <input type="text" name="name" placeholder="Contact Person" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="tel" name="phone" placeholder="Phone (optional)">
-            <select name="inquiry_type" required>
-                <option value="" disabled selected>Inquiry Type</option>
-                <option value="Partnership">Partnership</option>
-                <option value="Advertising">Advertising</option>
-                <option value="API Integration">API Integration</option>
-                <option value="Other">Other</option>
-            </select>
-            <textarea name="message" placeholder="Tell us about your inquiry" required></textarea>
-            <button type="submit" class="contact-btn">Submit</button>
-        </form>
-    </div>
+    <script>
+        const URL = "https://teachablemachine.withgoogle.com/models/jv_X2MJHQ/";
+        let model, webcam, maxPredictions, animFrame;
 
-    <div class="disqus-section">
-        <h2>Comments</h2>
-        <div id="disqus_thread"></div>
-        <script>
-            var disqus_config = function () {
-                this.page.url = 'https://product-builder0.pages.dev/';
-                this.page.identifier = 'index';
-            };
-            (function() {
-                var d = document, s = d.createElement('script');
-                s.src = 'https://notion-joa.disqus.com/embed.js';
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    </div>
+        const animalData = {
+            "강아지": {
+                emoji: "🐶",
+                label: "강아지상",
+                color: "dog",
+                desc: "당신은 강아지상! 밝고 활기찬 에너지의 소유자입니다. 사람들에게 먼저 다가가고, 친화력이 넘치며, 함께 있으면 기분이 좋아지는 사람이에요. 충성심이 강하고 솔직한 성격으로 주변에 팬이 많습니다.",
+                tags: ["#친화력MAX", "#밝은에너지", "#충성파", "#사교적", "#솔직담백"]
+            },
+            "고양이": {
+                emoji: "🐱",
+                label: "고양이상",
+                color: "cat",
+                desc: "당신은 고양이상! 도도하면서도 매력적인 분위기의 소유자입니다. 독립적이고 자기만의 세계가 확고하며, 은근한 카리스마로 사람들을 끌어당깁니다. 가까운 사람에게만 보여주는 반전 매력이 포인트!",
+                tags: ["#도도한매력", "#독립적", "#은근카리스마", "#반전매력", "#미스터리"]
+            }
+        };
 
-    <script src="dinner-en-main.js"></script>
+        // Fallback names in case model uses English class names
+        const classNameMap = {
+            "dog": "강아지", "Dog": "강아지", "강아지": "강아지",
+            "cat": "고양이", "Cat": "고양이", "고양이": "고양이"
+        };
+
+        async function startTest() {
+            const btn = document.getElementById("start-btn");
+            const loading = document.getElementById("loading");
+            const wrapper = document.getElementById("webcam-wrapper");
+
+            btn.disabled = true;
+            btn.textContent = "준비 중...";
+            loading.style.display = "block";
+
+            try {
+                const modelURL = URL + "model.json";
+                const metadataURL = URL + "metadata.json";
+                model = await tmImage.load(modelURL, metadataURL);
+                maxPredictions = model.getTotalClasses();
+
+                const flip = true;
+                webcam = new tmImage.Webcam(320, 320, flip);
+                await webcam.setup();
+                await webcam.play();
+
+                wrapper.style.display = "flex";
+                document.getElementById("webcam-container").appendChild(webcam.canvas);
+                document.getElementById("capture-btn").style.display = "inline-block";
+
+                btn.style.display = "none";
+                loading.style.display = "none";
+
+                animFrame = window.requestAnimationFrame(loop);
+            } catch (e) {
+                alert("카메라 접근에 실패했습니다. 카메라 권한을 허용해 주세요.");
+                btn.disabled = false;
+                btn.textContent = "테스트 시작하기";
+                loading.style.display = "none";
+            }
+        }
+
+        async function loop() {
+            webcam.update();
+            animFrame = window.requestAnimationFrame(loop);
+        }
+
+        async function captureResult() {
+            const prediction = await model.predict(webcam.canvas);
+
+            // Find best match
+            let best = prediction[0];
+            for (let i = 1; i < prediction.length; i++) {
+                if (prediction[i].probability > best.probability) best = prediction[i];
+            }
+
+            const className = classNameMap[best.className] || best.className;
+            const data = animalData[className] || animalData["강아지"];
+            const percent = Math.round(best.probability * 100);
+
+            // Stop webcam
+            webcam.stop();
+            cancelAnimationFrame(animFrame);
+            document.getElementById("webcam-wrapper").style.display = "none";
+
+            // Show result
+            const result = document.getElementById("result");
+            document.getElementById("result-emoji").textContent = data.emoji;
+
+            const typeEl = document.getElementById("result-type");
+            typeEl.textContent = data.label;
+            typeEl.className = "result-type " + data.color;
+
+            const percentEl = document.getElementById("result-percent");
+            percentEl.textContent = percent + "%";
+            percentEl.className = "result-percent " + data.color;
+
+            const bar = document.getElementById("result-bar");
+            bar.className = "result-bar " + data.color;
+            bar.style.width = "0%";
+
+            document.getElementById("result-desc").textContent = data.desc;
+
+            const tagsEl = document.getElementById("result-tags");
+            tagsEl.innerHTML = "";
+            data.tags.forEach(tag => {
+                const span = document.createElement("span");
+                span.className = "tag " + data.color;
+                span.textContent = tag;
+                tagsEl.appendChild(span);
+            });
+
+            result.style.display = "block";
+
+            // Animate bar
+            setTimeout(() => { bar.style.width = percent + "%"; }, 100);
+        }
+
+        function retry() {
+            document.getElementById("result").style.display = "none";
+            document.getElementById("start-btn").style.display = "inline-block";
+            document.getElementById("start-btn").disabled = false;
+            document.getElementById("start-btn").textContent = "테스트 시작하기";
+            document.getElementById("webcam-container").innerHTML = "";
+        }
+    </script>
 </body>
 </html>
