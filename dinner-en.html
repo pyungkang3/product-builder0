@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +17,27 @@
         <button id="generate-btn">Pick My Dinner</button>
         <div id="result-container" class="result-container"></div>
     </div>
+
+    <div class="contact-section">
+        <h2>Partnership Inquiry</h2>
+        <p class="contact-subtitle">Interested in partnering with us? Fill out the form below.</p>
+        <form action="https://formspree.io/f/mykdwdgl" method="POST" class="contact-form">
+            <input type="text" name="company" placeholder="Company Name" required>
+            <input type="text" name="name" placeholder="Contact Person" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="tel" name="phone" placeholder="Phone (optional)">
+            <select name="inquiry_type" required>
+                <option value="" disabled selected>Inquiry Type</option>
+                <option value="Partnership">Partnership</option>
+                <option value="Advertising">Advertising</option>
+                <option value="API Integration">API Integration</option>
+                <option value="Other">Other</option>
+            </select>
+            <textarea name="message" placeholder="Tell us about your inquiry" required></textarea>
+            <button type="submit" class="contact-btn">Submit</button>
+        </form>
+    </div>
+
     <script src="dinner-en-main.js"></script>
 </body>
 </html>
