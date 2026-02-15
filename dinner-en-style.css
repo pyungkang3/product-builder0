@@ -216,3 +216,27 @@ body.dark .contact-form textarea {
 .contact-btn:active {
     transform: scale(0.98);
 }
+
+/* Disqus Section */
+.disqus-section {
+    width: 100%;
+    max-width: 480px;
+    margin-top: 40px;
+    padding: 40px 32px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    margin-bottom: 40px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+body.dark .disqus-section {
+    background: #16213e;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.disqus-section h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
