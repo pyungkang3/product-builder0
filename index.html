@@ -18,7 +18,7 @@
       })(window, document, "clarity", "script", "vi0ehtjhrx");
     </script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <meta name="google-adsense-account" content="ca-pub-1538581455536091">
     <meta name="description" content="AI가 당신의 얼굴을 분석하여 강아지상인지 고양이상인지 알려주고, 동물상에 맞는 저녁 메뉴를 추천합니다. 무료 AI 동물상 테스트를 지금 바로 시작하세요!">
@@ -39,6 +39,8 @@
             background: #f8f9fa;
             color: #333;
             line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
         }
 
         /* ===== Navigation ===== */
@@ -63,17 +65,63 @@
             font-weight: 800;
             color: #667eea;
             text-decoration: none;
+            flex-shrink: 0;
         }
-        .nav-links { display: flex; gap: 24px; list-style: none; }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
         .nav-links a {
             text-decoration: none;
             color: #555;
             font-size: 15px;
             font-weight: 500;
             transition: color 0.2s;
+            white-space: nowrap;
         }
         .nav-links a:hover { color: #667eea; }
         .nav-links a.active { color: #667eea; font-weight: 700; }
+
+        /* Hamburger menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 110;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2.5px;
+            background: #333;
+            border-radius: 2px;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5.5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5.5px); }
+
+        /* Mobile nav overlay */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 99;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .mobile-nav-overlay.show {
+            opacity: 1;
+        }
 
         /* ===== Hero ===== */
         .hero {
@@ -86,6 +134,7 @@
             font-size: 36px;
             font-weight: 800;
             margin-bottom: 12px;
+            word-break: keep-all;
         }
         .hero p {
             font-size: 17px;
@@ -93,6 +142,7 @@
             max-width: 500px;
             margin: 0 auto 32px;
             line-height: 1.7;
+            word-break: keep-all;
         }
         .hero-badge {
             display: inline-block;
@@ -122,7 +172,7 @@
             text-align: center;
         }
         .app-title { font-size: 24px; font-weight: 800; color: #1a1a2e; margin-bottom: 8px; }
-        .app-desc { font-size: 15px; color: #888; margin-bottom: 28px; line-height: 1.5; }
+        .app-desc { font-size: 15px; color: #888; margin-bottom: 28px; line-height: 1.5; word-break: keep-all; }
 
         /* Upload area */
         .upload-area {
@@ -149,6 +199,7 @@
             transition: transform 0.2s, box-shadow 0.2s;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
             display: none;
+            -webkit-tap-highlight-color: transparent;
         }
         #analyze-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5); }
         #analyze-btn:active { transform: scale(0.97); }
@@ -173,7 +224,7 @@
         .result-bar { height: 100%; border-radius: 12px; transition: width 1s ease; }
         .result-bar.dog { background: linear-gradient(90deg, #ff6b35, #ff9a5c); }
         .result-bar.cat { background: linear-gradient(90deg, #667eea, #a78bfa); }
-        .result-desc { font-size: 15px; color: #555; line-height: 1.7; margin: 16px 0; padding: 20px; background: #f8f8fa; border-radius: 12px; text-align: left; }
+        .result-desc { font-size: 15px; color: #555; line-height: 1.7; margin: 16px 0; padding: 20px; background: #f8f8fa; border-radius: 12px; text-align: left; word-break: keep-all; }
         .result-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 12px; }
         .tag { padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; }
         .tag.dog { background: #fff3ee; color: #ff6b35; }
@@ -199,6 +250,7 @@
             margin-top: 28px; padding: 14px 40px; font-size: 16px; font-weight: 600;
             border: 2px solid #ddd; border-radius: 50px; background: #fff; color: #555;
             cursor: pointer; transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
         }
         #retry-btn:hover { border-color: #764ba2; color: #764ba2; }
 
@@ -218,6 +270,7 @@
             color: #1a1a2e;
             text-align: center;
             margin-bottom: 12px;
+            word-break: keep-all;
         }
         .section-subtitle {
             font-size: 16px;
@@ -225,6 +278,7 @@
             text-align: center;
             margin-bottom: 40px;
             line-height: 1.6;
+            word-break: keep-all;
         }
 
         /* How it works */
@@ -253,7 +307,7 @@
             margin-bottom: 16px;
         }
         .step-card h3 { font-size: 18px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; }
-        .step-card p { font-size: 14px; color: #666; line-height: 1.6; }
+        .step-card p { font-size: 14px; color: #666; line-height: 1.6; word-break: keep-all; }
 
         /* Animal types */
         .animal-types {
@@ -271,7 +325,7 @@
         .type-card h3 { font-size: 22px; font-weight: 800; margin-bottom: 12px; }
         .type-card h3.dog-color { color: #ff6b35; }
         .type-card h3.cat-color { color: #667eea; }
-        .type-card p { font-size: 15px; color: #555; line-height: 1.8; margin-bottom: 16px; }
+        .type-card p { font-size: 15px; color: #555; line-height: 1.8; margin-bottom: 16px; word-break: keep-all; }
         .type-traits { list-style: none; }
         .type-traits li {
             padding: 6px 0;
@@ -294,7 +348,7 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
         .menu-guide-card h3 { font-size: 18px; font-weight: 700; color: #1a1a2e; margin-bottom: 12px; }
-        .menu-guide-card p { font-size: 14px; color: #666; line-height: 1.7; }
+        .menu-guide-card p { font-size: 14px; color: #666; line-height: 1.7; word-break: keep-all; }
         .menu-list { list-style: none; margin-top: 12px; }
         .menu-list li { padding: 8px 0; font-size: 14px; color: #555; border-bottom: 1px solid #f5f5f5; }
         .menu-list li:last-child { border-bottom: none; }
@@ -317,8 +371,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 12px;
+            -webkit-tap-highlight-color: transparent;
+            word-break: keep-all;
         }
-        .faq-question::after { content: '+'; font-size: 20px; color: #888; transition: transform 0.3s; }
+        .faq-question::after { content: '+'; font-size: 20px; color: #888; transition: transform 0.3s; flex-shrink: 0; }
         .faq-item.open .faq-question::after { transform: rotate(45deg); }
         .faq-answer {
             max-height: 0;
@@ -329,7 +386,7 @@
             max-height: 300px;
             padding: 0 24px 20px;
         }
-        .faq-answer p { font-size: 15px; color: #666; line-height: 1.7; }
+        .faq-answer p { font-size: 15px; color: #666; line-height: 1.7; word-break: keep-all; }
 
         /* ===== Footer ===== */
         .footer {
@@ -346,7 +403,7 @@
             gap: 40px;
         }
         .footer-brand h3 { color: #fff; font-size: 20px; font-weight: 800; margin-bottom: 12px; }
-        .footer-brand p { font-size: 14px; line-height: 1.7; }
+        .footer-brand p { font-size: 14px; line-height: 1.7; word-break: keep-all; }
         .footer-links h4 { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 16px; }
         .footer-links ul { list-style: none; }
         .footer-links li { margin-bottom: 10px; }
@@ -361,24 +418,150 @@
             font-size: 13px;
         }
 
-        /* ===== Responsive ===== */
+        /* ===== Responsive - Tablet (768px) ===== */
         @media (max-width: 768px) {
+            .hero { padding: 48px 20px; }
             .hero h1 { font-size: 28px; }
-            .steps { grid-template-columns: 1fr; }
-            .animal-types { grid-template-columns: 1fr; }
-            .menu-guide { grid-template-columns: 1fr; }
-            .footer-inner { grid-template-columns: 1fr; gap: 32px; }
-            .nav-links { gap: 16px; }
-            .nav-links a { font-size: 13px; }
+            .hero p { font-size: 15px; margin-bottom: 24px; }
+
+            .steps { grid-template-columns: 1fr; gap: 16px; }
+            .step-card { padding: 24px 20px; }
+
+            .animal-types { grid-template-columns: 1fr; gap: 16px; }
+            .type-card { padding: 28px 24px; }
+
+            .menu-guide { grid-template-columns: 1fr; gap: 16px; }
+            .menu-guide-card { padding: 24px 20px; }
+
+            .footer-inner { grid-template-columns: 1fr; gap: 32px; text-align: center; }
+            .footer-brand p { max-width: 400px; margin: 0 auto; }
+            .footer-links ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+            .footer-links li { margin-bottom: 0; }
+
+            .section { padding: 48px 0; }
+            .section-title { font-size: 24px; }
+            .section-subtitle { font-size: 15px; margin-bottom: 32px; }
+
+            /* Hamburger menu visible */
+            .hamburger { display: flex; }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -280px;
+                width: 280px;
+                height: 100vh;
+                background: #fff;
+                flex-direction: column;
+                padding: 80px 32px 32px;
+                gap: 0;
+                box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+                transition: right 0.3s ease;
+                z-index: 101;
+            }
+            .nav-links.open {
+                right: 0;
+            }
+            .nav-links li {
+                border-bottom: 1px solid #f0f0f0;
+            }
+            .nav-links a {
+                display: block;
+                padding: 16px 0;
+                font-size: 17px;
+            }
+            .mobile-nav-overlay.show {
+                display: block;
+            }
         }
+
+        /* ===== Responsive - Small Mobile (460px) ===== */
         @media (max-width: 460px) {
-            .app { padding: 32px 20px; }
+            .nav-inner { padding: 0 16px; height: 56px; }
+            .nav-logo { font-size: 18px; }
+
+            .hero { padding: 36px 16px; }
+            .hero h1 { font-size: 24px; }
+            .hero p { font-size: 14px; }
+            .hero-badge { font-size: 12px; padding: 6px 16px; }
+
+            .tool-section { padding: 0 12px; margin-top: -32px; }
+            .app { padding: 28px 16px; border-radius: 20px; }
             .app-title { font-size: 20px; }
-            .result-type { font-size: 26px; }
-            .result-percent { font-size: 40px; }
-            .menu-card-img { width: 60px; height: 60px; }
+            .app-desc { font-size: 14px; margin-bottom: 20px; }
+            .app-desc br { display: none; }
+
+            .upload-area { padding: 32px 16px; }
+            .upload-icon { font-size: 40px; }
+            .upload-text { font-size: 15px; }
+            #preview-img { max-height: 220px; }
+
+            #analyze-btn { padding: 14px 40px; font-size: 16px; width: 100%; }
+
+            .result-emoji { font-size: 56px; }
+            .result-type { font-size: 24px; }
+            .result-percent { font-size: 36px; }
+            .result-desc { padding: 16px; font-size: 14px; }
+            .tag { padding: 5px 12px; font-size: 12px; }
+
+            .menu-card { padding: 12px; gap: 12px; }
+            .menu-card-img { width: 56px; height: 56px; border-radius: 10px; }
             .menu-card-name { font-size: 15px; }
-            .section-title { font-size: 22px; }
+            .menu-card-meta { font-size: 12px; }
+            .menu-section-title { font-size: 18px; }
+
+            #retry-btn { padding: 12px 32px; font-size: 15px; width: 100%; }
+
+            .content-wrapper { padding: 0 16px; }
+            .section { padding: 40px 0; }
+            .section-title { font-size: 21px; }
+            .section-subtitle { font-size: 14px; margin-bottom: 24px; }
+            .section-subtitle br { display: none; }
+
+            .step-card { padding: 20px 16px; }
+            .step-number { width: 40px; height: 40px; font-size: 17px; }
+            .step-card h3 { font-size: 16px; }
+            .step-card p { font-size: 13px; }
+
+            .type-card { padding: 24px 20px; }
+            .type-card-icon { font-size: 44px; }
+            .type-card h3 { font-size: 20px; }
+            .type-card p { font-size: 14px; }
+            .type-traits li { font-size: 13px; }
+
+            .menu-guide-card { padding: 20px 16px; }
+            .menu-guide-card h3 { font-size: 16px; }
+            .menu-guide-card p { font-size: 13px; }
+            .menu-list li { font-size: 13px; padding: 6px 0; }
+
+            .faq-question { padding: 16px 18px; font-size: 15px; }
+            .faq-item.open .faq-answer { padding: 0 18px 16px; }
+            .faq-answer p { font-size: 14px; }
+
+            .footer { padding: 36px 16px 24px; margin-top: 40px; }
+            .footer-brand h3 { font-size: 18px; }
+            .footer-brand p { font-size: 13px; }
+            .footer-links h4 { font-size: 14px; margin-bottom: 12px; }
+            .footer-links a { font-size: 13px; }
+            .footer-bottom { font-size: 12px; margin-top: 24px; padding-top: 16px; }
+        }
+
+        /* ===== Responsive - Extra Small (360px) ===== */
+        @media (max-width: 360px) {
+            .hero h1 { font-size: 22px; }
+            .app { padding: 24px 14px; }
+            .app-title { font-size: 18px; }
+            .result-type { font-size: 22px; }
+            .result-percent { font-size: 32px; }
+            .menu-card-img { width: 48px; height: 48px; }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .upload-area { padding: 48px 20px; }
+            #analyze-btn { min-height: 52px; }
+            #retry-btn { min-height: 48px; }
+            .faq-question { min-height: 56px; }
+            .nav-links a { min-height: 48px; display: flex; align-items: center; }
         }
     </style>
 </head>
@@ -388,13 +571,19 @@
     <nav class="nav">
         <div class="nav-inner">
             <a href="index.html" class="nav-logo">AnimaMenu</a>
-            <ul class="nav-links">
+            <button class="hamburger" id="hamburger" aria-label="메뉴 열기" onclick="toggleMobileNav()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="nav-links">
                 <li><a href="index.html" class="active">동물상 테스트</a></li>
                 <li><a href="dinner-image.html">메뉴 갤러리</a></li>
                 <li><a href="contact.html">제휴 문의</a></li>
             </ul>
         </div>
     </nav>
+    <div class="mobile-nav-overlay" id="mobile-nav-overlay" onclick="toggleMobileNav()"></div>
 
     <!-- Hero -->
     <section class="hero">
@@ -591,6 +780,41 @@
     </footer>
 
     <script>
+        // Mobile navigation toggle
+        function toggleMobileNav() {
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('nav-links');
+            const overlay = document.getElementById('mobile-nav-overlay');
+            const isOpen = navLinks.classList.contains('open');
+
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('open');
+
+            if (isOpen) {
+                overlay.classList.remove('show');
+                setTimeout(() => { overlay.style.display = 'none'; }, 300);
+                document.body.style.overflow = '';
+            } else {
+                overlay.style.display = 'block';
+                requestAnimationFrame(() => overlay.classList.add('show'));
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // Close mobile nav on resize to desktop
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                const hamburger = document.getElementById('hamburger');
+                const navLinks = document.getElementById('nav-links');
+                const overlay = document.getElementById('mobile-nav-overlay');
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('open');
+                overlay.classList.remove('show');
+                overlay.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        });
+
         const MODEL_URL = "https://teachablemachine.withgoogle.com/models/jv_X2MJHQ/";
         let model;
 
