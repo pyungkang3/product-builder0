@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#667eea"/>
+      <stop offset="100%" stop-color="#764ba2"/>
+    </linearGradient>
+  </defs>
+  <!-- Background rounded square -->
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <!-- Dog ear (left, floppy) -->
+  <path d="M10 22 Q8 8 18 10 Q22 11 22 20 Z" fill="#fff" opacity="0.95"/>
+  <!-- Cat ear (right, pointed) -->
+  <path d="M54 22 Q56 6 48 4 Q42 6 42 20 Z" fill="#fff" opacity="0.95"/>
+  <!-- Face circle -->
+  <circle cx="32" cy="34" r="18" fill="#fff"/>
+  <!-- Left eye -->
+  <ellipse cx="25" cy="31" rx="3" ry="3.5" fill="#667eea"/>
+  <!-- Right eye -->
+  <ellipse cx="39" cy="31" rx="3" ry="3.5" fill="#764ba2"/>
+  <!-- Nose -->
+  <path d="M30 37 L34 37 L32 40 Z" fill="#667eea" rx="1"/>
+  <!-- Mouth / smile -->
+  <path d="M27 41 Q32 46 37 41" fill="none" stroke="#764ba2" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- Fork (left of mouth, small) -->
+  <g transform="translate(14, 42) rotate(-20)">
+    <line x1="0" y1="0" x2="0" y2="12" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="-2.5" y1="0" x2="-2.5" y2="5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="2.5" y1="0" x2="2.5" y2="5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+  <!-- Spoon (right side, small) -->
+  <g transform="translate(52, 42) rotate(20)">
+    <ellipse cx="0" cy="2" rx="3" ry="3.5" fill="#fff"/>
+    <line x1="0" y1="5" x2="0" y2="13" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+</svg>
