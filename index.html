@@ -6,7 +6,7 @@
     <title>나는 강아지상? 고양이상? AI가 골라주는 오늘의 저녁 메뉴 - AnimaMenu</title>
     <meta name="description" content="사진 한 장이면 끝! AI가 당신이 강아지상인지 고양이상인지 판별하고, 동물상 성격에 딱 맞는 저녁 메뉴를 추천합니다. 3초만에 무료 테스트!">
     <meta name="keywords" content="동물상 테스트, AI 얼굴 분석, 강아지상, 고양이상, 저녁 메뉴 추천, 동물상 메뉴 추천, AI 동물상, 얼굴 동물상, 동물 관상, 오늘 저녁 뭐 먹지">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="author" content="AnimaMenu">
     <meta name="theme-color" content="#667eea">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -55,14 +55,27 @@
           y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
       })(window, document, "clarity", "script", "vi0ehtjhrx");
     </script>
-    <!-- JSON-LD Structured Data: WebApplication -->
+    <!-- JSON-LD: Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "AnimaMenu",
+      "url": "https://joa.chat/",
+      "logo": "https://joa.chat/og-image.png",
+      "description": "AI 동물상 분석 및 맞춤 저녁 메뉴 추천 서비스",
+      "sameAs": []
+    }
+    </script>
+
+    <!-- JSON-LD: WebApplication (with author, dates) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "AnimaMenu - AI 동물상 메뉴 추천",
       "url": "https://joa.chat/",
-      "description": "AI가 당신의 얼굴을 분석하여 강아지상인지 고양이상인지 알려주고, 동물상에 맞는 저녁 메뉴를 추천합니다.",
+      "description": "동물상 테스트는 AI가 얼굴 사진을 분석하여 강아지상 또는 고양이상을 판별하고, 동물상 성격 유형에 맞는 저녁 메뉴를 추천하는 무료 서비스입니다.",
       "applicationCategory": "EntertainmentApplication",
       "operatingSystem": "Web Browser",
       "offers": {
@@ -70,7 +83,22 @@
         "price": "0",
         "priceCurrency": "KRW"
       },
-      "inLanguage": "ko"
+      "inLanguage": "ko",
+      "datePublished": "2025-02-17",
+      "dateModified": "2026-02-17",
+      "author": {
+        "@type": "Organization",
+        "name": "AnimaMenu"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "AnimaMenu",
+        "url": "https://joa.chat/"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": ["#answer", ".hero h1", ".hero p"]
+      }
     }
     </script>
 
@@ -140,14 +168,18 @@
     }
     </script>
 
-    <!-- JSON-LD Structured Data: WebSite (for Sitelinks Search) -->
+    <!-- JSON-LD: WebSite (for Sitelinks Search) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "AnimaMenu",
       "url": "https://joa.chat/",
-      "description": "AI 동물상 분석 및 저녁 메뉴 추천 서비스"
+      "description": "AI 동물상 분석 및 저녁 메뉴 추천 서비스",
+      "publisher": {
+        "@type": "Organization",
+        "name": "AnimaMenu"
+      }
     }
     </script>
 
@@ -509,6 +541,51 @@
         }
         .faq-answer p { font-size: 15px; color: #666; line-height: 1.7; word-break: keep-all; }
 
+        /* ===== GEO: Answer Block ===== */
+        .answer-section {
+            max-width: 960px;
+            margin: 32px auto 0;
+            padding: 0 20px;
+        }
+        .answer-block {
+            background: #fff;
+            border-left: 4px solid #667eea;
+            border-radius: 12px;
+            padding: 28px 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        .answer-block h2 { font-size: 22px; font-weight: 800; color: #1a1a2e; margin-bottom: 12px; }
+        .answer-block > p { font-size: 15px; color: #333; line-height: 1.8; margin-bottom: 16px; word-break: keep-all; }
+        .answer-block ul { list-style: none; }
+        .answer-block li { padding: 8px 0; font-size: 14px; color: #444; line-height: 1.7; border-bottom: 1px solid #f0f0f0; word-break: keep-all; }
+        .answer-block li:last-child { border-bottom: none; }
+
+        /* ===== GEO: Comparison Table ===== */
+        .comparison-table { overflow-x: auto; margin: 32px 0; }
+        .comparison-table table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .comparison-table caption { font-size: 18px; font-weight: 700; color: #1a1a2e; margin-bottom: 12px; text-align: center; }
+        .comparison-table th { background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; padding: 14px 16px; font-size: 15px; font-weight: 700; text-align: center; }
+        .comparison-table td { padding: 12px 16px; font-size: 14px; color: #444; text-align: center; border-bottom: 1px solid #f0f0f0; }
+        .comparison-table tr:last-child td { border-bottom: none; }
+        .comparison-table td:first-child { font-weight: 600; color: #1a1a2e; background: #f8f9fa; }
+
+        /* ===== GEO: Evidence Block ===== */
+        .evidence-block {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 28px 32px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .evidence-block h3 { font-size: 18px; font-weight: 700; color: #1a1a2e; margin-bottom: 16px; }
+        .evidence-block ul { list-style: none; }
+        .evidence-block li { padding: 8px 0; font-size: 14px; color: #444; line-height: 1.7; border-bottom: 1px solid #e8e8e8; word-break: keep-all; }
+        .evidence-block li:last-child { border-bottom: none; }
+
+        /* ===== Last Updated ===== */
+        .last-updated { text-align: center; font-size: 13px; color: #595959; margin-top: 16px; }
+
         /* ===== Footer ===== */
         .footer {
             background: #1a1a2e;
@@ -553,6 +630,10 @@
 
             .menu-guide { grid-template-columns: 1fr; gap: 16px; }
             .menu-guide-card { padding: 24px 20px; }
+
+            .answer-block { padding: 24px 20px; }
+            .comparison-table th, .comparison-table td { padding: 10px 12px; font-size: 13px; }
+            .evidence-block { padding: 24px 20px; }
 
             .footer-inner { grid-template-columns: 1fr; gap: 32px; text-align: center; }
             .footer-brand p { max-width: 400px; margin: 0 auto; }
@@ -706,11 +787,26 @@
     </nav>
     <div class="mobile-nav-overlay" id="mobile-nav-overlay" onclick="toggleMobileNav()"></div>
 
+    <main>
     <!-- Hero -->
     <section class="hero">
         <div class="hero-badge">AI Powered</div>
         <h1>강아지상? 고양이상?<br>AI가 골라주는 오늘의 저녁</h1>
         <p>사진 한 장이면 충분합니다. AI가 당신의 동물상을 분석하고, 성격 유형에 딱 맞는 저녁 메뉴를 추천해 드립니다.</p>
+    </section>
+
+    <!-- GEO: Answer Block (AI가 인용하기 쉬운 정답 블록) -->
+    <section id="answer" class="answer-section" aria-label="요약">
+        <div class="answer-block">
+            <h2>동물상 테스트란?</h2>
+            <p><strong>동물상 테스트</strong>는 AI가 얼굴 사진을 분석하여 강아지상 또는 고양이상을 판별하고, 동물상 성격 유형에 맞는 저녁 메뉴를 추천하는 무료 온라인 서비스입니다. 사진 업로드 후 약 3초면 결과를 확인할 수 있습니다.</p>
+            <ul>
+                <li><strong>분석 방법:</strong> Google Teachable Machine 기반 AI 이미지 분류 모델을 사용하며, 모든 분석은 브라우저에서 처리되어 서버에 사진이 전송되지 않습니다.</li>
+                <li><strong>분류 결과:</strong> 강아지상(친근하고 활발한 유형) 또는 고양이상(독립적이고 세련된 유형)으로 판별됩니다.</li>
+                <li><strong>메뉴 추천:</strong> 동물상별 성격과 취향에 맞는 한식·중식·일식·양식 저녁 메뉴 3가지를 랜덤으로 추천합니다.</li>
+                <li><strong>비용:</strong> 완전 무료이며, 회원가입 없이 바로 이용할 수 있습니다.</li>
+            </ul>
+        </div>
     </section>
 
     <!-- Tool -->
@@ -801,6 +897,24 @@
                     </ul>
                 </div>
             </div>
+
+            <!-- GEO: Comparison Table (AI가 인용하기 좋은 비교표) -->
+            <div class="comparison-table">
+                <table>
+                    <caption>강아지상 vs 고양이상 비교</caption>
+                    <thead>
+                        <tr><th>구분</th><th>강아지상</th><th>고양이상</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>인상</td><td>밝고 친근함</td><td>도도하고 세련됨</td></tr>
+                        <tr><td>눈매</td><td>둥글고 큰 눈</td><td>날카롭고 시원한 눈</td></tr>
+                        <tr><td>성격</td><td>사교적, 충성심 강함</td><td>독립적, 카리스마</td></tr>
+                        <tr><td>에너지</td><td>활발하고 밝음</td><td>차분하고 신비로움</td></tr>
+                        <tr><td>음식 취향</td><td>푸짐하고 자극적인 메뉴</td><td>깔끔하고 정갈한 메뉴</td></tr>
+                        <tr><td>대표 추천 메뉴</td><td>삼겹살, 치킨, 떡볶이</td><td>파스타, 스시, 스테이크</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
 
         <!-- Menu Guide -->
@@ -870,7 +984,25 @@
                 </div>
             </div>
         </section>
+
+        <!-- GEO: Evidence Block (근거/출처/신뢰 신호) -->
+        <section class="section" id="evidence" aria-label="근거 및 출처">
+            <h2 class="section-title">분석 기술 및 출처</h2>
+            <p class="section-subtitle">AnimaMenu의 동물상 분석은 검증된 오픈소스 AI 기술을 기반으로 합니다.</p>
+            <aside class="evidence-block" aria-label="Evidence">
+                <h3>기술 근거</h3>
+                <ul>
+                    <li><strong>AI 모델:</strong> Google Teachable Machine — 이미지 분류 전용 머신러닝 플랫폼</li>
+                    <li><strong>프레임워크:</strong> TensorFlow.js — 브라우저 내에서 AI 추론을 실행하는 오픈소스 라이브러리</li>
+                    <li><strong>개인정보 보호:</strong> 사진은 서버에 전송되지 않으며, 모든 분석은 100% 사용자의 브라우저에서 처리됩니다</li>
+                    <li><strong>분류 방식:</strong> 수천 장의 얼굴 이미지로 학습된 모델이 강아지상과 고양이상의 얼굴 특징을 구분합니다</li>
+                    <li><strong>제작:</strong> AnimaMenu 팀</li>
+                </ul>
+            </aside>
+            <p class="last-updated">마지막 업데이트: <time datetime="2026-02-17">2026년 2월 17일</time></p>
+        </section>
     </div>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
