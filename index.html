@@ -20,13 +20,129 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://joa.chat/index.html">
     <meta name="google-adsense-account" content="ca-pub-1538581455536091">
     <meta name="description" content="AI가 당신의 얼굴을 분석하여 강아지상인지 고양이상인지 알려주고, 동물상에 맞는 저녁 메뉴를 추천합니다. 무료 AI 동물상 테스트를 지금 바로 시작하세요!">
-    <meta name="keywords" content="동물상 테스트, AI 얼굴 분석, 강아지상, 고양이상, 저녁 메뉴 추천, 동물상 메뉴 추천">
+    <meta name="keywords" content="동물상 테스트, AI 얼굴 분석, 강아지상, 고양이상, 저녁 메뉴 추천, 동물상 메뉴 추천, AI 동물상, 얼굴 동물상, 동물 관상, 오늘 저녁 뭐 먹지">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="AnimaMenu">
+    <meta name="theme-color" content="#667eea">
+
+    <!-- Open Graph -->
     <meta property="og:title" content="AI 동물상 메뉴 추천 - 내 동물상에 맞는 저녁 메뉴는?">
-    <meta property="og:description" content="사진 한 장으로 동물상을 분석하고 맞춤 저녁 메뉴를 추천받으세요!">
+    <meta property="og:description" content="사진 한 장으로 동물상을 분석하고 맞춤 저녁 메뉴를 추천받으세요! AI가 강아지상/고양이상을 판별하고 딱 맞는 저녁 메뉴를 추천합니다.">
     <meta property="og:type" content="website">
-    <title>AI 동물상 메뉴 추천 | 내 얼굴에 맞는 저녁 메뉴 찾기</title>
+    <meta property="og:url" content="https://joa.chat/index.html">
+    <meta property="og:site_name" content="AnimaMenu">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:image" content="https://joa.chat/favicon.ico">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="AI 동물상 메뉴 추천 - 내 동물상에 맞는 저녁 메뉴는?">
+    <meta name="twitter:description" content="사진 한 장으로 동물상을 분석하고 맞춤 저녁 메뉴를 추천받으세요!">
+    <meta name="twitter:image" content="https://joa.chat/favicon.ico">
+
+    <!-- Naver SEO -->
+    <meta name="naver-site-verification" content="naversiteverification">
+
+    <title>AI 동물상 메뉴 추천 | 내 얼굴에 맞는 저녁 메뉴 찾기 - AnimaMenu</title>
+    <!-- JSON-LD Structured Data: WebApplication -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "AnimaMenu - AI 동물상 메뉴 추천",
+      "url": "https://joa.chat/",
+      "description": "AI가 당신의 얼굴을 분석하여 강아지상인지 고양이상인지 알려주고, 동물상에 맞는 저녁 메뉴를 추천합니다.",
+      "applicationCategory": "EntertainmentApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
+      "inLanguage": "ko"
+    }
+    </script>
+
+    <!-- JSON-LD Structured Data: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "동물상 분석은 어떤 기술로 이루어지나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Google의 Teachable Machine을 기반으로 한 AI 이미지 분류 모델을 사용합니다. TensorFlow.js를 활용하여 브라우저에서 직접 분석이 이루어지므로 서버에 사진이 전송되지 않습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "업로드한 사진은 저장되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "아닙니다. 모든 분석은 사용자의 브라우저에서 직접 처리됩니다. 업로드한 사진은 서버로 전송되지 않으며, 어디에도 저장되지 않습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "분석 결과가 매번 다르게 나올 수 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "같은 사진으로 분석하면 동물상 결과는 동일하게 나옵니다. 다만 추천 메뉴는 랜덤으로 3개가 선택되므로 매번 다른 메뉴가 추천될 수 있습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "어떤 사진이 가장 정확한 결과를 보여주나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "정면을 바라보는 밝은 곳에서 촬영한 사진이 가장 정확합니다. 자연광 아래에서 촬영한 셀카가 가장 좋은 결과를 보여줍니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "모바일에서도 사용할 수 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "네, 모바일 브라우저에서도 완벽하게 작동합니다. 반응형 디자인으로 모든 화면 크기에 최적화되어 있습니다."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- JSON-LD Structured Data: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "홈",
+          "item": "https://joa.chat/index.html"
+        }
+      ]
+    }
+    </script>
+
+    <!-- JSON-LD Structured Data: WebSite (for Sitelinks Search) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "AnimaMenu",
+      "url": "https://joa.chat/",
+      "description": "AI 동물상 분석 및 저녁 메뉴 추천 서비스"
+    }
+    </script>
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1538581455536091"
          crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>

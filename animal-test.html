@@ -19,7 +19,69 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 동물상 테스트</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://joa.chat/animal-test.html">
+    <meta name="description" content="AI가 당신의 얼굴을 분석하여 강아지상인지 고양이상인지 판별합니다. 사진 한 장으로 동물상 테스트를 무료로 체험하세요! TensorFlow.js 기반 브라우저 분석으로 개인정보 걱정 없습니다.">
+    <meta name="keywords" content="동물상 테스트, AI 얼굴 분석, 강아지상, 고양이상, 동물상 판별, 얼굴 동물상, AI 관상">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="AnimaMenu">
+    <meta name="theme-color" content="#667eea">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="AI 동물상 테스트 - 나는 강아지상? 고양이상?">
+    <meta property="og:description" content="AI가 당신의 얼굴을 분석하여 강아지상인지 고양이상인지 판별합니다. 사진 한 장으로 무료 체험!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://joa.chat/animal-test.html">
+    <meta property="og:site_name" content="AnimaMenu">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:image" content="https://joa.chat/favicon.ico">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="AI 동물상 테스트 - 나는 강아지상? 고양이상?">
+    <meta name="twitter:description" content="AI가 당신의 얼굴을 분석하여 동물상을 판별합니다. 무료 체험!">
+    <meta name="twitter:image" content="https://joa.chat/favicon.ico">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "AI 동물상 테스트",
+      "url": "https://joa.chat/animal-test.html",
+      "description": "AI가 당신의 얼굴을 분석하여 강아지상인지 고양이상인지 판별하는 무료 서비스",
+      "applicationCategory": "EntertainmentApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
+      "inLanguage": "ko"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "홈",
+          "item": "https://joa.chat/index.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "AI 동물상 테스트",
+          "item": "https://joa.chat/animal-test.html"
+        }
+      ]
+    }
+    </script>
+
+    <title>AI 동물상 테스트 | 나는 강아지상? 고양이상? - AnimaMenu</title>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
     <style>
@@ -245,7 +307,7 @@
     </style>
 </head>
 <body>
-    <div class="app">
+    <main class="app">
         <div class="emoji-title">🐶🐱</div>
         <h1>AI 동물상 테스트</h1>
         <p class="desc">사진을 업로드하면<br>AI가 당신의 동물상을 분석합니다!</p>
@@ -275,7 +337,12 @@
             <div class="result-tags" id="result-tags"></div>
             <button id="retry-btn" onclick="retry()">다시 테스트하기</button>
         </div>
-    </div>
+    </main>
+
+    <footer style="text-align:center;padding:20px;font-size:13px;color:#fff;opacity:0.7;">
+        <a href="index.html" style="color:#fff;margin:0 8px;">홈</a>
+        <a href="privacy.html" style="color:#fff;margin:0 8px;">개인정보처리방침</a>
+    </footer>
 
     <script>
         const MODEL_URL = "https://teachablemachine.withgoogle.com/models/jv_X2MJHQ/";
