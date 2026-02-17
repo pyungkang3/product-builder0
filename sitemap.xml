@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://joa.chat/index.html</loc>
+    <loc>https://joa.chat/</loc>
     <lastmod>2026-02-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://joa.chat/index.html?lang=ko"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://joa.chat/index.html?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://joa.chat/index.html?lang=ja"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://joa.chat/index.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://joa.chat/?lang=ko"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joa.chat/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://joa.chat/?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joa.chat/"/>
   </url>
   <url>
     <loc>https://joa.chat/animal-test.html</loc>

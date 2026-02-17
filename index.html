@@ -10,24 +10,28 @@
     <meta name="author" content="AnimaMenu">
     <meta name="theme-color" content="#667eea">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="canonical" href="https://joa.chat/index.html">
-    <link rel="alternate" hreflang="ko" href="https://joa.chat/index.html?lang=ko">
-    <link rel="alternate" hreflang="en" href="https://joa.chat/index.html?lang=en">
-    <link rel="alternate" hreflang="ja" href="https://joa.chat/index.html?lang=ja">
-    <link rel="alternate" hreflang="x-default" href="https://joa.chat/index.html">
+    <link rel="canonical" href="https://joa.chat/">
+    <link rel="alternate" hreflang="ko" href="https://joa.chat/?lang=ko">
+    <link rel="alternate" hreflang="en" href="https://joa.chat/?lang=en">
+    <link rel="alternate" hreflang="ja" href="https://joa.chat/?lang=ja">
+    <link rel="alternate" hreflang="x-default" href="https://joa.chat/">
     <meta name="google-adsense-account" content="ca-pub-1538581455536091">
 
     <!-- Preconnect to critical third-party origins -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://www.clarity.ms">
+    <link rel="dns-prefetch" href="https://static.userback.io">
 
     <!-- Open Graph -->
     <meta property="og:title" content="나는 강아지상? 고양이상? - AI가 골라주는 오늘의 저녁 메뉴">
     <meta property="og:description" content="사진 한 장이면 끝! 강아지상 vs 고양이상, AI가 판별하고 맞춤 저녁 메뉴까지 추천!">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://joa.chat/index.html">
+    <meta property="og:url" content="https://joa.chat/">
     <meta property="og:site_name" content="AnimaMenu">
     <meta property="og:locale" content="ko_KR">
     <meta property="og:image" content="https://joa.chat/og-image.png">
@@ -51,13 +55,15 @@
       gtag('js', new Date());
       gtag('config', 'G-44S53ER43X');
     </script>
-    <!-- Microsoft Clarity -->
+    <!-- Microsoft Clarity (deferred) -->
     <script type="text/javascript">
-      (function(c,l,a,r,i,t,y){
-          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-      })(window, document, "clarity", "script", "vi0ehtjhrx");
+      window.addEventListener('load', function() {
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "vi0ehtjhrx");
+      });
     </script>
     <!-- JSON-LD: Organization -->
     <script type="application/ld+json">
@@ -166,7 +172,7 @@
           "@type": "ListItem",
           "position": 1,
           "name": "홈",
-          "item": "https://joa.chat/index.html"
+          "item": "https://joa.chat/"
         }
       ]
     }
@@ -1773,6 +1779,12 @@
                     }
                 } catch(e) {}
             });
+
+            // Update canonical and hreflang
+            var canonical = document.querySelector('link[rel="canonical"]');
+            if (canonical) canonical.href = 'https://joa.chat/' + (lang === 'ko' ? '' : '?lang=' + lang);
+            var ogUrl = document.querySelector('meta[property="og:url"]');
+            if (ogUrl) ogUrl.content = 'https://joa.chat/' + (lang === 'ko' ? '' : '?lang=' + lang);
 
             // Switcher active state
             document.querySelectorAll('.lang-btn').forEach(function(btn) {
