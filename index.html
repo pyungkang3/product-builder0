@@ -13,6 +13,12 @@
     <link rel="canonical" href="https://joa.chat/index.html">
     <meta name="google-adsense-account" content="ca-pub-1538581455536091">
 
+    <!-- Preconnect to critical third-party origins -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
     <!-- Open Graph -->
     <meta property="og:title" content="나는 강아지상? 고양이상? - AI가 골라주는 오늘의 저녁 메뉴">
     <meta property="og:description" content="사진 한 장이면 끝! 강아지상 vs 고양이상, AI가 판별하고 맞춤 저녁 메뉴까지 추천!">
@@ -145,10 +151,7 @@
     }
     </script>
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1538581455536091"
-         crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <!-- AdSense, TF.js, Teachable Machine: deferred to bottom of body -->
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -256,7 +259,7 @@
         }
         .hero p {
             font-size: 17px;
-            opacity: 0.9;
+            opacity: 1;
             max-width: 500px;
             margin: 0 auto 32px;
             line-height: 1.7;
@@ -290,7 +293,7 @@
             text-align: center;
         }
         .app-title { font-size: 24px; font-weight: 800; color: #1a1a2e; margin-bottom: 8px; }
-        .app-desc { font-size: 15px; color: #888; margin-bottom: 28px; line-height: 1.5; word-break: keep-all; }
+        .app-desc { font-size: 15px; color: #595959; margin-bottom: 28px; line-height: 1.5; word-break: keep-all; }
 
         /* Upload area */
         .upload-area {
@@ -305,7 +308,7 @@
         .upload-area.has-image { border-style: solid; border-color: #667eea; padding: 16px; }
         .upload-icon { font-size: 48px; margin-bottom: 12px; }
         .upload-text { font-size: 16px; font-weight: 600; color: #555; margin-bottom: 4px; }
-        .upload-hint { font-size: 13px; color: #aaa; }
+        .upload-hint { font-size: 13px; color: #767676; }
         #file-input { display: none; }
         #preview-img { max-width: 100%; max-height: 280px; border-radius: 12px; display: none; }
 
@@ -323,7 +326,7 @@
         #analyze-btn:active { transform: scale(0.97); }
         #analyze-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-        .loading-text { font-size: 14px; color: #888; margin-top: 16px; display: none; }
+        .loading-text { font-size: 14px; color: #595959; margin-top: 16px; display: none; }
         .loading-text .dot-animation::after { content: ''; animation: dots 1.5s infinite; }
         @keyframes dots { 0%{content:'';} 25%{content:'.';} 50%{content:'..';} 75%{content:'...';} }
 
@@ -345,8 +348,8 @@
         .result-desc { font-size: 15px; color: #555; line-height: 1.7; margin: 16px 0; padding: 20px; background: #f8f8fa; border-radius: 12px; text-align: left; word-break: keep-all; }
         .result-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 12px; }
         .tag { padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; }
-        .tag.dog { background: #fff3ee; color: #ff6b35; }
-        .tag.cat { background: #eef0ff; color: #667eea; }
+        .tag.dog { background: #fff3ee; color: #b94513; }
+        .tag.cat { background: #eef0ff; color: #4a5bc6; }
 
         /* Menu recommendation */
         .menu-section { margin-top: 32px; animation: fadeUp 0.6s ease 0.3s both; }
@@ -363,7 +366,7 @@
         .menu-card-img { width: 72px; height: 72px; border-radius: 12px; object-fit: cover; flex-shrink: 0; background: #eee; }
         .menu-card-info { flex: 1; min-width: 0; }
         .menu-card-name { font-size: 17px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
-        .menu-card-meta { font-size: 13px; color: #888; }
+        .menu-card-meta { font-size: 13px; color: #595959; }
         #retry-btn {
             margin-top: 28px; padding: 14px 40px; font-size: 16px; font-weight: 600;
             border: 2px solid #ddd; border-radius: 50px; background: #fff; color: #555;
@@ -392,7 +395,7 @@
         }
         .section-subtitle {
             font-size: 16px;
-            color: #888;
+            color: #595959;
             text-align: center;
             margin-bottom: 40px;
             line-height: 1.6;
@@ -493,7 +496,7 @@
             -webkit-tap-highlight-color: transparent;
             word-break: keep-all;
         }
-        .faq-question::after { content: '+'; font-size: 20px; color: #888; transition: transform 0.3s; flex-shrink: 0; }
+        .faq-question::after { content: '+'; font-size: 20px; color: #595959; transition: transform 0.3s; flex-shrink: 0; }
         .faq-item.open .faq-question::after { transform: rotate(45deg); }
         .faq-answer {
             max-height: 0;
@@ -695,7 +698,7 @@
                 <span></span>
             </button>
             <ul class="nav-links" id="nav-links">
-                <li><a href="index.html" class="active">동물상 테스트</a></li>
+                <li><a href="index.html" class="active" aria-current="page">동물상 테스트</a></li>
                 <li><a href="dinner-image.html">메뉴 갤러리</a></li>
                 <li><a href="contact.html">제휴 문의</a></li>
             </ul>
@@ -716,7 +719,7 @@
             <h2 class="app-title">AI 동물상 분석기</h2>
             <p class="app-desc">얼굴 사진을 업로드하면 AI가 강아지상 또는 고양이상을 분석하고<br>맞춤 저녁 메뉴를 추천합니다.</p>
 
-            <div class="upload-area" id="upload-area" onclick="document.getElementById('file-input').click()">
+            <div class="upload-area" id="upload-area" role="button" tabindex="0" aria-label="사진 업로드" onclick="document.getElementById('file-input').click()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('file-input').click()}">
                 <div class="upload-icon">📷</div>
                 <p class="upload-text">사진을 선택해 주세요</p>
                 <p class="upload-hint">클릭하거나 파일을 드래그하세요</p>
@@ -836,31 +839,31 @@
             <p class="section-subtitle">동물상 테스트와 메뉴 추천 서비스에 대해 궁금한 점을 확인하세요.</p>
             <div class="faq-list">
                 <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">동물상 분석은 어떤 기술로 이루어지나요?</div>
+                    <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}">동물상 분석은 어떤 기술로 이루어지나요?</div>
                     <div class="faq-answer">
                         <p>Google의 Teachable Machine을 기반으로 한 AI 이미지 분류 모델을 사용합니다. 수많은 얼굴 이미지를 학습하여 강아지상과 고양이상의 특징을 구분할 수 있도록 훈련되었습니다. TensorFlow.js를 활용하여 브라우저에서 직접 분석이 이루어지므로 서버에 사진이 전송되지 않습니다.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">업로드한 사진은 저장되나요?</div>
+                    <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}">업로드한 사진은 저장되나요?</div>
                     <div class="faq-answer">
                         <p>아닙니다. 모든 분석은 사용자의 브라우저에서 직접 처리됩니다. 업로드한 사진은 서버로 전송되지 않으며, 어디에도 저장되지 않습니다. 브라우저를 닫거나 새로고침하면 사진은 완전히 사라집니다. 개인정보 보호를 최우선으로 생각합니다.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">분석 결과가 매번 다르게 나올 수 있나요?</div>
+                    <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}">분석 결과가 매번 다르게 나올 수 있나요?</div>
                     <div class="faq-answer">
                         <p>같은 사진으로 분석하면 동물상 결과는 동일하게 나옵니다. 다만 추천 메뉴는 해당 동물상의 메뉴 풀에서 랜덤으로 3개가 선택되므로 매번 다른 메뉴가 추천될 수 있습니다. 다양한 메뉴를 발견하는 재미를 느껴보세요!</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">어떤 사진이 가장 정확한 결과를 보여주나요?</div>
+                    <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}">어떤 사진이 가장 정확한 결과를 보여주나요?</div>
                     <div class="faq-answer">
                         <p>정면을 바라보는 밝은 곳에서 촬영한 사진이 가장 정확합니다. 선글라스나 마스크 등으로 얼굴이 가려진 경우 정확도가 떨어질 수 있습니다. 자연광 아래에서 촬영한 셀카가 가장 좋은 결과를 보여줍니다.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">모바일에서도 사용할 수 있나요?</div>
+                    <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}">모바일에서도 사용할 수 있나요?</div>
                     <div class="faq-answer">
                         <p>네, 모바일 브라우저에서도 완벽하게 작동합니다. 스마트폰의 카메라로 직접 촬영하거나 갤러리에서 사진을 선택할 수 있습니다. 반응형 디자인으로 모든 화면 크기에 최적화되어 있습니다.</p>
                     </div>
@@ -897,6 +900,8 @@
         </div>
     </footer>
 
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1538581455536091"
+         crossorigin="anonymous"></script>
     <script>
         // Mobile navigation toggle
         function toggleMobileNav() {
@@ -935,6 +940,24 @@
 
         const MODEL_URL = "https://teachablemachine.withgoogle.com/models/jv_X2MJHQ/";
         let model;
+        let scriptsLoaded = false;
+
+        function loadAIScripts() {
+            return new Promise(function(resolve, reject) {
+                if (scriptsLoaded) { resolve(); return; }
+                var tfScript = document.createElement('script');
+                tfScript.src = 'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js';
+                tfScript.onload = function() {
+                    var tmScript = document.createElement('script');
+                    tmScript.src = 'https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js';
+                    tmScript.onload = function() { scriptsLoaded = true; resolve(); };
+                    tmScript.onerror = reject;
+                    document.head.appendChild(tmScript);
+                };
+                tfScript.onerror = reject;
+                document.head.appendChild(tfScript);
+            });
+        }
 
         const animalData = {
             "강아지": {
@@ -1042,6 +1065,7 @@
             analyzeBtn.textContent = "분석 중...";
             document.getElementById("loading").style.display = "block";
             try {
+                await loadAIScripts();
                 if (!model) {
                     const modelURL = MODEL_URL + "model.json";
                     const metadataURL = MODEL_URL + "metadata.json";
@@ -1126,7 +1150,9 @@
         }
 
         function toggleFaq(el) {
-            el.parentElement.classList.toggle('open');
+            var item = el.parentElement;
+            item.classList.toggle('open');
+            el.setAttribute('aria-expanded', item.classList.contains('open'));
         }
     </script>
 </body>
