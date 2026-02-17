@@ -407,6 +407,55 @@
         }
         #retry-btn:hover { border-color: #764ba2; color: #764ba2; }
 
+        /* ===== Share Section ===== */
+        .share-section {
+            margin-top: 32px;
+            padding-top: 28px;
+            border-top: 1px solid #f0f0f0;
+            animation: fadeUp 0.6s ease 0.8s both;
+        }
+        .share-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 16px;
+        }
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .share-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .share-btn:active { transform: scale(0.95); }
+        .share-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+        .share-native { background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; width: 100%; padding: 14px 24px; font-size: 16px; margin-bottom: 8px; }
+        .share-kakao { background: #FEE500; color: #191919; }
+        .share-twitter { background: #000; color: #fff; }
+        .share-facebook { background: #1877F2; color: #fff; }
+        .share-copy { background: #f0f0f0; color: #333; }
+        .share-copied {
+            font-size: 13px;
+            color: #667eea;
+            font-weight: 600;
+            margin-top: 12px;
+            animation: fadeUp 0.3s ease;
+        }
+
         /* ===== Content Sections ===== */
         .content-wrapper {
             max-width: 960px;
@@ -713,6 +762,9 @@
 
             #retry-btn { padding: 12px 32px; font-size: 15px; width: 100%; }
 
+            .share-btn { padding: 10px 16px; font-size: 13px; }
+            .share-native { padding: 12px 20px; font-size: 15px; }
+
             .content-wrapper { padding: 0 16px; }
             .section { padding: 40px 0; }
             .section-title { font-size: 21px; }
@@ -838,6 +890,13 @@
                     <div class="menu-section-title">오늘의 추천 메뉴</div>
                     <div class="menu-cards" id="menu-cards"></div>
                 </div>
+                <!-- Share Section -->
+                <div class="share-section">
+                    <div class="share-title">친구에게 결과 공유하기</div>
+                    <div class="share-buttons" id="share-buttons"></div>
+                    <p class="share-copied" id="share-copied" style="display:none">링크가 복사되었습니다!</p>
+                </div>
+
                 <button id="retry-btn" onclick="retry()">다시 테스트하기</button>
             </div>
         </div>
@@ -1257,6 +1316,7 @@
                 });
 
                 document.getElementById("result").style.display = "block";
+                buildShareButtons();
                 setTimeout(() => { bar.style.width = percent + "%"; }, 100);
             } catch (e) {
                 alert("분석에 실패했습니다. 다시 시도해 주세요.");
@@ -1279,6 +1339,95 @@
             analyzeBtn.style.display = "none";
             analyzeBtn.disabled = false;
             analyzeBtn.textContent = "분석하기";
+        }
+
+        // ===== Share Functions =====
+        function getShareData() {
+            var type = document.getElementById('result-type').textContent;
+            var percent = document.getElementById('result-percent').textContent;
+            var emoji = document.getElementById('result-emoji').textContent;
+            var text = emoji + ' 나는 ' + type + ' ' + percent + '!\nAI가 분석한 내 동물상과 맞춤 저녁 메뉴 추천!\n너도 해봐 👉';
+            return { type: type, percent: percent, emoji: emoji, text: text, url: 'https://joa.chat' };
+        }
+
+        function buildShareButtons() {
+            var btns = document.getElementById('share-buttons');
+            btns.innerHTML = '';
+
+            // Native Share (mobile) - shows KakaoTalk, Instagram, etc.
+            if (navigator.share) {
+                var native = document.createElement('button');
+                native.className = 'share-btn share-native';
+                native.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> 결과 공유하기';
+                native.onclick = shareNative;
+                btns.appendChild(native);
+            }
+
+            // KakaoTalk
+            var kakao = document.createElement('button');
+            kakao.className = 'share-btn share-kakao';
+            kakao.innerHTML = '<svg viewBox="0 0 24 24" fill="#191919"><path d="M12 3C6.48 3 2 6.58 2 10.9c0 2.78 1.86 5.22 4.65 6.6-.15.53-.96 3.41-1 3.56 0 .11.04.22.13.28.06.04.14.06.21.06.1 0 .2-.04.28-.11.94-.72 3.45-2.36 3.98-2.74.56.08 1.14.12 1.75.12 5.52 0 10-3.58 10-7.9C22 6.58 17.52 3 12 3z"/></svg> 카카오톡';
+            kakao.onclick = shareKakao;
+            btns.appendChild(kakao);
+
+            // Twitter/X
+            var twitter = document.createElement('button');
+            twitter.className = 'share-btn share-twitter';
+            twitter.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> X';
+            twitter.onclick = shareTwitter;
+            btns.appendChild(twitter);
+
+            // Facebook
+            var fb = document.createElement('button');
+            fb.className = 'share-btn share-facebook';
+            fb.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> Facebook';
+            fb.onclick = shareFacebook;
+            btns.appendChild(fb);
+
+            // Copy Link
+            var copy = document.createElement('button');
+            copy.className = 'share-btn share-copy';
+            copy.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> 링크 복사';
+            copy.onclick = shareCopy;
+            btns.appendChild(copy);
+        }
+
+        function shareNative() {
+            var d = getShareData();
+            navigator.share({ title: 'AI 동물상 테스트 - ' + d.type + ' ' + d.percent, text: d.text, url: d.url });
+        }
+
+        function shareKakao() {
+            var d = getShareData();
+            var text = encodeURIComponent(d.text + ' ' + d.url);
+            // KakaoTalk URL scheme for mobile, fallback to web share
+            if (/Android|iPhone|iPad/i.test(navigator.userAgent)) {
+                window.location.href = 'kakaotalk://msg/text/' + text;
+                setTimeout(function() { window.open('https://accounts.kakao.com/login?continue=https://sharer.kakao.com/talk/friends/picker/shortlink?app_key=default&url=' + encodeURIComponent(d.url), '_blank'); }, 1500);
+            } else {
+                shareCopy();
+            }
+        }
+
+        function shareTwitter() {
+            var d = getShareData();
+            var text = encodeURIComponent(d.emoji + ' 나는 ' + d.type + ' ' + d.percent + '! AI 동물상 테스트로 맞춤 저녁 메뉴까지!');
+            window.open('https://twitter.com/intent/tweet?text=' + text + '&url=' + encodeURIComponent(d.url), '_blank', 'width=600,height=400');
+        }
+
+        function shareFacebook() {
+            var d = getShareData();
+            window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(d.url) + '&quote=' + encodeURIComponent(d.emoji + ' 나는 ' + d.type + ' ' + d.percent + '!'), '_blank', 'width=600,height=400');
+        }
+
+        function shareCopy() {
+            var d = getShareData();
+            var text = d.text + ' ' + d.url;
+            navigator.clipboard.writeText(text).then(function() {
+                var el = document.getElementById('share-copied');
+                el.style.display = 'block';
+                setTimeout(function() { el.style.display = 'none'; }, 2500);
+            });
         }
 
         function toggleFaq(el) {
