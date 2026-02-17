@@ -6,7 +6,10 @@
     <lastmod>2026-02-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://joa.chat/index.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://joa.chat/index.html?lang=ko"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://joa.chat/index.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://joa.chat/index.html?lang=ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://joa.chat/index.html"/>
   </url>
   <url>
     <loc>https://joa.chat/animal-test.html</loc>

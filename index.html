@@ -11,6 +11,10 @@
     <meta name="theme-color" content="#667eea">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="canonical" href="https://joa.chat/index.html">
+    <link rel="alternate" hreflang="ko" href="https://joa.chat/index.html?lang=ko">
+    <link rel="alternate" hreflang="en" href="https://joa.chat/index.html?lang=en">
+    <link rel="alternate" hreflang="ja" href="https://joa.chat/index.html?lang=ja">
+    <link rel="alternate" hreflang="x-default" href="https://joa.chat/index.html">
     <meta name="google-adsense-account" content="ca-pub-1538581455536091">
 
     <!-- Preconnect to critical third-party origins -->
@@ -210,7 +214,7 @@
             padding: 0 20px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            gap: 20px;
             height: 60px;
         }
         .nav-logo {
@@ -219,6 +223,34 @@
             color: #667eea;
             text-decoration: none;
             flex-shrink: 0;
+            margin-right: auto;
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            display: flex;
+            gap: 2px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            padding: 2px;
+            flex-shrink: 0;
+        }
+        .lang-btn {
+            padding: 4px 10px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .lang-btn:hover { color: #333; }
+        .lang-btn.active {
+            background: #667eea;
+            color: #fff;
         }
         .nav-links {
             display: flex;
@@ -703,6 +735,7 @@
 
             /* Hamburger menu visible */
             .hamburger { display: flex; }
+            .lang-switcher { margin-left: auto; }
             .nav-links {
                 position: fixed;
                 top: 0;
@@ -735,8 +768,9 @@
 
         /* ===== Responsive - Small Mobile (460px) ===== */
         @media (max-width: 460px) {
-            .nav-inner { padding: 0 16px; height: 56px; }
+            .nav-inner { padding: 0 16px; height: 56px; gap: 12px; }
             .nav-logo { font-size: 18px; }
+            .lang-btn { padding: 3px 8px; font-size: 12px; }
 
             .hero { padding: 36px 16px; }
             .hero h1 { font-size: 24px; }
@@ -857,16 +891,21 @@
     <nav class="nav">
         <div class="nav-inner">
             <a href="index.html" class="nav-logo">AnimaMenu</a>
-            <button class="hamburger" id="hamburger" aria-label="메뉴 열기" onclick="toggleMobileNav()">
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html" class="active" aria-current="page" data-i18n="nav_test">동물상 테스트</a></li>
+                <li><a href="dinner-image.html" data-i18n="nav_gallery">메뉴 갤러리</a></li>
+                <li><a href="contact.html" data-i18n="nav_contact">제휴 문의</a></li>
+            </ul>
+            <div class="lang-switcher" id="lang-switcher">
+                <button class="lang-btn active" data-lang="ko">KO</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="ja">JA</button>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="메뉴 열기" data-i18n-aria="hamburger_aria" onclick="toggleMobileNav()">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-            <ul class="nav-links" id="nav-links">
-                <li><a href="index.html" class="active" aria-current="page">동물상 테스트</a></li>
-                <li><a href="dinner-image.html">메뉴 갤러리</a></li>
-                <li><a href="contact.html">제휴 문의</a></li>
-            </ul>
         </div>
     </nav>
     <div class="mobile-nav-overlay" id="mobile-nav-overlay" onclick="toggleMobileNav()"></div>
@@ -874,21 +913,21 @@
     <main>
     <!-- Hero -->
     <section class="hero">
-        <div class="hero-badge">AI Powered</div>
-        <h1>강아지상? 고양이상?<br>AI가 골라주는 오늘의 저녁</h1>
-        <p>사진 한 장이면 충분합니다. AI가 당신의 동물상을 분석하고, 성격 유형에 딱 맞는 저녁 메뉴를 추천해 드립니다.</p>
+        <div class="hero-badge" data-i18n="hero_badge">AI Powered</div>
+        <h1 data-i18n-html="hero_h1">강아지상? 고양이상?<br>AI가 골라주는 오늘의 저녁</h1>
+        <p data-i18n="hero_p">사진 한 장이면 충분합니다. AI가 당신의 동물상을 분석하고, 성격 유형에 딱 맞는 저녁 메뉴를 추천해 드립니다.</p>
     </section>
 
     <!-- GEO: Answer Block (AI가 인용하기 쉬운 정답 블록) -->
-    <section id="answer" class="answer-section" aria-label="요약">
+    <section id="answer" class="answer-section" aria-label="요약" data-i18n-aria="answer_aria">
         <div class="answer-block">
-            <h2>동물상 테스트란?</h2>
-            <p><strong>동물상 테스트</strong>는 AI가 얼굴 사진을 분석하여 강아지상 또는 고양이상을 판별하고, 동물상 성격 유형에 맞는 저녁 메뉴를 추천하는 무료 온라인 서비스입니다. 사진 업로드 후 약 3초면 결과를 확인할 수 있습니다.</p>
+            <h2 data-i18n="answer_h2">동물상 테스트란?</h2>
+            <p data-i18n-html="answer_p"><strong>동물상 테스트</strong>는 AI가 얼굴 사진을 분석하여 강아지상 또는 고양이상을 판별하고, 동물상 성격 유형에 맞는 저녁 메뉴를 추천하는 무료 온라인 서비스입니다. 사진 업로드 후 약 3초면 결과를 확인할 수 있습니다.</p>
             <ul>
-                <li><strong>분석 방법:</strong> Google Teachable Machine 기반 AI 이미지 분류 모델을 사용하며, 모든 분석은 브라우저에서 처리되어 서버에 사진이 전송되지 않습니다.</li>
-                <li><strong>분류 결과:</strong> 강아지상(친근하고 활발한 유형) 또는 고양이상(독립적이고 세련된 유형)으로 판별됩니다.</li>
-                <li><strong>메뉴 추천:</strong> 동물상별 성격과 취향에 맞는 한식·중식·일식·양식 저녁 메뉴 3가지를 랜덤으로 추천합니다.</li>
-                <li><strong>비용:</strong> 완전 무료이며, 회원가입 없이 바로 이용할 수 있습니다.</li>
+                <li data-i18n-html="answer_li1"><strong>분석 방법:</strong> Google Teachable Machine 기반 AI 이미지 분류 모델을 사용하며, 모든 분석은 브라우저에서 처리되어 서버에 사진이 전송되지 않습니다.</li>
+                <li data-i18n-html="answer_li2"><strong>분류 결과:</strong> 강아지상(친근하고 활발한 유형) 또는 고양이상(독립적이고 세련된 유형)으로 판별됩니다.</li>
+                <li data-i18n-html="answer_li3"><strong>메뉴 추천:</strong> 동물상별 성격과 취향에 맞는 한식·중식·일식·양식 저녁 메뉴 3가지를 랜덤으로 추천합니다.</li>
+                <li data-i18n-html="answer_li4"><strong>비용:</strong> 완전 무료이며, 회원가입 없이 바로 이용할 수 있습니다.</li>
             </ul>
         </div>
     </section>
@@ -896,18 +935,18 @@
     <!-- Tool -->
     <div class="tool-section">
         <div class="app">
-            <h2 class="app-title">AI 동물상 분석기</h2>
-            <p class="app-desc">얼굴 사진을 업로드하면 AI가 강아지상 또는 고양이상을 분석하고<br>맞춤 저녁 메뉴를 추천합니다.</p>
+            <h2 class="app-title" data-i18n="app_title">AI 동물상 분석기</h2>
+            <p class="app-desc" data-i18n-html="app_desc">얼굴 사진을 업로드하면 AI가 강아지상 또는 고양이상을 분석하고<br>맞춤 저녁 메뉴를 추천합니다.</p>
 
-            <div class="upload-area" id="upload-area" role="button" tabindex="0" aria-label="사진 업로드" onclick="document.getElementById('file-input').click()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('file-input').click()}">
+            <div class="upload-area" id="upload-area" role="button" tabindex="0" aria-label="사진 업로드" data-i18n-aria="upload_aria" onclick="document.getElementById('file-input').click()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('file-input').click()}">
                 <div class="upload-icon">📷</div>
-                <p class="upload-text">사진을 선택해 주세요</p>
-                <p class="upload-hint">클릭하거나 파일을 드래그하세요</p>
-                <img id="preview-img" alt="업로드한 얼굴 사진 미리보기">
+                <p class="upload-text" data-i18n="upload_text">사진을 선택해 주세요</p>
+                <p class="upload-hint" data-i18n="upload_hint">클릭하거나 파일을 드래그하세요</p>
+                <img id="preview-img" alt="업로드한 얼굴 사진 미리보기" data-i18n-alt="preview_alt">
             </div>
             <input type="file" id="file-input" accept="image/*">
-            <button id="analyze-btn" onclick="analyze()">분석하기</button>
-            <p class="loading-text" id="loading">AI가 분석 중<span class="dot-animation"></span></p>
+            <button id="analyze-btn" onclick="analyze()" data-i18n="analyze_btn">분석하기</button>
+            <p class="loading-text" id="loading" data-i18n-html="loading_text">AI가 분석 중<span class="dot-animation"></span></p>
 
             <div id="result">
                 <div class="animal-card">
@@ -919,17 +958,17 @@
                     <div class="result-tags" id="result-tags"></div>
                 </div>
                 <div class="menu-section">
-                    <div class="menu-section-title">오늘의 추천 메뉴</div>
+                    <div class="menu-section-title" data-i18n="menu_section_title">오늘의 추천 메뉴</div>
                     <div class="menu-cards" id="menu-cards"></div>
                 </div>
                 <!-- Share Section -->
                 <div class="share-section">
-                    <div class="share-title">친구에게 결과 공유하기</div>
+                    <div class="share-title" data-i18n="share_title">친구에게 결과 공유하기</div>
                     <div class="share-buttons" id="share-buttons"></div>
-                    <p class="share-copied" id="share-copied" style="display:none">링크가 복사되었습니다!</p>
+                    <p class="share-copied" id="share-copied" style="display:none" data-i18n="share_copied">링크가 복사되었습니다!</p>
                 </div>
 
-                <button id="retry-btn" onclick="retry()">다시 테스트하기</button>
+                <button id="retry-btn" onclick="retry()" data-i18n="retry_btn">다시 테스트하기</button>
             </div>
         </div>
     </div>
@@ -937,54 +976,54 @@
     <!-- How it works -->
     <div class="content-wrapper">
         <section class="section" id="how-it-works">
-            <h2 class="section-title">어떻게 작동하나요?</h2>
-            <p class="section-subtitle">3단계로 간단하게 나만의 동물상 메뉴를 추천받을 수 있습니다.</p>
+            <h2 class="section-title" data-i18n="how_title">어떻게 작동하나요?</h2>
+            <p class="section-subtitle" data-i18n="how_subtitle">3단계로 간단하게 나만의 동물상 메뉴를 추천받을 수 있습니다.</p>
             <div class="steps">
                 <div class="step-card">
                     <div class="step-number">1</div>
-                    <h3>사진 업로드</h3>
-                    <p>정면을 바라보는 얼굴 사진을 업로드합니다. 밝은 곳에서 촬영한 사진일수록 분석 정확도가 높아집니다.</p>
+                    <h3 data-i18n="step1_title">사진 업로드</h3>
+                    <p data-i18n="step1_desc">정면을 바라보는 얼굴 사진을 업로드합니다. 밝은 곳에서 촬영한 사진일수록 분석 정확도가 높아집니다.</p>
                 </div>
                 <div class="step-card">
                     <div class="step-number">2</div>
-                    <h3>AI 동물상 분석</h3>
-                    <p>Google Teachable Machine 기반의 AI 모델이 얼굴 특징을 분석하여 강아지상 또는 고양이상을 판별합니다.</p>
+                    <h3 data-i18n="step2_title">AI 동물상 분석</h3>
+                    <p data-i18n="step2_desc">Google Teachable Machine 기반의 AI 모델이 얼굴 특징을 분석하여 강아지상 또는 고양이상을 판별합니다.</p>
                 </div>
                 <div class="step-card">
                     <div class="step-number">3</div>
-                    <h3>맞춤 메뉴 추천</h3>
-                    <p>동물상 유형에 따라 성격과 취향을 반영한 저녁 메뉴 3가지를 추천해 드립니다. 한식, 중식, 일식, 양식까지 다양합니다.</p>
+                    <h3 data-i18n="step3_title">맞춤 메뉴 추천</h3>
+                    <p data-i18n="step3_desc">동물상 유형에 따라 성격과 취향을 반영한 저녁 메뉴 3가지를 추천해 드립니다. 한식, 중식, 일식, 양식까지 다양합니다.</p>
                 </div>
             </div>
         </section>
 
         <!-- Animal types explanation -->
         <section class="section" id="animal-types">
-            <h2 class="section-title">동물상이란?</h2>
-            <p class="section-subtitle">동물상은 얼굴의 인상에서 느껴지는 분위기를 동물에 비유하는 한국의 독특한 문화입니다.<br>크게 강아지상과 고양이상으로 나뉘며, 각각 다른 매력과 성격 특성을 가지고 있습니다.</p>
+            <h2 class="section-title" data-i18n="types_title">동물상이란?</h2>
+            <p class="section-subtitle" data-i18n-html="types_subtitle">동물상은 얼굴의 인상에서 느껴지는 분위기를 동물에 비유하는 한국의 독특한 문화입니다.<br>크게 강아지상과 고양이상으로 나뉘며, 각각 다른 매력과 성격 특성을 가지고 있습니다.</p>
             <div class="animal-types">
                 <div class="type-card">
                     <div class="type-card-icon">🐶</div>
-                    <h3 class="dog-color">강아지상</h3>
-                    <p>강아지상은 밝고 친근한 인상을 가진 유형입니다. 동글동글한 눈매, 부드러운 미소, 전체적으로 온화하고 친근한 분위기가 특징입니다. 사람들에게 먼저 다가가는 성격으로 주변에 늘 사람이 많습니다.</p>
+                    <h3 class="dog-color" data-i18n="dog_type_title">강아지상</h3>
+                    <p data-i18n="dog_type_desc">강아지상은 밝고 친근한 인상을 가진 유형입니다. 동글동글한 눈매, 부드러운 미소, 전체적으로 온화하고 친근한 분위기가 특징입니다. 사람들에게 먼저 다가가는 성격으로 주변에 늘 사람이 많습니다.</p>
                     <ul class="type-traits">
-                        <li>둥글고 큰 눈, 부드러운 인상</li>
-                        <li>밝고 활발한 에너지</li>
-                        <li>사교적이고 친화력이 높음</li>
-                        <li>충성심이 강하고 솔직한 성격</li>
-                        <li>함께 있으면 편안한 분위기</li>
+                        <li data-i18n="dog_trait1">둥글고 큰 눈, 부드러운 인상</li>
+                        <li data-i18n="dog_trait2">밝고 활발한 에너지</li>
+                        <li data-i18n="dog_trait3">사교적이고 친화력이 높음</li>
+                        <li data-i18n="dog_trait4">충성심이 강하고 솔직한 성격</li>
+                        <li data-i18n="dog_trait5">함께 있으면 편안한 분위기</li>
                     </ul>
                 </div>
                 <div class="type-card">
                     <div class="type-card-icon">🐱</div>
-                    <h3 class="cat-color">고양이상</h3>
-                    <p>고양이상은 도도하고 세련된 인상을 가진 유형입니다. 날카로운 눈매, 뚜렷한 이목구비, 차분하면서도 신비로운 분위기가 특징입니다. 독립적이면서도 가까운 사람에게는 반전 매력을 보여줍니다.</p>
+                    <h3 class="cat-color" data-i18n="cat_type_title">고양이상</h3>
+                    <p data-i18n="cat_type_desc">고양이상은 도도하고 세련된 인상을 가진 유형입니다. 날카로운 눈매, 뚜렷한 이목구비, 차분하면서도 신비로운 분위기가 특징입니다. 독립적이면서도 가까운 사람에게는 반전 매력을 보여줍니다.</p>
                     <ul class="type-traits">
-                        <li>날카롭고 시원한 눈매</li>
-                        <li>차분하고 신비로운 분위기</li>
-                        <li>독립적이고 자기주관이 확실</li>
-                        <li>은근한 카리스마의 소유자</li>
-                        <li>가까운 사람에게 보이는 반전 매력</li>
+                        <li data-i18n="cat_trait1">날카롭고 시원한 눈매</li>
+                        <li data-i18n="cat_trait2">차분하고 신비로운 분위기</li>
+                        <li data-i18n="cat_trait3">독립적이고 자기주관이 확실</li>
+                        <li data-i18n="cat_trait4">은근한 카리스마의 소유자</li>
+                        <li data-i18n="cat_trait5">가까운 사람에게 보이는 반전 매력</li>
                     </ul>
                 </div>
             </div>
@@ -992,17 +1031,17 @@
             <!-- GEO: Comparison Table (AI가 인용하기 좋은 비교표) -->
             <div class="comparison-table">
                 <table>
-                    <caption>강아지상 vs 고양이상 비교</caption>
+                    <caption data-i18n="comp_caption">강아지상 vs 고양이상 비교</caption>
                     <thead>
-                        <tr><th>구분</th><th>강아지상</th><th>고양이상</th></tr>
+                        <tr><th data-i18n="comp_th1">구분</th><th data-i18n="comp_th2">강아지상</th><th data-i18n="comp_th3">고양이상</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td>인상</td><td>밝고 친근함</td><td>도도하고 세련됨</td></tr>
-                        <tr><td>눈매</td><td>둥글고 큰 눈</td><td>날카롭고 시원한 눈</td></tr>
-                        <tr><td>성격</td><td>사교적, 충성심 강함</td><td>독립적, 카리스마</td></tr>
-                        <tr><td>에너지</td><td>활발하고 밝음</td><td>차분하고 신비로움</td></tr>
-                        <tr><td>음식 취향</td><td>푸짐하고 자극적인 메뉴</td><td>깔끔하고 정갈한 메뉴</td></tr>
-                        <tr><td>대표 추천 메뉴</td><td>삼겹살, 치킨, 떡볶이</td><td>파스타, 스시, 스테이크</td></tr>
+                        <tr><td data-i18n="comp_r1c1">인상</td><td data-i18n="comp_r1c2">밝고 친근함</td><td data-i18n="comp_r1c3">도도하고 세련됨</td></tr>
+                        <tr><td data-i18n="comp_r2c1">눈매</td><td data-i18n="comp_r2c2">둥글고 큰 눈</td><td data-i18n="comp_r2c3">날카롭고 시원한 눈</td></tr>
+                        <tr><td data-i18n="comp_r3c1">성격</td><td data-i18n="comp_r3c2">사교적, 충성심 강함</td><td data-i18n="comp_r3c3">독립적, 카리스마</td></tr>
+                        <tr><td data-i18n="comp_r4c1">에너지</td><td data-i18n="comp_r4c2">활발하고 밝음</td><td data-i18n="comp_r4c3">차분하고 신비로움</td></tr>
+                        <tr><td data-i18n="comp_r5c1">음식 취향</td><td data-i18n="comp_r5c2">푸짐하고 자극적인 메뉴</td><td data-i18n="comp_r5c3">깔끔하고 정갈한 메뉴</td></tr>
+                        <tr><td data-i18n="comp_r6c1">대표 추천 메뉴</td><td data-i18n="comp_r6c2">삼겹살, 치킨, 떡볶이</td><td data-i18n="comp_r6c3">파스타, 스시, 스테이크</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -1010,29 +1049,29 @@
 
         <!-- Menu Guide -->
         <section class="section" id="menu-guide">
-            <h2 class="section-title">동물상별 추천 메뉴 가이드</h2>
-            <p class="section-subtitle">동물상에 따라 선호하는 음식 스타일이 다릅니다.<br>당신의 동물상에 맞는 메뉴를 미리 알아보세요.</p>
+            <h2 class="section-title" data-i18n="menuguide_title">동물상별 추천 메뉴 가이드</h2>
+            <p class="section-subtitle" data-i18n-html="menuguide_subtitle">동물상에 따라 선호하는 음식 스타일이 다릅니다.<br>당신의 동물상에 맞는 메뉴를 미리 알아보세요.</p>
             <div class="menu-guide">
                 <div class="menu-guide-card">
-                    <h3>🐶 강아지상의 메뉴 특징</h3>
-                    <p>활발하고 에너지가 넘치는 강아지상은 푸짐하고 자극적인 음식을 좋아하는 경향이 있습니다. 함께 나눠 먹으며 분위기를 즐기는 메뉴가 잘 어울립니다.</p>
+                    <h3 data-i18n="dog_menu_title">🐶 강아지상의 메뉴 특징</h3>
+                    <p data-i18n="dog_menu_desc">활발하고 에너지가 넘치는 강아지상은 푸짐하고 자극적인 음식을 좋아하는 경향이 있습니다. 함께 나눠 먹으며 분위기를 즐기는 메뉴가 잘 어울립니다.</p>
                     <ul class="menu-list">
-                        <li>삼겹살 - 여럿이 함께 구워 먹는 대표 메뉴</li>
-                        <li>떡볶이 - 매콤달콤한 국민 간식</li>
-                        <li>치킨 - 언제 먹어도 기분 좋은 만능 메뉴</li>
-                        <li>피자/햄버거 - 활기찬 파티의 주인공</li>
-                        <li>김치찌개 - 따뜻하고 정겨운 한국의 맛</li>
+                        <li data-i18n="dog_menu1">삼겹살 - 여럿이 함께 구워 먹는 대표 메뉴</li>
+                        <li data-i18n="dog_menu2">떡볶이 - 매콤달콤한 국민 간식</li>
+                        <li data-i18n="dog_menu3">치킨 - 언제 먹어도 기분 좋은 만능 메뉴</li>
+                        <li data-i18n="dog_menu4">피자/햄버거 - 활기찬 파티의 주인공</li>
+                        <li data-i18n="dog_menu5">김치찌개 - 따뜻하고 정겨운 한국의 맛</li>
                     </ul>
                 </div>
                 <div class="menu-guide-card">
-                    <h3>🐱 고양이상의 메뉴 특징</h3>
-                    <p>세련되고 독립적인 고양이상은 깔끔하고 정갈한 음식을 선호하는 경향이 있습니다. 분위기 있는 공간에서 조용히 즐기는 메뉴가 잘 어울립니다.</p>
+                    <h3 data-i18n="cat_menu_title">🐱 고양이상의 메뉴 특징</h3>
+                    <p data-i18n="cat_menu_desc">세련되고 독립적인 고양이상은 깔끔하고 정갈한 음식을 선호하는 경향이 있습니다. 분위기 있는 공간에서 조용히 즐기는 메뉴가 잘 어울립니다.</p>
                     <ul class="menu-list">
-                        <li>파스타 - 세련된 이탈리안 요리</li>
-                        <li>스시 - 깔끔하고 정갈한 일식</li>
-                        <li>스테이크 - 분위기 있는 특별한 한 끼</li>
-                        <li>쌀국수/팟타이 - 이국적이고 감각적인 메뉴</li>
-                        <li>비빔밥 - 건강하고 균형 잡힌 한 그릇</li>
+                        <li data-i18n="cat_menu1">파스타 - 세련된 이탈리안 요리</li>
+                        <li data-i18n="cat_menu2">스시 - 깔끔하고 정갈한 일식</li>
+                        <li data-i18n="cat_menu3">스테이크 - 분위기 있는 특별한 한 끼</li>
+                        <li data-i18n="cat_menu4">쌀국수/팟타이 - 이국적이고 감각적인 메뉴</li>
+                        <li data-i18n="cat_menu5">비빔밥 - 건강하고 균형 잡힌 한 그릇</li>
                     </ul>
                 </div>
             </div>
@@ -1040,57 +1079,57 @@
 
         <!-- FAQ -->
         <section class="section" id="faq">
-            <h2 class="section-title">자주 묻는 질문</h2>
-            <p class="section-subtitle">동물상 테스트와 메뉴 추천 서비스에 대해 궁금한 점을 확인하세요.</p>
+            <h2 class="section-title" data-i18n="faq_title">자주 묻는 질문</h2>
+            <p class="section-subtitle" data-i18n="faq_subtitle">동물상 테스트와 메뉴 추천 서비스에 대해 궁금한 점을 확인하세요.</p>
             <div class="faq-list">
                 <div class="faq-item">
-                    <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}">동물상 분석은 어떤 기술로 이루어지나요?</div>
+                    <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}" data-i18n="faq_q1">동물상 분석은 어떤 기술로 이루어지나요?</div>
                     <div class="faq-answer">
-                        <p>Google의 Teachable Machine을 기반으로 한 AI 이미지 분류 모델을 사용합니다. 수많은 얼굴 이미지를 학습하여 강아지상과 고양이상의 특징을 구분할 수 있도록 훈련되었습니다. TensorFlow.js를 활용하여 브라우저에서 직접 분석이 이루어지므로 서버에 사진이 전송되지 않습니다.</p>
+                        <p data-i18n="faq_a1">Google의 Teachable Machine을 기반으로 한 AI 이미지 분류 모델을 사용합니다. 수많은 얼굴 이미지를 학습하여 강아지상과 고양이상의 특징을 구분할 수 있도록 훈련되었습니다. TensorFlow.js를 활용하여 브라우저에서 직접 분석이 이루어지므로 서버에 사진이 전송되지 않습니다.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}">업로드한 사진은 저장되나요?</div>
+                    <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}" data-i18n="faq_q2">업로드한 사진은 저장되나요?</div>
                     <div class="faq-answer">
-                        <p>아닙니다. 모든 분석은 사용자의 브라우저에서 직접 처리됩니다. 업로드한 사진은 서버로 전송되지 않으며, 어디에도 저장되지 않습니다. 브라우저를 닫거나 새로고침하면 사진은 완전히 사라집니다. 개인정보 보호를 최우선으로 생각합니다.</p>
+                        <p data-i18n="faq_a2">아닙니다. 모든 분석은 사용자의 브라우저에서 직접 처리됩니다. 업로드한 사진은 서버로 전송되지 않으며, 어디에도 저장되지 않습니다. 브라우저를 닫거나 새로고침하면 사진은 완전히 사라집니다. 개인정보 보호를 최우선으로 생각합니다.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}">분석 결과가 매번 다르게 나올 수 있나요?</div>
+                    <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}" data-i18n="faq_q3">분석 결과가 매번 다르게 나올 수 있나요?</div>
                     <div class="faq-answer">
-                        <p>같은 사진으로 분석하면 동물상 결과는 동일하게 나옵니다. 다만 추천 메뉴는 해당 동물상의 메뉴 풀에서 랜덤으로 3개가 선택되므로 매번 다른 메뉴가 추천될 수 있습니다. 다양한 메뉴를 발견하는 재미를 느껴보세요!</p>
+                        <p data-i18n="faq_a3">같은 사진으로 분석하면 동물상 결과는 동일하게 나옵니다. 다만 추천 메뉴는 해당 동물상의 메뉴 풀에서 랜덤으로 3개가 선택되므로 매번 다른 메뉴가 추천될 수 있습니다. 다양한 메뉴를 발견하는 재미를 느껴보세요!</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}">어떤 사진이 가장 정확한 결과를 보여주나요?</div>
+                    <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}" data-i18n="faq_q4">어떤 사진이 가장 정확한 결과를 보여주나요?</div>
                     <div class="faq-answer">
-                        <p>정면을 바라보는 밝은 곳에서 촬영한 사진이 가장 정확합니다. 선글라스나 마스크 등으로 얼굴이 가려진 경우 정확도가 떨어질 수 있습니다. 자연광 아래에서 촬영한 셀카가 가장 좋은 결과를 보여줍니다.</p>
+                        <p data-i18n="faq_a4">정면을 바라보는 밝은 곳에서 촬영한 사진이 가장 정확합니다. 선글라스나 마스크 등으로 얼굴이 가려진 경우 정확도가 떨어질 수 있습니다. 자연광 아래에서 촬영한 셀카가 가장 좋은 결과를 보여줍니다.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}">모바일에서도 사용할 수 있나요?</div>
+                    <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}" data-i18n="faq_q5">모바일에서도 사용할 수 있나요?</div>
                     <div class="faq-answer">
-                        <p>네, 모바일 브라우저에서도 완벽하게 작동합니다. 스마트폰의 카메라로 직접 촬영하거나 갤러리에서 사진을 선택할 수 있습니다. 반응형 디자인으로 모든 화면 크기에 최적화되어 있습니다.</p>
+                        <p data-i18n="faq_a5">네, 모바일 브라우저에서도 완벽하게 작동합니다. 스마트폰의 카메라로 직접 촬영하거나 갤러리에서 사진을 선택할 수 있습니다. 반응형 디자인으로 모든 화면 크기에 최적화되어 있습니다.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- GEO: Evidence Block (근거/출처/신뢰 신호) -->
-        <section class="section" id="evidence" aria-label="근거 및 출처">
-            <h2 class="section-title">분석 기술 및 출처</h2>
-            <p class="section-subtitle">AnimaMenu의 동물상 분석은 검증된 오픈소스 AI 기술을 기반으로 합니다.</p>
+        <section class="section" id="evidence" aria-label="근거 및 출처" data-i18n-aria="evidence_aria">
+            <h2 class="section-title" data-i18n="evidence_title">분석 기술 및 출처</h2>
+            <p class="section-subtitle" data-i18n="evidence_subtitle">AnimaMenu의 동물상 분석은 검증된 오픈소스 AI 기술을 기반으로 합니다.</p>
             <aside class="evidence-block" aria-label="Evidence">
-                <h3>기술 근거</h3>
+                <h3 data-i18n="evidence_h3">기술 근거</h3>
                 <ul>
-                    <li><strong>AI 모델:</strong> Google Teachable Machine — 이미지 분류 전용 머신러닝 플랫폼</li>
-                    <li><strong>프레임워크:</strong> TensorFlow.js — 브라우저 내에서 AI 추론을 실행하는 오픈소스 라이브러리</li>
-                    <li><strong>개인정보 보호:</strong> 사진은 서버에 전송되지 않으며, 모든 분석은 100% 사용자의 브라우저에서 처리됩니다</li>
-                    <li><strong>분류 방식:</strong> 수천 장의 얼굴 이미지로 학습된 모델이 강아지상과 고양이상의 얼굴 특징을 구분합니다</li>
-                    <li><strong>제작:</strong> AnimaMenu 팀</li>
+                    <li data-i18n-html="evidence_li1"><strong>AI 모델:</strong> Google Teachable Machine — 이미지 분류 전용 머신러닝 플랫폼</li>
+                    <li data-i18n-html="evidence_li2"><strong>프레임워크:</strong> TensorFlow.js — 브라우저 내에서 AI 추론을 실행하는 오픈소스 라이브러리</li>
+                    <li data-i18n-html="evidence_li3"><strong>개인정보 보호:</strong> 사진은 서버에 전송되지 않으며, 모든 분석은 100% 사용자의 브라우저에서 처리됩니다</li>
+                    <li data-i18n-html="evidence_li4"><strong>분류 방식:</strong> 수천 장의 얼굴 이미지로 학습된 모델이 강아지상과 고양이상의 얼굴 특징을 구분합니다</li>
+                    <li data-i18n-html="evidence_li5"><strong>제작:</strong> AnimaMenu 팀</li>
                 </ul>
             </aside>
-            <p class="last-updated">마지막 업데이트: <time datetime="2026-02-17">2026년 2월 17일</time></p>
+            <p class="last-updated" data-i18n-html="last_updated">마지막 업데이트: <time datetime="2026-02-17">2026년 2월 17일</time></p>
         </section>
     </div>
     </main>
@@ -1100,25 +1139,25 @@
         <div class="footer-inner">
             <div class="footer-brand">
                 <h3>AnimaMenu</h3>
-                <p>AI 기술을 활용하여 당신의 동물상을 분석하고 맞춤 저녁 메뉴를 추천하는 서비스입니다. 매일 저녁 고민되는 메뉴 선택을 재미있고 특별하게 만들어 드립니다.</p>
+                <p data-i18n="footer_desc">AI 기술을 활용하여 당신의 동물상을 분석하고 맞춤 저녁 메뉴를 추천하는 서비스입니다. 매일 저녁 고민되는 메뉴 선택을 재미있고 특별하게 만들어 드립니다.</p>
             </div>
             <div class="footer-links">
-                <h4>서비스</h4>
+                <h4 data-i18n="footer_service">서비스</h4>
                 <ul>
-                    <li><a href="index.html">동물상 테스트</a></li>
-                    <li><a href="dinner-image.html">메뉴 갤러리</a></li>
-                    <li><a href="contact.html">제휴 문의</a></li>
+                    <li><a href="index.html" data-i18n="nav_test">동물상 테스트</a></li>
+                    <li><a href="dinner-image.html" data-i18n="nav_gallery">메뉴 갤러리</a></li>
+                    <li><a href="contact.html" data-i18n="nav_contact">제휴 문의</a></li>
                 </ul>
             </div>
             <div class="footer-links">
-                <h4>법적 고지</h4>
+                <h4 data-i18n="footer_legal">법적 고지</h4>
                 <ul>
-                    <li><a href="privacy.html">개인정보처리방침</a></li>
-                    <li><a href="terms.html">이용약관</a></li>
+                    <li><a href="privacy.html" data-i18n="footer_privacy">개인정보처리방침</a></li>
+                    <li><a href="terms.html" data-i18n="footer_terms">이용약관</a></li>
                 </ul>
             </div>
         </div>
-        <div class="footer-bottom">
+        <div class="footer-bottom" data-i18n-html="footer_copyright">
             &copy; 2025 AnimaMenu. All rights reserved.
         </div>
     </footer>
@@ -1182,16 +1221,192 @@
             });
         }
 
-        const animalData = {
+        // ===== i18n State =====
+        let currentLang = 'ko';
+        let lastResultAnimal = null;
+        let lastResultPercent = null;
+        let lastResultMenus = null;
+
+        // ===== Translations =====
+        const translations = {
+            // Meta
+            meta_title: { ko: '나는 강아지상? 고양이상? AI가 골라주는 오늘의 저녁 메뉴 - AnimaMenu', en: 'Dog Face or Cat Face? AI Picks Your Dinner Tonight - AnimaMenu', ja: '犬顔？猫顔？AIが選ぶ今夜のディナー - AnimaMenu' },
+            meta_desc: { ko: '사진 한 장이면 끝! AI가 당신이 강아지상인지 고양이상인지 판별하고, 동물상 성격에 딱 맞는 저녁 메뉴를 추천합니다. 3초만에 무료 테스트!', en: 'Just one photo! AI determines if you have a dog face or cat face, and recommends the perfect dinner menu based on your personality type. Free 3-second test!', ja: '写真1枚でOK！AIがあなたが犬顔か猫顔かを判別し、性格タイプにぴったりの夕食メニューをおすすめします。3秒で無料テスト！' },
+            og_title: { ko: '나는 강아지상? 고양이상? - AI가 골라주는 오늘의 저녁 메뉴', en: 'Dog Face or Cat Face? - AI Picks Your Dinner Tonight', ja: '犬顔？猫顔？- AIが選ぶ今夜のディナー' },
+            og_desc: { ko: '사진 한 장이면 끝! 강아지상 vs 고양이상, AI가 판별하고 맞춤 저녁 메뉴까지 추천!', en: 'Just one photo! Dog face vs cat face - AI analyzes and recommends your perfect dinner!', ja: '写真1枚でOK！犬顔vs猫顔、AIが判別してぴったりのディナーメニューもおすすめ！' },
+            // Nav
+            nav_test: { ko: '동물상 테스트', en: 'Animal Face Test', ja: '動物顔テスト' },
+            nav_gallery: { ko: '메뉴 갤러리', en: 'Menu Gallery', ja: 'メニューギャラリー' },
+            nav_contact: { ko: '제휴 문의', en: 'Contact', ja: 'お問い合わせ' },
+            hamburger_aria: { ko: '메뉴 열기', en: 'Open menu', ja: 'メニューを開く' },
+            // Hero
+            hero_badge: { ko: 'AI Powered', en: 'AI Powered', ja: 'AI Powered' },
+            hero_h1: { ko: '강아지상? 고양이상?<br>AI가 골라주는 오늘의 저녁', en: 'Dog Face? Cat Face?<br>AI Picks Your Dinner Tonight', ja: '犬顔？猫顔？<br>AIが選ぶ今夜のディナー' },
+            hero_p: { ko: '사진 한 장이면 충분합니다. AI가 당신의 동물상을 분석하고, 성격 유형에 딱 맞는 저녁 메뉴를 추천해 드립니다.', en: 'Just one photo is all you need. AI analyzes your animal face type and recommends dinner menus that perfectly match your personality.', ja: '写真1枚で十分です。AIがあなたの動物顔を分析し、性格タイプにぴったりの夕食メニューをおすすめします。' },
+            // Answer Block
+            answer_aria: { ko: '요약', en: 'Summary', ja: '概要' },
+            answer_h2: { ko: '동물상 테스트란?', en: 'What is the Animal Face Test?', ja: '動物顔テストとは？' },
+            answer_p: { ko: '<strong>동물상 테스트</strong>는 AI가 얼굴 사진을 분석하여 강아지상 또는 고양이상을 판별하고, 동물상 성격 유형에 맞는 저녁 메뉴를 추천하는 무료 온라인 서비스입니다. 사진 업로드 후 약 3초면 결과를 확인할 수 있습니다.', en: 'The <strong>Animal Face Test</strong> is a free online service where AI analyzes your face photo to determine if you have a dog face or cat face, and recommends dinner menus that match your personality type. Results are ready in about 3 seconds after uploading.', ja: '<strong>動物顔テスト</strong>はAIが顔写真を分析して犬顔か猫顔かを判別し、性格タイプに合った夕食メニューをおすすめする無料オンラインサービスです。写真アップロード後約3秒で結果が確認できます。' },
+            answer_li1: { ko: '<strong>분석 방법:</strong> Google Teachable Machine 기반 AI 이미지 분류 모델을 사용하며, 모든 분석은 브라우저에서 처리되어 서버에 사진이 전송되지 않습니다.', en: '<strong>Analysis Method:</strong> Uses Google Teachable Machine-based AI image classification. All analysis is processed in the browser — photos are never sent to servers.', ja: '<strong>分析方法：</strong> Google Teachable MachineベースのAI画像分類モデルを使用。すべての分析はブラウザで処理され、写真はサーバーに送信されません。' },
+            answer_li2: { ko: '<strong>분류 결과:</strong> 강아지상(친근하고 활발한 유형) 또는 고양이상(독립적이고 세련된 유형)으로 판별됩니다.', en: '<strong>Classification:</strong> Identified as dog face (friendly and active type) or cat face (independent and sophisticated type).', ja: '<strong>分類結果：</strong> 犬顔（親しみやすく活発なタイプ）または猫顔（独立的で洗練されたタイプ）に判別されます。' },
+            answer_li3: { ko: '<strong>메뉴 추천:</strong> 동물상별 성격과 취향에 맞는 한식·중식·일식·양식 저녁 메뉴 3가지를 랜덤으로 추천합니다.', en: '<strong>Menu Recommendations:</strong> Randomly recommends 3 dinner menus from Korean, Chinese, Japanese, and Western cuisine based on your personality.', ja: '<strong>メニューおすすめ：</strong> 動物顔別の性格と好みに合った韓国・中華・和食・洋食の夕食メニューを3つランダムにおすすめします。' },
+            answer_li4: { ko: '<strong>비용:</strong> 완전 무료이며, 회원가입 없이 바로 이용할 수 있습니다.', en: '<strong>Cost:</strong> Completely free, no registration required.', ja: '<strong>料金：</strong> 完全無料で、会員登録なしですぐにご利用いただけます。' },
+            // Tool Section
+            app_title: { ko: 'AI 동물상 분석기', en: 'AI Animal Face Analyzer', ja: 'AI動物顔分析' },
+            app_desc: { ko: '얼굴 사진을 업로드하면 AI가 강아지상 또는 고양이상을 분석하고<br>맞춤 저녁 메뉴를 추천합니다.', en: 'Upload a face photo and AI will analyze your dog or cat face type<br>and recommend personalized dinner menus.', ja: '顔写真をアップロードするとAIが犬顔か猫顔かを分析し<br>おすすめの夕食メニューを提案します。' },
+            upload_aria: { ko: '사진 업로드', en: 'Upload photo', ja: '写真アップロード' },
+            upload_text: { ko: '사진을 선택해 주세요', en: 'Select a photo', ja: '写真を選択してください' },
+            upload_hint: { ko: '클릭하거나 파일을 드래그하세요', en: 'Click or drag a file here', ja: 'クリックまたはファイルをドラッグ' },
+            preview_alt: { ko: '업로드한 얼굴 사진 미리보기', en: 'Preview of uploaded face photo', ja: 'アップロードした顔写真のプレビュー' },
+            analyze_btn: { ko: '분석하기', en: 'Analyze', ja: '分析する' },
+            analyzing_btn: { ko: '분석 중...', en: 'Analyzing...', ja: '分析中...' },
+            loading_text: { ko: 'AI가 분석 중<span class="dot-animation"></span>', en: 'AI is analyzing<span class="dot-animation"></span>', ja: 'AIが分析中<span class="dot-animation"></span>' },
+            menu_section_title: { ko: '오늘의 추천 메뉴', en: "Today's Recommended Menu", ja: '今日のおすすめメニュー' },
+            share_title: { ko: '친구에게 결과 공유하기', en: 'Share results with friends', ja: '結果を友達にシェア' },
+            share_copied: { ko: '링크가 복사되었습니다!', en: 'Link copied!', ja: 'リンクがコピーされました！' },
+            retry_btn: { ko: '다시 테스트하기', en: 'Try Again', ja: 'もう一度テスト' },
+            analyze_error: { ko: '분석에 실패했습니다. 다시 시도해 주세요.', en: 'Analysis failed. Please try again.', ja: '分析に失敗しました。もう一度お試しください。' },
+            // How it Works
+            how_title: { ko: '어떻게 작동하나요?', en: 'How Does It Work?', ja: 'どう動くの？' },
+            how_subtitle: { ko: '3단계로 간단하게 나만의 동물상 메뉴를 추천받을 수 있습니다.', en: 'Get your personalized animal face menu recommendation in 3 simple steps.', ja: '3ステップで簡単にあなただけの動物顔メニューをおすすめします。' },
+            step1_title: { ko: '사진 업로드', en: 'Upload Photo', ja: '写真アップロード' },
+            step1_desc: { ko: '정면을 바라보는 얼굴 사진을 업로드합니다. 밝은 곳에서 촬영한 사진일수록 분석 정확도가 높아집니다.', en: 'Upload a front-facing photo. Photos taken in bright lighting give more accurate results.', ja: '正面を向いた顔写真をアップロードします。明るい場所で撮影した写真ほど分析精度が高くなります。' },
+            step2_title: { ko: 'AI 동물상 분석', en: 'AI Face Analysis', ja: 'AI動物顔分析' },
+            step2_desc: { ko: 'Google Teachable Machine 기반의 AI 모델이 얼굴 특징을 분석하여 강아지상 또는 고양이상을 판별합니다.', en: 'Google Teachable Machine-based AI analyzes facial features to determine dog face or cat face type.', ja: 'Google Teachable MachineベースのAIモデルが顔の特徴を分析して犬顔か猫顔かを判別します。' },
+            step3_title: { ko: '맞춤 메뉴 추천', en: 'Menu Recommendation', ja: 'メニューおすすめ' },
+            step3_desc: { ko: '동물상 유형에 따라 성격과 취향을 반영한 저녁 메뉴 3가지를 추천해 드립니다. 한식, 중식, 일식, 양식까지 다양합니다.', en: 'Get 3 dinner menu recommendations based on your personality and preferences. Korean, Chinese, Japanese, and Western cuisine available.', ja: '動物顔タイプに合わせて性格と好みを反映した夕食メニュー3つをおすすめします。韓国・中華・和食・洋食まで多彩です。' },
+            // Animal Types
+            types_title: { ko: '동물상이란?', en: 'What is Animal Face?', ja: '動物顔とは？' },
+            types_subtitle: { ko: '동물상은 얼굴의 인상에서 느껴지는 분위기를 동물에 비유하는 한국의 독특한 문화입니다.<br>크게 강아지상과 고양이상으로 나뉘며, 각각 다른 매력과 성격 특성을 가지고 있습니다.', en: 'Animal face typing is a unique Korean culture of comparing facial impressions to animals.<br>Divided into dog face and cat face types, each with distinct charms and personality traits.', ja: '動物顔は顔の印象から感じる雰囲気を動物に例える韓国独自の文化です。<br>大きく犬顔と猫顔に分かれ、それぞれ異なる魅力と性格特性を持っています。' },
+            dog_type_title: { ko: '강아지상', en: 'Dog Face', ja: '犬顔' },
+            dog_type_desc: { ko: '강아지상은 밝고 친근한 인상을 가진 유형입니다. 동글동글한 눈매, 부드러운 미소, 전체적으로 온화하고 친근한 분위기가 특징입니다. 사람들에게 먼저 다가가는 성격으로 주변에 늘 사람이 많습니다.', en: 'Dog face types have a bright and friendly impression. Characterized by round eyes, gentle smiles, and a warm, approachable aura. They naturally connect with people and always have others around them.', ja: '犬顔は明るく親しみやすい印象を持つタイプです。丸い目元、柔らかい笑顔、全体的に温和で親しみやすい雰囲気が特徴です。人に自ら近づく性格で周りにいつも人が多いです。' },
+            dog_trait1: { ko: '둥글고 큰 눈, 부드러운 인상', en: 'Round big eyes, gentle impression', ja: '丸くて大きな目、柔らかい印象' },
+            dog_trait2: { ko: '밝고 활발한 에너지', en: 'Bright and active energy', ja: '明るく活発なエネルギー' },
+            dog_trait3: { ko: '사교적이고 친화력이 높음', en: 'Sociable with high affinity', ja: '社交的で親和力が高い' },
+            dog_trait4: { ko: '충성심이 강하고 솔직한 성격', en: 'Loyal and straightforward', ja: '忠誠心が強く素直な性格' },
+            dog_trait5: { ko: '함께 있으면 편안한 분위기', en: 'Creates a comfortable atmosphere', ja: '一緒にいると心地よい雰囲気' },
+            cat_type_title: { ko: '고양이상', en: 'Cat Face', ja: '猫顔' },
+            cat_type_desc: { ko: '고양이상은 도도하고 세련된 인상을 가진 유형입니다. 날카로운 눈매, 뚜렷한 이목구비, 차분하면서도 신비로운 분위기가 특징입니다. 독립적이면서도 가까운 사람에게는 반전 매력을 보여줍니다.', en: 'Cat face types have an elegant and sophisticated impression. Sharp eyes, defined features, and a calm yet mysterious aura. Independent yet showing charming contrast to close friends.', ja: '猫顔はクールで洗練された印象を持つタイプです。鋭い目元、はっきりした顔立ち、落ち着きながらも神秘的な雰囲気が特徴です。独立的でありながら親しい人にはギャップのある魅力を見せます。' },
+            cat_trait1: { ko: '날카롭고 시원한 눈매', en: 'Sharp and cool eyes', ja: '鋭くてクールな目元' },
+            cat_trait2: { ko: '차분하고 신비로운 분위기', en: 'Calm and mysterious aura', ja: '落ち着いた神秘的な雰囲気' },
+            cat_trait3: { ko: '독립적이고 자기주관이 확실', en: 'Independent with strong identity', ja: '独立的で自己主張がしっかり' },
+            cat_trait4: { ko: '은근한 카리스마의 소유자', en: 'Subtle charisma owner', ja: 'さりげないカリスマの持ち主' },
+            cat_trait5: { ko: '가까운 사람에게 보이는 반전 매력', en: 'Charming contrast shown to close ones', ja: '親しい人に見せるギャップ魅力' },
+            // Comparison Table
+            comp_caption: { ko: '강아지상 vs 고양이상 비교', en: 'Dog Face vs Cat Face Comparison', ja: '犬顔 vs 猫顔 比較' },
+            comp_th1: { ko: '구분', en: 'Category', ja: '区分' },
+            comp_th2: { ko: '강아지상', en: 'Dog Face', ja: '犬顔' },
+            comp_th3: { ko: '고양이상', en: 'Cat Face', ja: '猫顔' },
+            comp_r1c1: { ko: '인상', en: 'Impression', ja: '印象' },
+            comp_r1c2: { ko: '밝고 친근함', en: 'Bright and friendly', ja: '明るく親しみやすい' },
+            comp_r1c3: { ko: '도도하고 세련됨', en: 'Elegant and sophisticated', ja: 'クールで洗練' },
+            comp_r2c1: { ko: '눈매', en: 'Eyes', ja: '目元' },
+            comp_r2c2: { ko: '둥글고 큰 눈', en: 'Round, big eyes', ja: '丸くて大きな目' },
+            comp_r2c3: { ko: '날카롭고 시원한 눈', en: 'Sharp, cool eyes', ja: '鋭くてクールな目' },
+            comp_r3c1: { ko: '성격', en: 'Personality', ja: '性格' },
+            comp_r3c2: { ko: '사교적, 충성심 강함', en: 'Sociable, loyal', ja: '社交的、忠誠心が強い' },
+            comp_r3c3: { ko: '독립적, 카리스마', en: 'Independent, charismatic', ja: '独立的、カリスマ' },
+            comp_r4c1: { ko: '에너지', en: 'Energy', ja: 'エネルギー' },
+            comp_r4c2: { ko: '활발하고 밝음', en: 'Active and bright', ja: '活発で明るい' },
+            comp_r4c3: { ko: '차분하고 신비로움', en: 'Calm and mysterious', ja: '落ち着いて神秘的' },
+            comp_r5c1: { ko: '음식 취향', en: 'Food Preference', ja: '食の好み' },
+            comp_r5c2: { ko: '푸짐하고 자극적인 메뉴', en: 'Hearty and bold dishes', ja: 'ボリューミーで刺激的なメニュー' },
+            comp_r5c3: { ko: '깔끔하고 정갈한 메뉴', en: 'Clean and refined dishes', ja: 'すっきりと上品なメニュー' },
+            comp_r6c1: { ko: '대표 추천 메뉴', en: 'Top Picks', ja: 'おすすめメニュー' },
+            comp_r6c2: { ko: '삼겹살, 치킨, 떡볶이', en: 'Grilled Pork, Chicken, Tteokbokki', ja: 'サムギョプサル、チキン、トッポッキ' },
+            comp_r6c3: { ko: '파스타, 스시, 스테이크', en: 'Pasta, Sushi, Steak', ja: 'パスタ、寿司、ステーキ' },
+            // Menu Guide
+            menuguide_title: { ko: '동물상별 추천 메뉴 가이드', en: 'Menu Guide by Animal Face', ja: '動物顔別おすすめメニューガイド' },
+            menuguide_subtitle: { ko: '동물상에 따라 선호하는 음식 스타일이 다릅니다.<br>당신의 동물상에 맞는 메뉴를 미리 알아보세요.', en: 'Different animal face types prefer different food styles.<br>Discover menus that match your animal face type.', ja: '動物顔によって好む食事スタイルが異なります。<br>あなたの動物顔に合うメニューを事前にチェック。' },
+            dog_menu_title: { ko: '🐶 강아지상의 메뉴 특징', en: '🐶 Dog Face Menu Style', ja: '🐶 犬顔のメニュー特徴' },
+            dog_menu_desc: { ko: '활발하고 에너지가 넘치는 강아지상은 푸짐하고 자극적인 음식을 좋아하는 경향이 있습니다. 함께 나눠 먹으며 분위기를 즐기는 메뉴가 잘 어울립니다.', en: 'Active and energetic dog face types tend to enjoy hearty and bold foods. Dishes best enjoyed sharing with others suit them perfectly.', ja: '活発でエネルギーにあふれる犬顔はボリューミーで刺激的な食べ物を好む傾向があります。みんなで分けて食べるメニューがよく合います。' },
+            dog_menu1: { ko: '삼겹살 - 여럿이 함께 구워 먹는 대표 메뉴', en: 'Grilled Pork Belly - Best shared grilling experience', ja: 'サムギョプサル - みんなで焼いて食べる定番メニュー' },
+            dog_menu2: { ko: '떡볶이 - 매콤달콤한 국민 간식', en: 'Tteokbokki - Sweet and spicy national snack', ja: 'トッポッキ - 甘辛い国民的おやつ' },
+            dog_menu3: { ko: '치킨 - 언제 먹어도 기분 좋은 만능 메뉴', en: 'Fried Chicken - Feel-good anytime menu', ja: 'チキン - いつ食べても気分がいい万能メニュー' },
+            dog_menu4: { ko: '피자/햄버거 - 활기찬 파티의 주인공', en: 'Pizza/Burger - Star of any lively party', ja: 'ピザ/ハンバーガー - 活気あるパーティーの主役' },
+            dog_menu5: { ko: '김치찌개 - 따뜻하고 정겨운 한국의 맛', en: 'Kimchi Stew - Warm and comforting Korean flavor', ja: 'キムチチゲ - 温かく懐かしい韓国の味' },
+            cat_menu_title: { ko: '🐱 고양이상의 메뉴 특징', en: '🐱 Cat Face Menu Style', ja: '🐱 猫顔のメニュー特徴' },
+            cat_menu_desc: { ko: '세련되고 독립적인 고양이상은 깔끔하고 정갈한 음식을 선호하는 경향이 있습니다. 분위기 있는 공간에서 조용히 즐기는 메뉴가 잘 어울립니다.', en: 'Sophisticated and independent cat face types prefer clean and refined foods. Dishes enjoyed quietly in an ambient setting suit them perfectly.', ja: '洗練されて独立的な猫顔はすっきりと上品な食べ物を好む傾向があります。雰囲気のある空間で静かに楽しむメニューがよく合います。' },
+            cat_menu1: { ko: '파스타 - 세련된 이탈리안 요리', en: 'Pasta - Sophisticated Italian cuisine', ja: 'パスタ - 洗練されたイタリアン料理' },
+            cat_menu2: { ko: '스시 - 깔끔하고 정갈한 일식', en: 'Sushi - Clean and refined Japanese food', ja: '寿司 - すっきりと上品な和食' },
+            cat_menu3: { ko: '스테이크 - 분위기 있는 특별한 한 끼', en: 'Steak - A special atmospheric meal', ja: 'ステーキ - 雰囲気のある特別な一食' },
+            cat_menu4: { ko: '쌀국수/팟타이 - 이국적이고 감각적인 메뉴', en: 'Pho/Pad Thai - Exotic and sensory menu', ja: 'フォー/パッタイ - エキゾチックで感覚的なメニュー' },
+            cat_menu5: { ko: '비빔밥 - 건강하고 균형 잡힌 한 그릇', en: 'Bibimbap - Healthy and balanced bowl', ja: 'ビビンバ - 健康的でバランスの取れた一杯' },
+            // FAQ
+            faq_title: { ko: '자주 묻는 질문', en: 'Frequently Asked Questions', ja: 'よくある質問' },
+            faq_subtitle: { ko: '동물상 테스트와 메뉴 추천 서비스에 대해 궁금한 점을 확인하세요.', en: 'Find answers about the animal face test and menu recommendation service.', ja: '動物顔テストとメニューおすすめサービスについての疑問を確認しましょう。' },
+            faq_q1: { ko: '동물상 분석은 어떤 기술로 이루어지나요?', en: 'What technology is used for the analysis?', ja: '動物顔分析はどんな技術で行われますか？' },
+            faq_a1: { ko: 'Google의 Teachable Machine을 기반으로 한 AI 이미지 분류 모델을 사용합니다. 수많은 얼굴 이미지를 학습하여 강아지상과 고양이상의 특징을 구분할 수 있도록 훈련되었습니다. TensorFlow.js를 활용하여 브라우저에서 직접 분석이 이루어지므로 서버에 사진이 전송되지 않습니다.', en: 'We use a Google Teachable Machine-based AI image classification model trained on numerous face images to distinguish dog face and cat face characteristics. Using TensorFlow.js, all analysis is done directly in the browser — photos are never sent to servers.', ja: 'GoogleのTeachable MachineベースのAI画像分類モデルを使用しています。多数の顔画像を学習して犬顔と猫顔の特徴を区別できるよう訓練されました。TensorFlow.jsを活用してブラウザで直接分析が行われるため、写真はサーバーに送信されません。' },
+            faq_q2: { ko: '업로드한 사진은 저장되나요?', en: 'Are uploaded photos saved?', ja: 'アップロードした写真は保存されますか？' },
+            faq_a2: { ko: '아닙니다. 모든 분석은 사용자의 브라우저에서 직접 처리됩니다. 업로드한 사진은 서버로 전송되지 않으며, 어디에도 저장되지 않습니다. 브라우저를 닫거나 새로고침하면 사진은 완전히 사라집니다. 개인정보 보호를 최우선으로 생각합니다.', en: 'No. All analysis is processed directly in your browser. Photos are not sent to any server and are not stored anywhere. Photos are completely gone when you close or refresh the browser. We prioritize privacy.', ja: 'いいえ。すべての分析はユーザーのブラウザで直接処理されます。写真はサーバーに送信されず、どこにも保存されません。ブラウザを閉じるか更新すると写真は完全に消えます。プライバシー保護を最優先にしています。' },
+            faq_q3: { ko: '분석 결과가 매번 다르게 나올 수 있나요?', en: 'Can results vary each time?', ja: '分析結果は毎回異なりますか？' },
+            faq_a3: { ko: '같은 사진으로 분석하면 동물상 결과는 동일하게 나옵니다. 다만 추천 메뉴는 해당 동물상의 메뉴 풀에서 랜덤으로 3개가 선택되므로 매번 다른 메뉴가 추천될 수 있습니다. 다양한 메뉴를 발견하는 재미를 느껴보세요!', en: 'The same photo always gives the same animal face result. However, menus are randomly selected from the pool, so you may get different recommendations each time. Enjoy discovering various options!', ja: '同じ写真で分析すると動物顔の結果は同じになります。ただしおすすめメニューはプールからランダムに3つ選ばれるので、毎回異なるメニューがおすすめされることがあります。様々なメニューを発見する楽しさを感じてください！' },
+            faq_q4: { ko: '어떤 사진이 가장 정확한 결과를 보여주나요?', en: 'What photo gives the most accurate results?', ja: 'どんな写真が最も正確な結果を示しますか？' },
+            faq_a4: { ko: '정면을 바라보는 밝은 곳에서 촬영한 사진이 가장 정확합니다. 선글라스나 마스크 등으로 얼굴이 가려진 경우 정확도가 떨어질 수 있습니다. 자연광 아래에서 촬영한 셀카가 가장 좋은 결과를 보여줍니다.', en: 'Front-facing photos in bright lighting work best. Accuracy may decrease if face is covered by sunglasses or masks. Selfies in natural light give the best results.', ja: '正面を向いた明るい場所で撮影した写真が最も正確です。サングラスやマスクで顔が隠れている場合は精度が下がることがあります。自然光の下で撮影したセルフィーが最も良い結果を示します。' },
+            faq_q5: { ko: '모바일에서도 사용할 수 있나요?', en: 'Can I use it on mobile?', ja: 'モバイルでも使えますか？' },
+            faq_a5: { ko: '네, 모바일 브라우저에서도 완벽하게 작동합니다. 스마트폰의 카메라로 직접 촬영하거나 갤러리에서 사진을 선택할 수 있습니다. 반응형 디자인으로 모든 화면 크기에 최적화되어 있습니다.', en: 'Yes, it works perfectly on mobile browsers. Take photos with your camera or select from gallery. Responsive design ensures optimization for all screen sizes.', ja: 'はい、モバイルブラウザでも完璧に動作します。スマートフォンのカメラで撮影するかギャラリーから写真を選択できます。レスポンシブデザインですべての画面サイズに最適化されています。' },
+            // Evidence
+            evidence_aria: { ko: '근거 및 출처', en: 'Evidence and Sources', ja: '根拠と出典' },
+            evidence_title: { ko: '분석 기술 및 출처', en: 'Technology & Sources', ja: '分析技術と出典' },
+            evidence_subtitle: { ko: 'AnimaMenu의 동물상 분석은 검증된 오픈소스 AI 기술을 기반으로 합니다.', en: "AnimaMenu's analysis is based on verified open-source AI technology.", ja: 'AnimaMenuの動物顔分析は検証済みのオープンソースAI技術を基盤としています。' },
+            evidence_h3: { ko: '기술 근거', en: 'Technical Evidence', ja: '技術的根拠' },
+            evidence_li1: { ko: '<strong>AI 모델:</strong> Google Teachable Machine — 이미지 분류 전용 머신러닝 플랫폼', en: '<strong>AI Model:</strong> Google Teachable Machine — ML platform for image classification', ja: '<strong>AIモデル：</strong> Google Teachable Machine — 画像分類専用の機械学習プラットフォーム' },
+            evidence_li2: { ko: '<strong>프레임워크:</strong> TensorFlow.js — 브라우저 내에서 AI 추론을 실행하는 오픈소스 라이브러리', en: '<strong>Framework:</strong> TensorFlow.js — Open-source library for browser AI inference', ja: '<strong>フレームワーク：</strong> TensorFlow.js — ブラウザ内でAI推論を実行するオープンソースライブラリ' },
+            evidence_li3: { ko: '<strong>개인정보 보호:</strong> 사진은 서버에 전송되지 않으며, 모든 분석은 100% 사용자의 브라우저에서 처리됩니다', en: '<strong>Privacy:</strong> Photos never sent to servers. All analysis 100% in your browser', ja: '<strong>プライバシー保護：</strong> 写真はサーバーに送信されず、すべての分析は100%ユーザーのブラウザで処理されます' },
+            evidence_li4: { ko: '<strong>분류 방식:</strong> 수천 장의 얼굴 이미지로 학습된 모델이 강아지상과 고양이상의 얼굴 특징을 구분합니다', en: '<strong>Classification:</strong> Model trained on thousands of faces distinguishes dog and cat face features', ja: '<strong>分類方式：</strong> 数千枚の顔画像で学習されたモデルが犬顔と猫顔の特徴を区別します' },
+            evidence_li5: { ko: '<strong>제작:</strong> AnimaMenu 팀', en: '<strong>Created by:</strong> AnimaMenu Team', ja: '<strong>制作：</strong> AnimaMenuチーム' },
+            last_updated: { ko: '마지막 업데이트: <time datetime="2026-02-17">2026년 2월 17일</time>', en: 'Last updated: <time datetime="2026-02-17">February 17, 2026</time>', ja: '最終更新: <time datetime="2026-02-17">2026年2月17日</time>' },
+            // Footer
+            footer_desc: { ko: 'AI 기술을 활용하여 당신의 동물상을 분석하고 맞춤 저녁 메뉴를 추천하는 서비스입니다. 매일 저녁 고민되는 메뉴 선택을 재미있고 특별하게 만들어 드립니다.', en: 'A service using AI to analyze your animal face type and recommend personalized dinner menus. Making your daily dinner choice fun and special.', ja: 'AI技術を活用してあなたの動物顔を分析しおすすめの夕食メニューを提案するサービスです。毎日の夕食選びを楽しく特別にします。' },
+            footer_service: { ko: '서비스', en: 'Service', ja: 'サービス' },
+            footer_legal: { ko: '법적 고지', en: 'Legal', ja: '法的情報' },
+            footer_privacy: { ko: '개인정보처리방침', en: 'Privacy Policy', ja: 'プライバシーポリシー' },
+            footer_terms: { ko: '이용약관', en: 'Terms of Service', ja: '利用規約' },
+            footer_copyright: { ko: '&copy; 2025 AnimaMenu. All rights reserved.', en: '&copy; 2025 AnimaMenu. All rights reserved.', ja: '&copy; 2025 AnimaMenu. All rights reserved.' },
+            // Share
+            share_native_btn: { ko: '결과 공유하기', en: 'Share Result', ja: '結果をシェア' },
+            share_kakao_btn: { ko: '카카오톡', en: 'KakaoTalk', ja: 'カカオトーク' },
+            share_copy_btn: { ko: '링크 복사', en: 'Copy Link', ja: 'リンクコピー' },
+            share_text: { ko: ' 나는 {type} {percent}!\nAI가 분석한 내 동물상과 맞춤 저녁 메뉴 추천!\n너도 해봐 👉', en: " I'm {type} {percent}!\nAI analyzed my animal face & recommended dinner!\nTry it too 👉", ja: ' 私は{type} {percent}！\nAIが分析した私の動物顔とおすすめディナー！\nあなたも試してみて 👉' },
+            share_native_title: { ko: 'AI 동물상 테스트 - ', en: 'AI Animal Face Test - ', ja: 'AI動物顔テスト - ' },
+            share_twitter_text: { ko: ' 나는 {type} {percent}! AI 동물상 테스트로 맞춤 저녁 메뉴까지!', en: " I'm {type} {percent}! AI animal face test with dinner recommendations!", ja: ' 私は{type} {percent}！AI動物顔テストでおすすめディナーも！' },
+        };
+
+        function t(key) {
+            var entry = translations[key];
+            if (!entry) return key;
+            return entry[currentLang] || entry['ko'] || key;
+        }
+
+        // ===== i18n Animal Data =====
+        const animalDataI18n = {
             "강아지": {
-                emoji: "🐶", label: "강아지상", color: "dog",
-                desc: "당신은 강아지상! 밝고 활기찬 에너지의 소유자입니다. 사람들에게 먼저 다가가고, 친화력이 넘치며, 함께 있으면 기분이 좋아지는 사람이에요. 충성심이 강하고 솔직한 성격으로 주변에 팬이 많습니다.",
-                tags: ["#친화력MAX", "#밝은에너지", "#충성파", "#사교적", "#솔직담백"]
+                emoji: "🐶", color: "dog",
+                label: { ko: "강아지상", en: "Dog Face", ja: "犬顔" },
+                desc: {
+                    ko: "당신은 강아지상! 밝고 활기찬 에너지의 소유자입니다. 사람들에게 먼저 다가가고, 친화력이 넘치며, 함께 있으면 기분이 좋아지는 사람이에요. 충성심이 강하고 솔직한 성격으로 주변에 팬이 많습니다.",
+                    en: "You have a Dog Face! You radiate bright and vibrant energy. You approach others first, overflowing with warmth. People feel happy around you. Your strong loyalty and honest personality make you everyone's favorite.",
+                    ja: "あなたは犬顔！明るく活気あふれるエネルギーの持ち主です。自分から人に近づき、親和力にあふれ、一緒にいると気分が良くなる人です。忠誠心が強く素直な性格で周りにファンが多いです。"
+                },
+                tags: {
+                    ko: ["#친화력MAX", "#밝은에너지", "#충성파", "#사교적", "#솔직담백"],
+                    en: ["#Friendly", "#BrightEnergy", "#Loyal", "#Social", "#Honest"],
+                    ja: ["#親和力MAX", "#明るいエネルギー", "#忠誠派", "#社交的", "#素直"]
+                }
             },
             "고양이": {
-                emoji: "🐱", label: "고양이상", color: "cat",
-                desc: "당신은 고양이상! 도도하면서도 매력적인 분위기의 소유자입니다. 독립적이고 자기만의 세계가 확고하며, 은근한 카리스마로 사람들을 끌어당깁니다. 가까운 사람에게만 보여주는 반전 매력이 포인트!",
-                tags: ["#도도한매력", "#독립적", "#은근카리스마", "#반전매력", "#미스터리"]
+                emoji: "🐱", color: "cat",
+                label: { ko: "고양이상", en: "Cat Face", ja: "猫顔" },
+                desc: {
+                    ko: "당신은 고양이상! 도도하면서도 매력적인 분위기의 소유자입니다. 독립적이고 자기만의 세계가 확고하며, 은근한 카리스마로 사람들을 끌어당깁니다. 가까운 사람에게만 보여주는 반전 매력이 포인트!",
+                    en: "You have a Cat Face! You carry an elegant yet charming aura. Independent with a strong sense of self, your subtle charisma draws people in. The charming contrast you show only to close ones is your secret weapon!",
+                    ja: "あなたは猫顔！クールでありながら魅力的な雰囲気の持ち主です。独立的で自分だけの世界がしっかりしており、さりげないカリスマで人を引きつけます。親しい人にだけ見せるギャップ魅力がポイント！"
+                },
+                tags: {
+                    ko: ["#도도한매력", "#독립적", "#은근카리스마", "#반전매력", "#미스터리"],
+                    en: ["#Elegant", "#Independent", "#SubtleCharisma", "#CharmingContrast", "#Mysterious"],
+                    ja: ["#クール魅力", "#独立的", "#さりげないカリスマ", "#ギャップ魅力", "#ミステリアス"]
+                }
             }
         };
 
@@ -1200,36 +1415,50 @@
             "cat": "고양이", "Cat": "고양이", "고양이": "고양이"
         };
 
+        const categoryI18n = {
+            Korean: { ko: '한식', en: 'Korean', ja: '韓国料理' },
+            Chinese: { ko: '중식', en: 'Chinese', ja: '中華料理' },
+            Japanese: { ko: '일식', en: 'Japanese', ja: '日本料理' },
+            Western: { ko: '양식', en: 'Western', ja: '洋食' },
+            Asian: { ko: '아시안', en: 'Asian', ja: 'アジアン' }
+        };
+
         const menusByAnimal = {
             "강아지": [
-                { name: 'Grilled Pork Belly', nameKo: '삼겹살', emoji: '🥓', category: 'Korean', image: '삼겹살.png' },
-                { name: 'Tteokbokki', nameKo: '떡볶이', emoji: '🌶️', category: 'Korean', image: '떡볶이.png' },
-                { name: 'Fried Chicken', nameKo: '치킨', emoji: '🍗', category: 'Korean', image: '치킨.png' },
-                { name: 'Jjamppong', nameKo: '짬뽕', emoji: '🥡', category: 'Chinese', image: '짬뽕.png' },
-                { name: 'Malatang', nameKo: '마라탕', emoji: '🌶️', category: 'Chinese', image: '마라탕.png' },
-                { name: 'Pizza', nameKo: '피자', emoji: '🍕', category: 'Western', image: '피자.png' },
-                { name: 'Hamburger', nameKo: '햄버거', emoji: '🍔', category: 'Western', image: '햄버거.png' },
-                { name: 'Bulgogi', nameKo: '불고기', emoji: '🥩', category: 'Korean', image: '불고기.png' },
-                { name: 'Ramen', nameKo: '라멘', emoji: '🍜', category: 'Japanese', image: '라멘.png' },
-                { name: 'Kimchi Stew', nameKo: '김치찌개', emoji: '🍲', category: 'Korean', image: '김치찌개.png' },
-                { name: 'Spicy Pork Stir-fry', nameKo: '제육볶음', emoji: '🍖', category: 'Korean', image: '제육볶음.png' },
-                { name: 'Sweet & Sour Pork', nameKo: '탕수육', emoji: '🍖', category: 'Chinese', image: '탕수육.png' },
+                { name: 'Grilled Pork Belly', nameKo: '삼겹살', nameJa: 'サムギョプサル', emoji: '🥓', category: 'Korean', image: '삼겹살.png' },
+                { name: 'Tteokbokki', nameKo: '떡볶이', nameJa: 'トッポッキ', emoji: '🌶️', category: 'Korean', image: '떡볶이.png' },
+                { name: 'Fried Chicken', nameKo: '치킨', nameJa: 'チキン', emoji: '🍗', category: 'Korean', image: '치킨.png' },
+                { name: 'Jjamppong', nameKo: '짬뽕', nameJa: 'チャンポン', emoji: '🥡', category: 'Chinese', image: '짬뽕.png' },
+                { name: 'Malatang', nameKo: '마라탕', nameJa: 'マーラータン', emoji: '🌶️', category: 'Chinese', image: '마라탕.png' },
+                { name: 'Pizza', nameKo: '피자', nameJa: 'ピザ', emoji: '🍕', category: 'Western', image: '피자.png' },
+                { name: 'Hamburger', nameKo: '햄버거', nameJa: 'ハンバーガー', emoji: '🍔', category: 'Western', image: '햄버거.png' },
+                { name: 'Bulgogi', nameKo: '불고기', nameJa: 'プルコギ', emoji: '🥩', category: 'Korean', image: '불고기.png' },
+                { name: 'Ramen', nameKo: '라멘', nameJa: 'ラーメン', emoji: '🍜', category: 'Japanese', image: '라멘.png' },
+                { name: 'Kimchi Stew', nameKo: '김치찌개', nameJa: 'キムチチゲ', emoji: '🍲', category: 'Korean', image: '김치찌개.png' },
+                { name: 'Spicy Pork Stir-fry', nameKo: '제육볶음', nameJa: 'チェユクポッカム', emoji: '🍖', category: 'Korean', image: '제육볶음.png' },
+                { name: 'Sweet & Sour Pork', nameKo: '탕수육', nameJa: 'タンスユク', emoji: '🍖', category: 'Chinese', image: '탕수육.png' },
             ],
             "고양이": [
-                { name: 'Pasta', nameKo: '파스타', emoji: '🍝', category: 'Western', image: '파스타.png' },
-                { name: 'Sushi', nameKo: '스시', emoji: '🍣', category: 'Japanese', image: '스시.png' },
-                { name: 'Steak', nameKo: '스테이크', emoji: '🥩', category: 'Western', image: '스테이크.png' },
-                { name: 'Tonkatsu', nameKo: '돈카츠', emoji: '🥩', category: 'Japanese', image: '돈카츠.png' },
-                { name: 'Bibimbap', nameKo: '비빔밥', emoji: '🍚', category: 'Korean', image: '비빔밥.png' },
-                { name: 'Pad Thai', nameKo: '팟타이', emoji: '🥘', category: 'Asian', image: '팟타이.png' },
-                { name: 'Pho', nameKo: '쌀국수', emoji: '🍜', category: 'Asian', image: '쌀국수.png' },
-                { name: 'Japchae', nameKo: '잡채', emoji: '🍜', category: 'Korean', image: '잡채.png' },
-                { name: 'Soybean Paste Stew', nameKo: '된장찌개', emoji: '🥘', category: 'Korean', image: '된장찌개.png' },
-                { name: 'Udon', nameKo: '우동', emoji: '🍲', category: 'Japanese', image: '우동.png' },
-                { name: 'Jajangmyeon', nameKo: '자장면', emoji: '🍝', category: 'Chinese', image: '자장면.png' },
-                { name: 'Curry', nameKo: '카레', emoji: '🍛', category: 'Asian', image: '카레.png' },
+                { name: 'Pasta', nameKo: '파스타', nameJa: 'パスタ', emoji: '🍝', category: 'Western', image: '파스타.png' },
+                { name: 'Sushi', nameKo: '스시', nameJa: '寿司', emoji: '🍣', category: 'Japanese', image: '스시.png' },
+                { name: 'Steak', nameKo: '스테이크', nameJa: 'ステーキ', emoji: '🥩', category: 'Western', image: '스테이크.png' },
+                { name: 'Tonkatsu', nameKo: '돈카츠', nameJa: 'とんかつ', emoji: '🥩', category: 'Japanese', image: '돈카츠.png' },
+                { name: 'Bibimbap', nameKo: '비빔밥', nameJa: 'ビビンバ', emoji: '🍚', category: 'Korean', image: '비빔밥.png' },
+                { name: 'Pad Thai', nameKo: '팟타이', nameJa: 'パッタイ', emoji: '🥘', category: 'Asian', image: '팟타이.png' },
+                { name: 'Pho', nameKo: '쌀국수', nameJa: 'フォー', emoji: '🍜', category: 'Asian', image: '쌀국수.png' },
+                { name: 'Japchae', nameKo: '잡채', nameJa: 'チャプチェ', emoji: '🍜', category: 'Korean', image: '잡채.png' },
+                { name: 'Soybean Paste Stew', nameKo: '된장찌개', nameJa: 'テンジャンチゲ', emoji: '🥘', category: 'Korean', image: '된장찌개.png' },
+                { name: 'Udon', nameKo: '우동', nameJa: 'うどん', emoji: '🍲', category: 'Japanese', image: '우동.png' },
+                { name: 'Jajangmyeon', nameKo: '자장면', nameJa: 'ジャジャン麺', emoji: '🍝', category: 'Chinese', image: '자장면.png' },
+                { name: 'Curry', nameKo: '카레', nameJa: 'カレー', emoji: '🍛', category: 'Asian', image: '카레.png' },
             ]
         };
+
+        function getMenuDisplayName(menu, lang) {
+            if (lang === 'ko') return menu.nameKo;
+            if (lang === 'ja') return menu.nameJa;
+            return menu.name;
+        }
 
         function getRandomMenus(animal, count) {
             const pool = [...menusByAnimal[animal]];
@@ -1283,9 +1512,46 @@
             }
         });
 
+        function renderResult(animal, percent) {
+            var data = animalDataI18n[animal];
+            document.getElementById('result-emoji').textContent = data.emoji;
+            var typeEl = document.getElementById('result-type');
+            typeEl.textContent = data.label[currentLang];
+            typeEl.className = 'result-type ' + data.color;
+            var percentEl = document.getElementById('result-percent');
+            percentEl.textContent = percent + '%';
+            percentEl.className = 'result-percent ' + data.color;
+            var bar = document.getElementById('result-bar');
+            bar.className = 'result-bar ' + data.color;
+            bar.style.width = percent + '%';
+            document.getElementById('result-desc').textContent = data.desc[currentLang];
+            var tagsEl = document.getElementById('result-tags');
+            tagsEl.innerHTML = '';
+            data.tags[currentLang].forEach(function(tag) {
+                var span = document.createElement('span');
+                span.className = 'tag ' + data.color;
+                span.textContent = tag;
+                tagsEl.appendChild(span);
+            });
+            if (lastResultMenus) {
+                var menuCardsEl = document.getElementById('menu-cards');
+                menuCardsEl.innerHTML = '';
+                lastResultMenus.forEach(function(menu) {
+                    var card = document.createElement('div');
+                    card.className = 'menu-card';
+                    var displayName = getMenuDisplayName(menu, currentLang);
+                    var catLabel = categoryI18n[menu.category][currentLang];
+                    var subName = currentLang === 'en' ? menu.nameKo : menu.name;
+                    card.innerHTML = '<img class="menu-card-img" src="' + menu.image + '" alt="' + displayName + '" onerror="this.style.display=\'none\'"><div class="menu-card-info"><div class="menu-card-name">' + menu.emoji + ' ' + displayName + '</div><div class="menu-card-meta">' + subName + ' · ' + catLabel + '</div></div>';
+                    menuCardsEl.appendChild(card);
+                });
+            }
+            buildShareButtons();
+        }
+
         async function analyze() {
             analyzeBtn.disabled = true;
-            analyzeBtn.textContent = "분석 중...";
+            analyzeBtn.textContent = t('analyzing_btn');
             document.getElementById("loading").style.display = "block";
             try {
                 await loadAIScripts();
@@ -1300,60 +1566,25 @@
                     if (prediction[i].probability > best.probability) best = prediction[i];
                 }
                 const className = classNameMap[best.className] || best.className;
-                const data = animalData[className] || animalData["강아지"];
                 const percent = Math.round(best.probability * 100);
+
+                lastResultAnimal = className;
+                lastResultPercent = percent;
+                lastResultMenus = getRandomMenus(className, 3);
 
                 uploadArea.style.display = "none";
                 analyzeBtn.style.display = "none";
                 document.getElementById("loading").style.display = "none";
-                document.getElementById("result-emoji").textContent = data.emoji;
 
-                const typeEl = document.getElementById("result-type");
-                typeEl.textContent = data.label;
-                typeEl.className = "result-type " + data.color;
-
-                const percentEl = document.getElementById("result-percent");
-                percentEl.textContent = percent + "%";
-                percentEl.className = "result-percent " + data.color;
-
-                const bar = document.getElementById("result-bar");
-                bar.className = "result-bar " + data.color;
+                var bar = document.getElementById("result-bar");
                 bar.style.width = "0%";
-
-                document.getElementById("result-desc").textContent = data.desc;
-
-                const tagsEl = document.getElementById("result-tags");
-                tagsEl.innerHTML = "";
-                data.tags.forEach(tag => {
-                    const span = document.createElement("span");
-                    span.className = "tag " + data.color;
-                    span.textContent = tag;
-                    tagsEl.appendChild(span);
-                });
-
-                const menus = getRandomMenus(className, 3);
-                const menuCardsEl = document.getElementById("menu-cards");
-                menuCardsEl.innerHTML = "";
-                menus.forEach(menu => {
-                    const card = document.createElement("div");
-                    card.className = "menu-card";
-                    card.innerHTML = `
-                        <img class="menu-card-img" src="${menu.image}" alt="${menu.nameKo}" onerror="this.style.display='none'">
-                        <div class="menu-card-info">
-                            <div class="menu-card-name">${menu.emoji} ${menu.nameKo}</div>
-                            <div class="menu-card-meta">${menu.name} · ${menu.category}</div>
-                        </div>
-                    `;
-                    menuCardsEl.appendChild(card);
-                });
-
+                renderResult(className, percent);
                 document.getElementById("result").style.display = "block";
-                buildShareButtons();
-                setTimeout(() => { bar.style.width = percent + "%"; }, 100);
+                setTimeout(function() { bar.style.width = percent + "%"; }, 100);
             } catch (e) {
-                alert("분석에 실패했습니다. 다시 시도해 주세요.");
+                alert(t('analyze_error'));
                 analyzeBtn.disabled = false;
-                analyzeBtn.textContent = "분석하기";
+                analyzeBtn.textContent = t('analyze_btn');
                 document.getElementById("loading").style.display = "none";
             }
         }
@@ -1370,7 +1601,10 @@
             fileInput.value = "";
             analyzeBtn.style.display = "none";
             analyzeBtn.disabled = false;
-            analyzeBtn.textContent = "분석하기";
+            analyzeBtn.textContent = t('analyze_btn');
+            lastResultAnimal = null;
+            lastResultPercent = null;
+            lastResultMenus = null;
         }
 
         // ===== Share Functions =====
@@ -1378,61 +1612,58 @@
             var type = document.getElementById('result-type').textContent;
             var percent = document.getElementById('result-percent').textContent;
             var emoji = document.getElementById('result-emoji').textContent;
-            var text = emoji + ' 나는 ' + type + ' ' + percent + '!\nAI가 분석한 내 동물상과 맞춤 저녁 메뉴 추천!\n너도 해봐 👉';
-            return { type: type, percent: percent, emoji: emoji, text: text, url: 'https://joa.chat' };
+            var shareText = t('share_text').replace('{type}', type).replace('{percent}', percent);
+            var text = emoji + shareText;
+            var shareUrl = 'https://joa.chat';
+            if (currentLang !== 'ko') shareUrl += '?lang=' + currentLang;
+            return { type: type, percent: percent, emoji: emoji, text: text, url: shareUrl };
         }
 
         function buildShareButtons() {
             var btns = document.getElementById('share-buttons');
             btns.innerHTML = '';
 
-            // Native Share (mobile) - shows KakaoTalk, Instagram, etc.
             if (navigator.share) {
                 var native = document.createElement('button');
                 native.className = 'share-btn share-native';
-                native.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> 결과 공유하기';
+                native.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> ' + t('share_native_btn');
                 native.onclick = shareNative;
                 btns.appendChild(native);
             }
 
-            // KakaoTalk
             var kakao = document.createElement('button');
             kakao.className = 'share-btn share-kakao';
-            kakao.innerHTML = '<svg viewBox="0 0 24 24" fill="#191919"><path d="M12 3C6.48 3 2 6.58 2 10.9c0 2.78 1.86 5.22 4.65 6.6-.15.53-.96 3.41-1 3.56 0 .11.04.22.13.28.06.04.14.06.21.06.1 0 .2-.04.28-.11.94-.72 3.45-2.36 3.98-2.74.56.08 1.14.12 1.75.12 5.52 0 10-3.58 10-7.9C22 6.58 17.52 3 12 3z"/></svg> 카카오톡';
+            kakao.innerHTML = '<svg viewBox="0 0 24 24" fill="#191919"><path d="M12 3C6.48 3 2 6.58 2 10.9c0 2.78 1.86 5.22 4.65 6.6-.15.53-.96 3.41-1 3.56 0 .11.04.22.13.28.06.04.14.06.21.06.1 0 .2-.04.28-.11.94-.72 3.45-2.36 3.98-2.74.56.08 1.14.12 1.75.12 5.52 0 10-3.58 10-7.9C22 6.58 17.52 3 12 3z"/></svg> ' + t('share_kakao_btn');
             kakao.onclick = shareKakao;
             btns.appendChild(kakao);
 
-            // Twitter/X
             var twitter = document.createElement('button');
             twitter.className = 'share-btn share-twitter';
             twitter.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> X';
             twitter.onclick = shareTwitter;
             btns.appendChild(twitter);
 
-            // Facebook
             var fb = document.createElement('button');
             fb.className = 'share-btn share-facebook';
             fb.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> Facebook';
             fb.onclick = shareFacebook;
             btns.appendChild(fb);
 
-            // Copy Link
             var copy = document.createElement('button');
             copy.className = 'share-btn share-copy';
-            copy.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> 링크 복사';
+            copy.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> ' + t('share_copy_btn');
             copy.onclick = shareCopy;
             btns.appendChild(copy);
         }
 
         function shareNative() {
             var d = getShareData();
-            navigator.share({ title: 'AI 동물상 테스트 - ' + d.type + ' ' + d.percent, text: d.text, url: d.url });
+            navigator.share({ title: t('share_native_title') + d.type + ' ' + d.percent, text: d.text, url: d.url });
         }
 
         function shareKakao() {
             var d = getShareData();
             var text = encodeURIComponent(d.text + ' ' + d.url);
-            // KakaoTalk URL scheme for mobile, fallback to web share
             if (/Android|iPhone|iPad/i.test(navigator.userAgent)) {
                 window.location.href = 'kakaotalk://msg/text/' + text;
                 setTimeout(function() { window.open('https://accounts.kakao.com/login?continue=https://sharer.kakao.com/talk/friends/picker/shortlink?app_key=default&url=' + encodeURIComponent(d.url), '_blank'); }, 1500);
@@ -1443,13 +1674,13 @@
 
         function shareTwitter() {
             var d = getShareData();
-            var text = encodeURIComponent(d.emoji + ' 나는 ' + d.type + ' ' + d.percent + '! AI 동물상 테스트로 맞춤 저녁 메뉴까지!');
-            window.open('https://twitter.com/intent/tweet?text=' + text + '&url=' + encodeURIComponent(d.url), '_blank', 'width=600,height=400');
+            var tweetText = d.emoji + t('share_twitter_text').replace('{type}', d.type).replace('{percent}', d.percent);
+            window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweetText) + '&url=' + encodeURIComponent(d.url), '_blank', 'width=600,height=400');
         }
 
         function shareFacebook() {
             var d = getShareData();
-            window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(d.url) + '&quote=' + encodeURIComponent(d.emoji + ' 나는 ' + d.type + ' ' + d.percent + '!'), '_blank', 'width=600,height=400');
+            window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(d.url) + '&quote=' + encodeURIComponent(d.emoji + ' ' + d.type + ' ' + d.percent + '!'), '_blank', 'width=600,height=400');
         }
 
         function shareCopy() {
@@ -1467,6 +1698,126 @@
             item.classList.toggle('open');
             el.setAttribute('aria-expanded', item.classList.contains('open'));
         }
+
+        // ===== i18n Engine =====
+        function applyTranslations(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+
+            // data-i18n → textContent
+            document.querySelectorAll('[data-i18n]').forEach(function(el) {
+                var key = el.getAttribute('data-i18n');
+                var val = translations[key];
+                if (val && val[lang]) el.textContent = val[lang];
+            });
+            // data-i18n-html → innerHTML
+            document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+                var key = el.getAttribute('data-i18n-html');
+                var val = translations[key];
+                if (val && val[lang]) el.innerHTML = val[lang];
+            });
+            // data-i18n-aria → aria-label
+            document.querySelectorAll('[data-i18n-aria]').forEach(function(el) {
+                var key = el.getAttribute('data-i18n-aria');
+                var val = translations[key];
+                if (val && val[lang]) el.setAttribute('aria-label', val[lang]);
+            });
+            // data-i18n-alt → alt
+            document.querySelectorAll('[data-i18n-alt]').forEach(function(el) {
+                var key = el.getAttribute('data-i18n-alt');
+                var val = translations[key];
+                if (val && val[lang]) el.alt = val[lang];
+            });
+
+            // Meta tags
+            document.title = t('meta_title');
+            var metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) metaDesc.content = t('meta_desc');
+            var ogTitle = document.querySelector('meta[property="og:title"]');
+            if (ogTitle) ogTitle.content = t('og_title');
+            var ogDesc = document.querySelector('meta[property="og:description"]');
+            if (ogDesc) ogDesc.content = t('og_desc');
+            var twTitle = document.querySelector('meta[name="twitter:title"]');
+            if (twTitle) twTitle.content = t('og_title');
+            var twDesc = document.querySelector('meta[name="twitter:description"]');
+            if (twDesc) twDesc.content = t('og_desc');
+            var ogLocale = document.querySelector('meta[property="og:locale"]');
+            if (ogLocale) ogLocale.content = lang === 'ja' ? 'ja_JP' : lang === 'en' ? 'en_US' : 'ko_KR';
+
+            // JSON-LD updates
+            document.querySelectorAll('script[type="application/ld+json"]').forEach(function(script) {
+                try {
+                    var data = JSON.parse(script.textContent);
+                    if (data['@type'] === 'WebApplication') {
+                        data.name = 'AnimaMenu - ' + t('app_title');
+                        data.description = t('meta_desc');
+                        data.inLanguage = lang;
+                        script.textContent = JSON.stringify(data);
+                    } else if (data['@type'] === 'FAQPage') {
+                        var qKeys = ['faq_q1','faq_q2','faq_q3','faq_q4','faq_q5'];
+                        var aKeys = ['faq_a1','faq_a2','faq_a3','faq_a4','faq_a5'];
+                        data.mainEntity.forEach(function(item, i) {
+                            if (qKeys[i]) item.name = t(qKeys[i]);
+                            if (aKeys[i]) item.acceptedAnswer.text = t(aKeys[i]);
+                        });
+                        script.textContent = JSON.stringify(data);
+                    }
+                } catch(e) {}
+            });
+
+            // Switcher active state
+            document.querySelectorAll('.lang-btn').forEach(function(btn) {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+
+            // Re-render result if visible
+            if (document.getElementById('result').style.display === 'block' && lastResultAnimal) {
+                renderResult(lastResultAnimal, lastResultPercent);
+            }
+
+            // Persist
+            localStorage.setItem('lang', lang);
+
+            // URL parameter
+            var url = new URL(window.location);
+            if (lang === 'ko') {
+                url.searchParams.delete('lang');
+            } else {
+                url.searchParams.set('lang', lang);
+            }
+            history.replaceState(null, '', url);
+        }
+
+        function detectInitialLanguage() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var urlLang = urlParams.get('lang');
+            if (urlLang && ['ko','en','ja'].indexOf(urlLang) !== -1) return urlLang;
+            var stored = localStorage.getItem('lang');
+            if (stored && ['ko','en','ja'].indexOf(stored) !== -1) return stored;
+            var browserLang = (navigator.language || '').toLowerCase();
+            if (browserLang.indexOf('ja') === 0) return 'ja';
+            if (browserLang.indexOf('en') === 0) return 'en';
+            return 'ko';
+        }
+
+        // ===== Initialize Language =====
+        (function() {
+            var lang = detectInitialLanguage();
+            if (lang !== 'ko') {
+                applyTranslations(lang);
+            } else {
+                currentLang = 'ko';
+            }
+            // Language switcher click handlers
+            document.querySelectorAll('.lang-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var newLang = btn.getAttribute('data-lang');
+                    if (newLang !== currentLang) {
+                        applyTranslations(newLang);
+                    }
+                });
+            });
+        })();
     </script>
 </body>
 </html>
